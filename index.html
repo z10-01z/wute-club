@@ -1,0 +1,2259 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WUTE 电动方程式赛车队 | 武汉理工大学</title>
+    <meta name="description" content="武汉理工大学 WUTE 电动方程式赛车队，自 2013 年起连续参加中国大学生电动方程式大赛（FSEC）。致力于自主研发高性能电动方程式赛车，培养汽车工程人才。">
+    <meta name="keywords" content="WUTE,电动方程式,FSEC,武汉理工大学,大学生方程式,赛车,方程式赛车">
+    <meta property="og:title" content="WUTE 电动方程式赛车队">
+    <meta property="og:description" content="武汉理工大学电动方程式赛车队，全速推进！">
+    <meta property="og:image" content="picture/25大合影.jpg">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%2300489b'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='16' font-weight='bold' font-family='Arial'>W</text></svg>">
+        <!-- Tailwind 工具类（静态提取，替代 CDN 运行时编译） -->
+    <style>
+        .container { width: 100%; }
+        @media (min-width: 640px) { .container { max-width: 640px; } }
+        @media (min-width: 768px) { .container { max-width: 768px; } }
+        @media (min-width: 1024px) { .container { max-width: 1024px; } }
+        @media (min-width: 1280px) { .container { max-width: 1280px; } }
+        @media (min-width: 1536px) { .container { max-width: 1536px; } }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .gap-8 { gap: 2rem; }
+        .w-full { width: 100%; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .max-w-3xl { max-width: 48rem; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .object-cover { object-fit: cover; }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .transition-opacity { transition-property: opacity; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
+        .hover\:opacity-80:hover { opacity: 0.8; }
+        @media (min-width: 768px) {
+            .md\:flex-row { flex-direction: row; }
+            .md\:w-1\/2 { width: 50%; }
+        }
+    </style>
+    <!-- GSAP + ScrollTrigger 动画引擎 -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14/dist/ScrollTrigger.min.js"></script>
+    <style>
+        /* ===== CSS 变量设计系统（AMG 风格：纯黑基底） ===== */
+        :root {
+            /* 背景层级（纯黑体系） */
+            --bg-deep:        #000000;
+            --bg-surface:     #050508;
+            --bg-elevated:    #0a0a10;
+            --bg-glass:       rgba(0, 0, 0, 0.75);
+
+            /* 品牌色 */
+            --brand-blue:       #00489b;
+            --brand-blue-hover: #005db8;
+            --brand-blue-dim:   rgba(0, 72, 155, 0.15);
+            --brand-red:        #d0121b;
+            --brand-red-hover:  #e81e27;
+            --brand-red-dim:    rgba(208, 18, 27, 0.15);
+
+            /* 文字层级 */
+            --text-primary:    #f0f0f2;
+            --text-secondary:  #888894;
+            --text-muted:      #555560;
+            --text-inverse:    #000000;
+
+            /* 功能色 */
+            --accent:          #ff6b00;
+            --color-success:   #00c853;
+            --color-warning:   #ffc107;
+            --color-error:     #ff1744;
+
+            /* 边框 */
+            --border-subtle:   rgba(255, 255, 255, 0.04);
+            --border-default:  rgba(255, 255, 255, 0.08);
+            --border-accent:   var(--brand-blue);
+
+            /* 毛玻璃 */
+            --glass-blur:      24px;
+            --glass-border:    rgba(255, 255, 255, 0.05);
+
+            /* 阴影 */
+            --shadow-sm:  0 2px 16px rgba(0, 0, 0, 0.6);
+            --shadow-md:  0 8px 40px rgba(0, 0, 0, 0.7);
+            --shadow-lg:  0 24px 80px rgba(0, 0, 0, 0.8);
+
+            /* 布局 */
+            --nav-height:  72px;
+            --section-gap: 8rem;
+            --radius-sm:   4px;
+            --radius-md:   8px;
+            --radius-lg:   12px;
+        }
+
+        /* ===== 全局重置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        body {
+            font-family: 'Arial', 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.7;
+            letter-spacing: 0.02em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 导航栏样式（AMG 极简风格） */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4%;
+            z-index: 1000;
+            background: transparent;
+            transition: background 0.5s ease, box-shadow 0.5s ease, backdrop-filter 0.5s ease;
+        }
+        /* 滚动后纯黑毛玻璃 */
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 1px 0 rgba(255, 252, 252, 0.04);
+        }
+        /* 浅色背景区域切换深色文字导航 */
+        nav.light-mode {
+            background: rgba(255, 255, 255, 0.92) !important;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+        }
+        nav.light-mode .nav-links a {
+            color: #555;
+        }
+        nav.light-mode .nav-links a:hover,
+        nav.light-mode .nav-links a.active {
+            color: #000;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.35rem 0;
+            position: relative;
+            transition: color 0.35s ease;
+        }
+        /* 细微下划线 */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--brand-blue);
+            transition: width 0.35s ease;
+        }
+        .nav-links a:hover {
+            color: #fff;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a.active {
+            color: #fff;
+        }
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .nav-right .nav-logo {
+            height: 32px;
+            transition: opacity 0.3s ease;
+        }
+        .nav-right .nav-logo:hover {
+            opacity: 0.8;
+        }
+
+        /* 汉堡菜单按钮（桌面端隐藏） */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 40px;
+            height: 40px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 8px;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: center;
+        }
+        /* 三横线 → X 动画 */
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* 轮播图样式 */
+        .hero-slider {
+            height: 100vh;
+            height: 100dvh;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-deep);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        /* Ken Burns：激活时图片缓慢放大 */
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1);
+            transition: transform 6.5s ease-out;
+            will-change: transform;
+        }
+        .slide.active img {
+            transform: scale(1.08);
+        }
+
+        /* 暗色渐变叠加层 — 电影级暗角 */
+        .slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.6) 0%,
+                rgba(0, 0, 0, 0.15) 35%,
+                rgba(0, 0, 0, 0.15) 65%,
+                rgba(0, 0, 0, 0.75) 100%
+            );
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .slide-text {
+            position: absolute;
+            bottom: 22%;
+            left: 5%;
+            text-align: left;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 1s ease-in-out 0.7s;
+            max-width: 720px;
+        }
+        .slide.active .slide-text {
+            opacity: 1;
+        }
+        .slide-text h1 {
+            font-size: clamp(2.4rem, 5.5vw, 5.5rem);
+            color: #ffffff;
+            margin-bottom: 1.25rem;
+            text-shadow:
+                0 2px 16px rgba(0, 0, 0, 0.9),
+                0 0 80px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.06em;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        .slide-text p {
+            font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+            color: rgba(255, 255, 255, 0.75);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* 左右箭头（AMG 极简） */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 4;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            opacity: 0;
+        }
+        .hero-slider:hover .slider-arrow {
+            opacity: 1;
+        }
+        .slider-arrow:hover {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+        }
+        .slider-prev { left: 2%; }
+        .slider-next { right: 2%; }
+
+        /* 轮播图自定义字体 */
+        @font-face {
+            font-family: '狂派手书';
+            src: url('字体/Aa狂派手书.ttf');
+        }
+        @font-face {
+            font-family: '造字工房力黑';
+            src: url('字体/造字工房力黑.otf') format('opentype');
+        }
+        .custom-h1 {
+            font-family: '狂派手书';
+        }
+
+        /* Hero CTA 按钮（AMG 克制风格） */
+        .hero-cta-group {
+            display: flex;
+            gap: 1.25rem;
+            justify-content: flex-start;
+            margin-top: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease 1.1s, transform 0.6s ease 1.1s;
+        }
+        .slide.active .hero-cta-group {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .cta-primary {
+            display: inline-block;
+            padding: 0.8rem 2.8rem;
+            background: var(--brand-blue);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: none;
+            transition: all 0.35s ease;
+        }
+        .cta-primary:hover {
+            background: var(--brand-blue-hover);
+            transform: translateY(-1px);
+        }
+        .cta-secondary {
+            display: inline-block;
+            padding: 0.75rem 2.6rem;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            transition: all 0.35s ease;
+        }
+        .cta-secondary:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+            color: #fff;
+        }
+
+        /* 向下滚动指示器 */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            animation: bounceDown 2.5s ease-in-out infinite;
+            transition: color 0.3s ease;
+        }
+        .scroll-indicator:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .scroll-indicator span {
+            text-transform: uppercase;
+        }
+        .scroll-indicator .arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 1px solid rgba(255, 255, 255, 0.4);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            transform: rotate(45deg);
+            transition: border-color 0.3s ease;
+        }
+        .scroll-indicator:hover .arrow {
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+        @keyframes bounceDown {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* 板块标题统一样式（AMG 大胆排版） */
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 800;
+            text-align: center;
+            color: var(--text-primary);
+            margin-bottom: 4rem;
+            padding-bottom: 1rem;
+            position: relative;
+            letter-spacing: 0.05em;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: var(--brand-blue);
+        }
+        /* 板块序号标签 */
+        .section-label {
+            display: block;
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+
+        /* 简介板块容器 */
+        .intro-section {
+            background: var(--bg-surface);
+            padding: 7rem 5%;
+        }
+
+        /* 毛玻璃卡片 */
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            color: var(--text-primary);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .glass-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+        .glass-card img {
+            border-radius: var(--radius-sm);
+        }
+        .glass-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            letter-spacing: 0.03em;
+        }
+
+        /* 滚动进度条 */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 1px;
+            background: var(--brand-blue);
+            z-index: 1001;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* ===== 性能数据条（AMG 仪表盘风格） ===== */
+        .stats-bar {
+            background: #000;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 4rem 5%;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .stat-item {
+            position: relative;
+        }
+        .stat-item .stat-value {
+            font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace;
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            font-weight: 300;
+            color: #fff;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+        .stat-item .stat-unit {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            right: -1.5rem;
+            top: 15%;
+            height: 40%;
+            width: 1px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .stat-item:last-child::after { display: none; }
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+            .stat-item::after { display: none; }
+        }
+
+        /* 毕业生板块 */
+        .grad-section {
+            background: var(--bg-surface);
+            padding: 7rem 5%;
+        }
+        .grad-cover-link {
+            display: block;
+            max-width: 800px;
+            margin: 0 auto;
+            text-decoration: none;
+        }
+        .grad-cover-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            aspect-ratio: 16 / 9;
+            cursor: pointer;
+            border: 1px solid var(--border-subtle);
+            transition: border-color 0.35s ease;
+        }
+        .grad-cover-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease, filter 0.6s ease;
+        }
+        .grad-cover-link:hover .grad-cover-card img {
+            transform: scale(1.05);
+            filter: brightness(1.15);
+        }
+        .grad-cover-link:hover .grad-cover-card {
+            border-color: var(--brand-blue);
+        }
+        .grad-cover-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            pointer-events: none;
+        }
+        .grad-cover-text {
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+        .grad-cover-arrow {
+            color: var(--brand-blue);
+            font-size: 1.6rem;
+            transition: transform 0.3s ease;
+        }
+        .grad-cover-link:hover .grad-cover-arrow {
+            transform: translateX(6px);
+        }
+
+        /* 赞助商跑马灯 */
+        .sponsors-strip {
+            background: var(--bg-surface);
+            padding: 1.75rem 0;
+            overflow: hidden;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .sponsors-strip .marquee-inner {
+            display: flex;
+            width: fit-content;
+            will-change: transform;
+        }
+        .sponsors-strip .marquee-set {
+            display: flex;
+            gap: 4rem;
+            flex-shrink: 0;
+            padding: 0 2rem;
+        }
+        .sponsor-logo-item {
+            flex-shrink: 0;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.25;
+            transition: opacity 0.5s ease, color 0.5s ease;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        .sponsor-logo-item:hover {
+            opacity: 0.7;
+            color: #fff;
+        }
+
+        /* 特色板块样式（AMG 大幅面网格 + 文字叠加） */
+        .features {
+            padding: 7rem 4%;
+            background: #000;
+        }
+
+        .features .section-subtitle {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: -3rem;
+            margin-bottom: 4rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3 / 2;
+            cursor: pointer;
+            background: #0a0a0a;
+        }
+
+        .feature-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+            opacity: 0.6;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.3) 100%);
+            pointer-events: none;
+            transition: background 0.5s ease;
+        }
+
+        .feature-card:hover img {
+            transform: scale(1.06);
+            opacity: 0.75;
+        }
+
+        .feature-card:hover::after {
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .feature-card h3 {
+            position: absolute;
+            bottom: 2.75rem;
+            left: 1.75rem;
+            z-index: 2;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            margin: 0;
+        }
+
+        .feature-card p {
+            position: absolute;
+            bottom: 0.75rem;
+            left: 1.75rem;
+            right: 1.75rem;
+            z-index: 2;
+            color: rgba(255,255,255,0.55);
+            font-size: 0.72rem;
+            letter-spacing: 0.05em;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            .feature-card {
+                aspect-ratio: 16 / 9;
+            }
+            .feature-card h3 { font-size: 1.15rem; bottom: 2.5rem; left: 1.25rem; }
+            .feature-card p { bottom: 0.5rem; left: 1.25rem; right: 1.25rem; font-size: 0.68rem; }
+        }
+
+        /* 赞助商板块样式 */
+        .sponsors {
+            padding: 7rem 5%;
+            background: #FFFFFF;
+        }
+
+        .sponsors h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            color: #333;
+            letter-spacing: 0.06em;
+        }
+        .sponsors .section-label { color: #888; }
+        .sponsors .sponsor-item { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.06); }
+        .sponsors .sponsor-item:hover { background: #fff; border-color: rgba(0,0,0,0.15); }
+        .sponsors .sponsor-title-card { background: #fff; border-color: rgba(0,0,0,0.08); }
+
+        /* ===== 车队历史时间轴（AMG 极简） ===== */
+        .history-section {
+            padding: 7rem 5%;
+            background: #000;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+            padding-left: 3rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(255,255,255,0.12) 3%,
+                rgba(255,255,255,0.12) 97%,
+                transparent 100%);
+        }
+
+        .timeline-node {
+            position: relative;
+            margin-bottom: 4rem;
+            padding-left: 2.5rem;
+        }
+        .timeline-node::before {
+            content: '';
+            position: absolute;
+            left: -3.3rem;
+            top: 0.3rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--brand-blue);
+            border: 3px solid #000;
+            box-shadow: 0 0 0 1px var(--brand-blue);
+        }
+
+        .timeline-year {
+            font-family: 'JetBrains Mono', 'Consolas', monospace;
+            font-size: 2rem;
+            font-weight: 200;
+            color: rgba(255,255,255,0.12);
+            letter-spacing: 0.06em;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        .timeline-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.04em;
+        }
+        .timeline-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            letter-spacing: 0.03em;
+        }
+
+        /* ===== 联系我们/队员架构（AMG 极简） ===== */
+        .structure-section {
+            padding: 7rem 5%;
+            background: #000;
+        }
+
+        .structure-leader {
+            color: var(--text-primary);
+            text-align: center;
+            padding: 0 0 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .structure-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem;
+            margin: 0 0 3rem;
+        }
+        .structure-card {
+            text-align: center;
+        }
+        .structure-card h4 {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
+        .structure-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+        }
+
+        .structure-groups {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0 3rem;
+        }
+        .structure-group-tag {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+        .structure-group-tag:hover {
+            color: #fff;
+        }
+
+        .sponsor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1.875rem;
+            justify-items: center;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .sponsor-item {
+            width: 210px;
+            height: 105px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-sm);
+            transition: opacity 0.4s ease, border-color 0.4s ease, background 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .sponsor-item.key-sponsor {
+            width: 270px;
+            height: 135px;
+            flex-shrink: 0;
+        }
+        .sponsor-item.key-sponsor img {
+            max-width: 222px;
+            max-height: 96px;
+        }
+        .sponsor-item:hover {
+            background: #fff;
+            border-color: rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .sponsor-item img {
+            max-width: 165px;
+            max-height: 75px;
+            object-fit: contain;
+            opacity: 0.9;
+            transition: opacity 0.4s ease;
+        }
+        .sponsor-item:hover img {
+            opacity: 1;
+        }
+        /* 赞助商分类标签（横跨整行） */
+        .sponsor-cat {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #888;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin: 1rem 0 0.5rem;
+        }
+        .sponsor-cat.sm {
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            margin-top: 1.5rem;
+        }
+        .sponsor-cat.tight { margin: 0.5rem 0 0.25rem; }
+        .sponsor-cat.wide { margin-top: 2rem; }
+        /* 赞助商横向排列行 */
+        .sponsor-row {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+        .sponsor-row .sponsor-item { margin: 0; }
+        /* 冠名赞助商（独占一行、放大） */
+        .sponsor-title-card {
+            grid-column: 1 / -1;
+            width: 100%;
+            max-width: 570px;
+            height: 142px;
+            justify-self: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: var(--radius-sm);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .sponsor-title-card:hover {
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+        .sponsor-title-card img {
+            max-width: 450px;
+            max-height: 105px;
+            object-fit: contain;
+        }
+        /* 无链接项 */
+        .sponsor-item.no-link {
+            cursor: default;
+        }
+        .sponsor-item.no-link:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 页脚样式（AMG 极简） */
+        footer {
+            background: #000;
+            color: var(--text-muted);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .record-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.06em;
+        }
+
+        .record-info a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .record-info a:hover {
+            color: var(--text-secondary);
+        }
+
+        /* ===== AMG 风格全幅分隔带 ===== */
+        .divider-strip {
+            position: relative;
+            padding: 6rem 5%;
+            background: #000;
+            text-align: center;
+            overflow: hidden;
+        }
+        .divider-strip .divider-quote {
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+            margin: 0 auto;
+        }
+        .divider-strip .divider-sub {
+            display: block;
+            margin-top: 0;
+            font-family: '造字工房力黑', 'Georgia', 'Times New Roman', serif;
+            font-size: clamp(2rem, 6vw, 5rem);
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #fff;
+        }
+        /* 分隔带背景微妙的纹理线 */
+        .divider-strip::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1px;
+            height: 40%;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        /* 左侧悬浮板块导航 */
+        .section-nav {
+            position: fixed;
+            left: 3%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            padding-left: 1.25rem;
+            border-left: 1px solid rgba(255,255,255,0.06);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+        .section-nav.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .section-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            padding: 0.6rem 0;
+            position: relative;
+            transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .section-nav a .dot {
+            position: absolute;
+            left: -1.25rem;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.12);
+            transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            flex-shrink: 0;
+        }
+        .section-nav a .num {
+            font-family: 'JetBrains Mono', 'Consolas', monospace;
+            font-size: 0.62rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.18);
+            letter-spacing: 0.06em;
+            transition: color 0.45s ease;
+            min-width: 1.1rem;
+        }
+        .section-nav a .title {
+            font-size: 0.68rem;
+            color: rgba(255,255,255,0.18);
+            letter-spacing: 0.08em;
+            transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            white-space: nowrap;
+        }
+        .section-nav a.active {
+            transform: translateX(6px);
+        }
+        .section-nav a.active .dot {
+            background: var(--brand-blue);
+            box-shadow: 0 0 10px var(--brand-blue), 0 0 20px rgba(0,72,155,0.5);
+            width: 7px;
+            height: 7px;
+        }
+        .section-nav a.active .num {
+            color: var(--brand-blue);
+            text-shadow: 0 0 12px rgba(0,72,155,0.6);
+        }
+        .section-nav a.active .title {
+            color: rgba(255,255,255,0.85);
+        }
+        /* 浅色背景下深色目录 */
+        .section-nav.light-mode {
+            border-left-color: rgba(0,0,0,0.1);
+        }
+        .section-nav.light-mode a .dot {
+            background: rgba(0,0,0,0.15);
+        }
+        .section-nav.light-mode a .num {
+            color: rgba(0,0,0,0.2);
+        }
+        .section-nav.light-mode a .title {
+            color: rgba(0,0,0,0.2);
+        }
+        .section-nav.light-mode a.active .dot {
+            background: var(--brand-blue);
+            box-shadow: 0 0 10px var(--brand-blue), 0 0 20px rgba(0,72,155,0.5);
+        }
+        .section-nav.light-mode a.active .num {
+            color: var(--brand-blue);
+            text-shadow: 0 0 12px rgba(0,72,155,0.6);
+        }
+        .section-nav.light-mode a.active .title {
+            color: rgba(0,0,0,0.85);
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .section-nav { display: none; }
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                height: 100dvh;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2.5rem;
+                background: rgba(0, 0, 0, 0.97);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                transform: translateX(100%);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 999;
+            }
+            .nav-links.open {
+                transform: translateX(0);
+            }
+            .nav-links a {
+                font-size: 1.2rem;
+                letter-spacing: 0.1em;
+            }
+
+            .slide-text {
+                bottom: 18%;
+                left: 5%;
+                max-width: 90%;
+            }
+            .slide-text h1 {
+                font-size: clamp(1.8rem, 7vw, 3rem);
+            }
+            .slide-text p {
+                font-size: 0.75rem;
+                letter-spacing: 0.08em;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .slider-arrow {
+                width: 44px;
+                height: 44px;
+                font-size: 1.1rem;
+            }
+
+            .intro-section {
+                padding: 4rem 5%;
+            }
+            .glass-card {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.6rem;
+                margin-bottom: 2.5rem;
+            }
+
+            .features .section-subtitle {
+                margin-top: -1.5rem;
+                margin-bottom: 2.5rem;
+            }
+            .features {
+                padding: 4rem 2%;
+            }
+
+            .history-section {
+                padding: 4rem 5%;
+            }
+
+            .sponsor-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 0.625rem;
+            }
+            .sponsor-title-card {
+                max-width: 290px;
+                height: 75px;
+            }
+            .sponsor-title-card img {
+                max-width: 230px;
+                max-height: 55px;
+            }
+            .sponsor-item {
+                width: 140px;
+                height: 70px;
+            }
+            .sponsor-item img {
+                max-width: 105px !important;
+                max-height: 48px !important;
+            }
+            .sponsor-item.key-sponsor {
+                width: 140px;
+                height: 70px;
+            }
+            .sponsor-item.key-sponsor img {
+                max-width: 105px;
+                max-height: 48px;
+            }
+            .nav-logo {
+                height: 26px;
+            }
+
+            footer {
+                padding: 2rem 5%;
+            }
+            .divider-quote {
+                white-space: normal !important;
+                font-size: 1rem !important;
+            }
+            .divider-sub {
+                font-size: 2.2rem !important;
+                font-style: italic !important;
+            }
+            .record-info {
+                font-size: 0.7rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 左侧悬浮板块导航 -->
+    <div class="section-nav">
+        <a href="#intro-fsc"><span class="dot"></span><span class="num">01</span><span class="title">赛事简介</span></a>
+        <a href="#intro-wute"><span class="dot"></span><span class="num">02</span><span class="title">车队简介</span></a>
+        <a href="#teams"><span class="dot"></span><span class="num">03</span><span class="title">技术组别</span></a>
+        <a href="#intro-e03"><span class="dot"></span><span class="num">04</span><span class="title">E03 赛车</span></a>
+        <a href="#gallery"><span class="dot"></span><span class="num">05</span><span class="title">队员风采</span></a>
+        <a href="#sponsors"><span class="dot"></span><span class="num">06</span><span class="title">赞助商</span></a>
+        <a href="#structure"><span class="dot"></span><span class="num">07</span><span class="title">联系我们</span></a>
+    </div>
+    <!-- 滚动进度条 -->
+    <div class="scroll-progress"></div>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-links">
+            <a href="#home" >回到顶部</a>
+            <a href="#structure" >联系我们</a>
+            <a href="blog-红包封面.html" style="color: var(--brand-red);">马年春节设计作品展示</a>
+            <!-- 跳转页面写法 target表示是否需要新开页面 -->
+            <!-- <a href="coming soon.html" target="_blank">队史</a> -->
+        </div>
+        <div class="nav-right">
+            <img src="picture/WUTE_logo_white.png" alt="WUTE" style="height: 36px;" class="nav-logo">
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="菜单" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- 全屏轮播图区域 -->
+    <section class="hero-slider" id="home">
+        <!-- 轮播图1 -->
+        <div class="slide active">
+            <img src="picture/ABC_3469-opq4142934343.jpg" alt="方程式赛车1" fetchpriority="high">
+            <div class="slide-text">
+                <h1 class="custom-h1">2026赛季全新启航</h1>
+                <p>速度与激情的极致碰撞，见证传奇诞生</p>
+                <div class="hero-cta-group">
+                    <a href="#intro-e03" class="cta-primary">了解E03赛车</a>
+                </div>
+            </div>
+        </div>
+        <!-- 轮播图2 -->
+        <div class="slide">
+            <img src="picture/淋雨测试.jpg" alt="方程式赛车2" loading="lazy">
+            <div class="slide-text">
+                <h1 class="custom-h1">全速推进</h1>
+                <p>用团结与拼搏铸就不朽荣耀</p>
+                <div class="hero-cta-group">
+                    <a href="#intro-wute" class="cta-primary">了解车队</a>
+                </div>
+            </div>
+        </div>
+        <!-- 轮播图3 -->
+        <div class="slide">
+            <img src="picture/动火区夕阳.jpg" alt="方程式赛车3" loading="lazy">
+            <div class="slide-text">
+                <h1 class="custom-h1">赞助商</h1>
+                <p>感谢每一位合作伙伴的鼎力支持</p>
+                <div class="hero-cta-group">
+                    <a href="#sponsors" class="cta-primary">了解合作伙伴</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 轮播图箭头 -->
+        <button class="slider-arrow slider-prev" aria-label="上一张">&#10094;</button>
+        <button class="slider-arrow slider-next" aria-label="下一张">&#10095;</button>
+
+        <!-- 向下滚动指示器 -->
+        <div class="scroll-indicator" onclick="document.getElementById('stats-bar').scrollIntoView({behavior:'smooth'})">
+            <span>滚动探索</span>
+            <div class="arrow"></div>
+        </div>
+
+    </section>
+
+    <!-- 性能数据条 -->
+    <section class="stats-bar" id="stats-bar">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-value"><span class="counter" data-target="6.48">0</span></span>
+                <span class="stat-unit">Cl*A</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value"><span class="counter" data-target="183">0</span></span>
+                <span class="stat-unit">整车质量 kg</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value"><span class="counter" data-target="13">0</span></span>
+                <span class="stat-unit">连续参赛 年</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- AMG 分隔带 -->
+    <div class="divider-strip">
+        <span class="divider-sub">#MAXIMUM PUSH!</span>
+    </div>
+
+        <!-- 赛事简介板块 -->
+    <section id="intro-fsc" class="intro-section">
+        <div class="container mx-auto px-6">
+            <span class="section-label">01 — About FSC</span>
+            <h2 class="section-title">赛事简介</h2>
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <!-- 简介图片区域 -->
+                <div class="w-full md:w-1/2">
+                    <a href="http://www.formulastudent.com.cn/" target="_blank" rel="noopener">
+                        <img src="picture/赛事介绍.png" alt="赛事简介图片" class="rounded-lg shadow-lg w-full object-cover hover:opacity-80 transition-opacity" style="cursor:pointer;">
+                    </a>
+                    <p style="text-align:center; color:var(--text-muted); font-size:0.7rem; letter-spacing:0.06em; margin-top:0.5rem;">点击浏览赛事官网 →</p>
+                </div>
+                <!-- 简介文字区域 -->
+                <div class="w-full md:w-1/2 glass-card">
+                    <p class="text-lg mb-4" style="text-indent: 2em;">
+                        中国大学生方程式系列赛事由中国汽车工程学会主办，是国内最高等级、参与高校人数最多、影响力最大的汽车工程类赛事，
+                        致力于为国内优秀汽车人才的培养和选拔搭建公共平台，通过全方位考核，
+                        提高学生们的设计、制造、成本控制、商业营销、沟通与协调等五方面的综合能力，全面提升汽车及相关专业学生的综合素质，
+                        为中国汽车产业的发展进行长期的人才积蓄，促进中国汽车工业从“制造大国”向“产业强国”的战略方向迈进。
+                    </p>
+                    <p class="text-lg mb-4" style="text-indent: 2em;">
+                        赛事涵盖静态答辩与动态竞赛两大模块：静态赛包括设计报告、成本分析、商业营销答辩，
+                        考察团队对赛车设计理念、制造成本控制及商业模式的全方位理解；
+                        动态赛包括直线加速、8字绕环、高速避障、耐久测试及效率测试，
+                        要求赛车在极限工况下兼具速度、操控与可靠性，是对整车综合性能的终极检验。
+                    </p>
+                    <p class="text-lg" style="text-indent: 2em;">
+                        自 2010 年首届赛事举办以来，中国大学生方程式系列赛事已吸引全国超过 120 所高校参与，
+                        每年逾 5000 名大学生投身其中，累计为国家汽车产业输送数万名高素质工程人才，
+                        已成为国内最具影响力的汽车工程类创新实践平台之一。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- 车队简介板块 -->
+    <section id="intro-wute" class="intro-section">
+        <div class="container mx-auto px-6">
+            <span class="section-label">02 — About WUTE</span>
+            <h2 class="section-title">车队简介</h2>
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <!-- 简介图片区域 -->
+                <div class="w-full md:w-1/2">
+                    <a href="about.html">
+                        <img src="picture/25大合影.jpg" alt="车队简介图片" class="rounded-lg shadow-lg w-full object-cover hover:opacity-80 transition-opacity" style="cursor:pointer;">
+                    </a>
+                    <p style="text-align:center; color:var(--text-muted); font-size:0.7rem; letter-spacing:0.06em; margin-top:0.5rem;">点击了解车队历史 →</p>
+                </div>
+                <!-- 简介文字区域 -->
+                <div class="w-full md:w-1/2 glass-card">
+                    <p class="text-lg mb-4" style="text-indent: 2em;">
+                               武汉理工大学WUTE电动方程式赛车队成立于2013年，是由武汉理工大学汽车工程学院指导、学生自主运营管理的一支科研型团队，
+                               下设电气组、单体壳组、空套组、悬转组、轮边组、运营组六个大组，汇聚了校内十余个学院的近百名同学
+                               ，担任着汽车机械工程师、电气工程师、整车测试工程师等角色。
+                    </p>
+                    <p class="text-lg mb-4" style="text-indent: 2em;">
+                        车队参加”中国大学生电动方程式汽车大赛（英文简称FSEC）”，该赛事被誉为“汽车工程师的摇篮”。
+                        自2013年电车赛开办以来，WUTE已连续十三年参加此项赛事。
+                    </p>
+                    <p class="text-lg" style="text-indent: 2em;">
+                        建队十余年来，WUTE 车队在 FSEC 赛场上屡创佳绩，多次获得最佳新秀奖、优秀设计奖等荣誉。
+                        我们秉持"以赛促学、以赛促研"的理念，致力于成为国内高校电动方程式赛车领域的技术标杆，
+                        让每一位队员在赛车研发中成长为能独当一面的汽车工程人才。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特色板块 -->
+    <section class="features" id="teams">
+        <span class="section-label">03 — Technical Groups</span>
+        <h2 class="section-title">核心技术组别</h2>
+        <p class="section-subtitle">六大组别协同研发，打造高性能电动方程式赛车</p>
+        <div class="feature-grid">
+            <a href="groups/电气组.html" class="feature-card">
+                <img src="picture/车检贴纸.jpg" alt="电气组" loading="lazy">
+                <h3>电气组</h3>
+                <p>
+                    负责整车高压电气系统、电池管理系统（BMS）、电机控制器及线束设计，确保赛车动力输出的安全与高效。
+                </p>
+            </a>
+            <a href="groups/单体壳组.html" class="feature-card">
+                <img src="picture/淋雨测试.jpg" alt="单体壳组" loading="lazy">
+                <h3>单体壳组</h3>
+                <p>主导碳纤维单体壳车身的设计、仿真与制造，在保证车手安全的前提下追求极致轻量化和结构刚性。</p>
+            </a>
+            <a href="groups/空套组.html" class="feature-card">
+                <img src="picture/透明赛车.jpg" alt="空套组" loading="lazy">
+                <h3>空套组</h3>
+                <p>专注于空气动力学套件的 CFD 仿真与制造，通过前翼、尾翼及扩散器设计提升赛车的下压力与操控稳定性。</p>
+            </a>
+            <a href="groups/悬架组.html" class="feature-card">
+                <img src="picture/返回p房.jpg" alt="悬架组" loading="lazy">
+                <h3>悬架组</h3>
+                <p>负责悬架系统、转向系统及轮边总成的设计与调校，确保赛车在极限工况下拥有精准的操控反馈与抓地力。</p>
+            </a>
+            <a href="groups/轮边组.html" class="feature-card">
+                <img src="picture/车检贴纸.jpg" alt="轮边组" loading="lazy">
+                <h3>轮边组</h3>
+                <p>主导轮边减速器、轮毂及制动系统的设计与集成，兼顾传动效率与轻量化目标，为赛车提供高效可靠的驱动与制动性能。</p>
+            </a>
+            <a href="groups/运营组.html" class="feature-card">
+                <img src="picture/25大合影.jpg" alt="运营组" loading="lazy">
+                <h3>运营组</h3>
+                <p>负责车队品牌运营、商业营销、媒体宣传及赛事后勤保障，搭建车队与社会各界的沟通桥梁，推动车队文化的传播与发展。</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- 第十三代赛车简介板块 -->
+    <section id="intro-e03" class="intro-section">
+        <div class="container mx-auto px-6">
+            <span class="section-label">04 — E03 Hypercar</span>
+            <h2 class="section-title">WUTE第十三代赛车</h2>
+            <div class="flex flex-col md:flex-row gap-8 items-center">
+                <!-- 简介图片区域 -->
+                <div class="w-full md:w-1/2">
+                    <img src="picture/透明赛车.jpg" alt="车队简介图片" class="rounded-lg shadow-lg w-full object-cover">
+                    <!-- 替换上面的图片链接为你的车队简介图片 -->
+                </div>
+                <!-- 简介文字区域（预留填写位置） -->
+                <div class="w-full md:w-1/2 glass-card">
+                    <p class="text-lg mb-4">
+                        2025赛季，为了平衡成本控制与技术创新，
+                        我们采用了四电机架构，双电机后驱的平台，以轻量化、集成化为目标探索赛车的极限。
+                    </p>
+                    <p class="text-lg mb-4">
+                        整车布局上，E03首次应用了自主重新封装的电驱系统，结合自研1.5级行星齿轮轮边减速器驱动赛车；
+                        首次应用了自研BMS系统，为整车性能保驾护航。同时，E03采用自制仪表与车身后域控制器以协助整车
+                        控制器，搭载了完整的传感器数据采集系统，并开发无线数传实现数据实时监控。
+                    </p>
+                    <p class="text-lg">
+                        展望 2026 赛季，E03 将在现有技术平台上持续迭代优化，重点推进整车轻量化与电驱系统效率提升，
+                        目标在高速避障与耐久赛环节实现成绩突破。WUTE 将继续以技术创新为核心驱动力，
+                        在 FSEC 赛场上展现武汉理工大学工程学子的实力与风采。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-- 队员风采板块 -->
+    <section class="grad-section" id="gallery">
+        <div class="container mx-auto px-6">
+            <span class="section-label">05 — Gallery</span>
+            <h2 class="section-title">队员风采</h2>
+            <a href="gallery.html" class="grad-cover-link">
+                <div class="grad-cover-card">
+                    <img src="picture/grad-cover.jpg" alt="WUTE毕业生合影">
+                </div>
+                <p style="text-align:center; margin-top:1rem; color:var(--text-primary); font-size:0.9rem; letter-spacing:0.06em;">查看完整相册 →</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- 赞助商板块（Logo 网格 + 文字跑马灯） -->
+    <section class="sponsors" id="sponsors">
+        <span class="section-label">06 — Partners</span>
+        <h2>官方赞助商</h2>
+        <div class="sponsor-grid">
+            <!-- 冠名赞助商 -->
+            <p class="sponsor-cat tight">冠名赞助商</p>
+            <a href="https://www.voyah.com.cn/" target="_blank" rel="noopener" class="sponsor-title-card">
+                <img src="赞助商/赞助商-岚图汽车.png" alt="岚图汽车 — 冠名赞助商">
+            </a>
+
+             <!-- 战略合作伙伴 -->
+            <p class="sponsor-cat wide">战略合作伙伴</p>
+            <div class="sponsor-row">
+                <a href="https://www.zfsycf.com.cn/" target="_blank" rel="noopener" class="sponsor-item key-sponsor">
+                    <img src="赞助商/赞助商-中复神鹰.png" alt="中复神鹰">
+                </a>
+                <a href="https://www.hylicreate.com/" target="_blank" rel="noopener" class="sponsor-item key-sponsor">
+                    <img src="赞助商/赞助商-合源锂创.png" alt="合源锂创">
+                </a>
+            </div>
+            
+             <!-- 车队合作伙伴 -->
+            <p class="sponsor-cat sm">车队合作伙伴</p>
+            <!-- 第三行: 力魔、转子复材、yato -->
+            <a href="https://www.liqui-moly.com/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-LIQUIMOLY-力魔.png" alt="LIQUIMOLY力魔">
+            </a>
+            <div class="sponsor-item no-link">
+                <img src="赞助商/赞助商-转子复材-v2.png" alt="转子复材">
+            </div>
+            <a href="https://www.yato-sh.com/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-yato.png" alt="yato">
+            </a>
+            <a href="https://onefilms.com/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-ONE酷莱特.png" alt="ONE 酷莱特" style="max-width:248px;max-height:113px;">
+            </a>
+            <a href="https://www.ntnglobal.com/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-NTN.png" alt="NTN">
+            </a>
+            <a href="https://www.smartmt.com/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-SMT-赛玛特.png" alt="SMT赛玛特">
+            </a>
+            <a href="https://www.vi-grade.com/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-VI-Grade.png" alt="VI-Grade">
+            </a>
+            <a href="https://www.tosunai.com/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-同星.png" alt="同星智能">
+            </a>
+            <a href="https://www.zgnyw.net/index.php?homepage=a76007" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-上海瑞垒.png" alt="上海瑞垒">
+            </a>
+            <a href="https://www.ebyte.com/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-成都亿佰特.png" alt="成都亿佰特">
+            </a>
+            <a href="http://www.ecucoder.com/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-华海.png" alt="华海科技">
+            </a>
+            <a href="https://www.igus.cn/zh-CN" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-igus.png" alt="igus">
+            </a>
+            <a href="https://www.amphenol.com/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-Amphenol-安费诺.png" alt="Amphenol安费诺">
+            </a>
+            <div class="sponsor-item no-link">
+                <img src="赞助商/赞助商-凯晨模具.png" alt="凯晨模具">
+            </div>
+            <a href="https://www.wago.com/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-WAGO.png" alt="WAGO">
+            </a>
+            <a href="https://www.resistor.today/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-睿思电阻.png" alt="睿思电阻">
+            </a>
+            <a href="https://www.kafuter.cn/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-卡夫特密封胶.png" alt="卡夫特密封胶">
+            </a>
+            <a href="https://www.wd40.com/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-WD-40.png" alt="WD-40">
+            </a>
+            <a href="https://www.isabellenhuette.cn/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-伊莎.png" alt="伊莎">
+            </a>
+            <a href="http://www.meiwocell.com/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-美沃工程材料.png" alt="美沃工程材料">
+            </a>
+            <div class="sponsor-item no-link">
+                <img src="赞助商/赞助商-IMK-Brakes.png" alt="IMK Brakes">
+            </div>
+            <div class="sponsor-item no-link">
+                <img src="赞助商/赞助商-Super-速迫.png" alt="Super速迫">
+            </div>
+            <div class="sponsor-item no-link">
+                <img src="赞助商/赞助商-卓凡电子.png" alt="卓凡电子">
+            </div>
+            <div class="sponsor-item no-link">
+                <img src="赞助商/赞助商-WSK.png" alt="WSK">
+            </div>
+            <a href="https://www.hioki.cn/" target="_blank" rel="noopener" class="sponsor-item">
+                <img src="赞助商/赞助商-HIOKI-日置.png" alt="HIOKI日置">
+            </a>
+            <div class="sponsor-item no-link">
+                <img src="赞助商/赞助商-MPS-涂装.PNG" alt="MPS涂装">
+            </div>
+            <a href="sponsors/rsc.html" class="sponsor-item">
+                <img src="赞助商/赞助商-RSC.png" alt="RSC">
+            </a>
+            <div class="sponsor-item no-link">
+                <img src="赞助商/赞助商-汉江湾卡丁车世界.png" alt="汉江湾卡丁车世界">
+            </div>
+            <div class="sponsor-item no-link">
+                <img src="赞助商/赞助商-ONEKART.png" alt="ONEKART">
+            </div>
+            <!-- 赛事赞助商 -->
+            <p class="sponsor-cat">赛事合作伙伴</p>
+            <div class="sponsor-row">
+                <a href="https://www.nio.com/" target="_blank" rel="noopener" class="sponsor-item">
+                    <img src="赞助商/赞助商-蔚来NIO.png" alt="蔚来NIO">
+                </a>
+                <a href="https://www.calb-tech.com/" target="_blank" rel="noopener" class="sponsor-item">
+                    <img src="赞助商/赞助商-中创新航.png" alt="中创新航">
+                </a>
+                <a href="https://www.sae-china.org/" target="_blank" rel="noopener" class="sponsor-item">
+                    <img src="赞助商/赞助商-中国汽车工程学会.png" alt="中国汽车工程学会">
+                </a>
+                <a href="https://ansys.synopsys.com/zh-cn/" target="_blank" rel="noopener" class="sponsor-item">
+                    <img src="赞助商/赞助商-Ansys.png" alt="Ansys">
+                </a>
+                <a href="https://www.mathworks.com/" target="_blank" rel="noopener" class="sponsor-item">
+                    <img src="赞助商/赞助商-MathWorks.png" alt="MathWorks">
+                </a>
+            </div>
+            <!-- 支持单位 -->
+            <p class="sponsor-cat sm">支持单位</p>
+            <div class="sponsor-row">
+                <a href="https://www.whut.edu.cn/" target="_blank" rel="noopener" class="sponsor-item">
+                    <img src="赞助商/赞助商-武汉理工大学-v2.png" alt="武汉理工大学">
+                </a>
+                <a href="http://www.formulastudent.com.cn/" target="_blank" rel="noopener" class="sponsor-item">
+                    <img src="赞助商/赞助商-2026-FSEC.png" alt="2026 FSEC">
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 联系我们 / 队员架构板块 -->
+    <section id="structure" class="structure-section">
+        <div class="container mx-auto px-6">
+            <span class="section-label">07 — Contact</span>
+            <h2 class="section-title">联系我们</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="structure-leader">车队总负责人</div>
+                <div class="structure-cards">
+                    <div class="structure-card"><h4>队长：卫君翰</h4><p>TEL：13797779699</p></div>
+                    <div class="structure-card"><h4>车队邮箱</h4><p>wuteteam@126.com</p></div>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem 3rem;margin-top:2.5rem;padding:1.5rem 0;border-top:1px solid var(--border-subtle)">
+                    <a href="https://mp.weixin.qq.com/s/l-wVbdXZl6kDwawCfwXjYA" target="_blank" rel="noopener" style="text-align:center;text-decoration:none"><div style="color:var(--text-muted);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem">微信公众号</div><div style="color:var(--text-primary);font-size:.85rem">WUTE电车队</div></a>
+                    <a href="https://b23.tv/hBzQazA" target="_blank" rel="noopener" style="text-align:center;text-decoration:none"><div style="color:var(--text-muted);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem">Bilibili</div><div style="color:var(--text-primary);font-size:.85rem">武汉理工WUTE电车队</div></a>
+                    <a href="https://www.douyin.com/user/MS4wLjABAAAAJRc0nkTfASsGep9BQqw0h47E4478GGN4zltLH2-5d6s" target="_blank" rel="noopener" style="text-align:center;text-decoration:none"><div style="color:var(--text-muted);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem">抖音</div><div style="color:var(--text-primary);font-size:.85rem">岚图-武汉理工大学WUTE电车队</div></a>
+                    <a href="https://www.xiaohongshu.com/user/profile/26548826682" target="_blank" rel="noopener" style="text-align:center;text-decoration:none"><div style="color:var(--text-muted);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem">小红书</div><div style="color:var(--text-primary);font-size:.85rem">武汉理工WUTE电车队</div></a>
+                    <a href="https://www.zhihu.com/people/--94-68-2-90" target="_blank" rel="noopener" style="text-align:center;text-decoration:none"><div style="color:var(--text-muted);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem">知乎</div><div style="color:var(--text-primary);font-size:.85rem">岚图-武理电车队</div></a>
+                    <a href="https://weibo.com/u/5494169022" target="_blank" rel="noopener" style="text-align:center;text-decoration:none"><div style="color:var(--text-muted);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem">微博</div><div style="color:var(--text-primary);font-size:.85rem">武汉理工大学WUTE车队</div></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 赞助商跑马灯 -->
+    <section class="sponsors-strip" id="sponsors-marquee">
+        <div class="marquee-inner" id="marqueeInner">
+            <div class="marquee-set" id="marqueeSet">
+                <a href="https://www.voyah.com.cn/" target="_blank" rel="noopener" class="sponsor-logo-item">岚图汽车</a>
+                <a href="https://www.hylicreate.com/" target="_blank" rel="noopener" class="sponsor-logo-item">合源锂创</a>
+                <a href="https://www.zfsycf.com.cn/" target="_blank" rel="noopener" class="sponsor-logo-item">中复神鹰</a>
+                <a href="https://www.whut.edu.cn/" target="_blank" rel="noopener" class="sponsor-logo-item">武汉理工大学</a>
+                <a href="https://www.sae-china.org/" target="_blank" rel="noopener" class="sponsor-logo-item">中国汽车工程学会</a>
+                <a href="http://www.formulastudent.com.cn/" target="_blank" rel="noopener" class="sponsor-logo-item">中国大学生方程式</a>
+                <a href="https://www.wute.club/" target="_blank" rel="noopener" class="sponsor-logo-item">WUTE Racing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚（备案号区域） -->
+    <footer id="about">
+        <div class="record-info">
+            <p>ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" >鄂ICP备2026002558号</a></p>
+            <p>公安部联网备案号：<a >鄂公网安备42011102006006号</a></p>
+            <p>© 2026 WUTE 版权所有</p>
+        </div>
+    </footer>
+
+    <!-- 全局交互逻辑 -->
+    <script>
+        // ===== 轮播图 =====
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.querySelector('.slider-prev');
+        const nextBtn = document.querySelector('.slider-next');
+        const slider = document.querySelector('.hero-slider');
+        let currentSlide = 0;
+        let autoPlayTimer = null;
+        const AUTO_DELAY = 5000;
+
+        function goToSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = ((index % slides.length) + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() { goToSlide(currentSlide + 1); }
+        function prevSlide() { goToSlide(currentSlide - 1); }
+
+        function startAutoPlay() {
+            stopAutoPlay();
+            autoPlayTimer = setInterval(nextSlide, AUTO_DELAY);
+        }
+        function stopAutoPlay() {
+            if (autoPlayTimer) { clearInterval(autoPlayTimer); autoPlayTimer = null; }
+        }
+
+        // 箭头按钮
+        prevBtn.addEventListener('click', function() { prevSlide(); startAutoPlay(); });
+        nextBtn.addEventListener('click', function() { nextSlide(); startAutoPlay(); });
+
+        // 悬停暂停
+        slider.addEventListener('mouseenter', stopAutoPlay);
+        slider.addEventListener('mouseleave', startAutoPlay);
+        slider.addEventListener('focusin', stopAutoPlay);
+        slider.addEventListener('focusout', startAutoPlay);
+
+        // 触摸暂停
+        slider.addEventListener('touchstart', stopAutoPlay, { passive: true });
+        slider.addEventListener('touchend', function() { startAutoPlay(); }, { passive: true });
+
+        // 键盘方向键
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft')  { prevSlide(); startAutoPlay(); }
+            if (e.key === 'ArrowRight') { nextSlide(); startAutoPlay(); }
+        });
+
+        // 启动自动播放
+        startAutoPlay();
+
+        // ===== 导航栏滚动效果 =====
+        var nav = document.querySelector('nav');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > window.innerHeight * 0.3) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        }, { passive: true });
+
+        // ===== 当前板块高亮 =====
+        var navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+        var sections = [];
+        navLinks.forEach(function(link) {
+            var target = document.querySelector(link.getAttribute('href'));
+            if (target) sections.push(target);
+        });
+
+        if (sections.length > 0 && 'IntersectionObserver' in window) {
+            var sectionObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var id = entry.target.getAttribute('id');
+                        navLinks.forEach(function(link) {
+                            if (link.getAttribute('href') === '#' + id) {
+                                link.classList.add('active');
+                            } else {
+                                link.classList.remove('active');
+                            }
+                        });
+                        // 同步更新左侧悬浮导航
+                        document.querySelectorAll('.section-nav a').forEach(function(dot) {
+                            if (dot.getAttribute('href') === '#' + id) {
+                                dot.classList.add('active');
+                            } else {
+                                dot.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+            sections.forEach(function(s) { sectionObserver.observe(s); });
+        }
+
+        // ===== 左侧悬浮导航：轮播图区域隐藏 =====
+        var sectionNav = document.querySelector('.section-nav');
+        var heroSlider = document.querySelector('.hero-slider');
+        if (sectionNav && heroSlider && 'IntersectionObserver' in window) {
+            var heroObserver = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) {
+                    sectionNav.classList.remove('visible');
+                } else {
+                    sectionNav.classList.add('visible');
+                }
+            }, { threshold: 0.1 });
+            heroObserver.observe(heroSlider);
+        }
+
+        // ===== 赞助商白底：导航栏+左侧目录切换深色 =====
+        var sponsorsSection = document.getElementById('sponsors');
+        if (sponsorsSection && 'IntersectionObserver' in window) {
+            var navLightObserver = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) {
+                    nav.classList.add('light-mode');
+                    if (sectionNav) sectionNav.classList.add('light-mode');
+                } else {
+                    nav.classList.remove('light-mode');
+                    if (sectionNav) sectionNav.classList.remove('light-mode');
+                }
+            }, { rootMargin: '-72px 0px -50% 0px' });
+            navLightObserver.observe(sponsorsSection);
+        }
+
+        // ===== 左侧悬浮导航高亮 =====
+        var dotNavLinks = document.querySelectorAll('.section-nav a');
+        var dotSections = [];
+        dotNavLinks.forEach(function(link) {
+            var target = document.querySelector(link.getAttribute('href'));
+            if (target) dotSections.push(target);
+        });
+        if (dotSections.length > 0 && 'IntersectionObserver' in window) {
+            var dotObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var id = entry.target.getAttribute('id');
+                        dotNavLinks.forEach(function(link) {
+                            if (link.getAttribute('href') === '#' + id) {
+                                link.classList.add('active');
+                            } else {
+                                link.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+            dotSections.forEach(function(s) { dotObserver.observe(s); });
+        }
+
+        // ===== 汉堡菜单 =====
+        var hamburger = document.getElementById('hamburger');
+        var navLinksContainer = document.querySelector('.nav-links');
+        hamburger.addEventListener('click', function() {
+            var isOpen = navLinksContainer.classList.toggle('open');
+            hamburger.classList.toggle('open', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+        // 点击链接后关闭菜单
+        navLinksContainer.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                navLinksContainer.classList.remove('open');
+                hamburger.classList.remove('open');
+                hamburger.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ===== GSAP 动画（ScrollTrigger） =====
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // --- Hero 视差滚动（AMG 微调） ---
+            gsap.to('.slide.active img', {
+                yPercent: -8,
+                scale: 1.04,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.hero-slider',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true,
+                }
+            });
+            gsap.to('.slide.active .slide-text', {
+                yPercent: -20,
+                opacity: 0.3,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.hero-slider',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true,
+                }
+            });
+
+            // --- 滚动进度条 ---
+            gsap.to('.scroll-progress', {
+                width: '100%',
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: 'body',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 0.3,
+                }
+            });
+
+            // --- 数据条数字计数（整条进入视口时一次性触发） ---
+            // 计数器动画（IntersectionObserver，更稳定）
+            (function() {
+                var triggered = false;
+                var observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting && !triggered) {
+                        triggered = true;
+                        document.querySelectorAll('.counter').forEach(function(el) {
+                            var targetVal = parseFloat(el.getAttribute('data-target'), 10);
+                            var targetStr = el.getAttribute('data-target');
+                            var decimalPlaces = targetStr.indexOf('.') !== -1 ? targetStr.split('.')[1].length : 0;
+                            var obj = { val: 0 };
+                            gsap.to(obj, {
+                                val: targetVal,
+                                duration: 1.5,
+                                ease: 'power2.out',
+                                onUpdate: function() {
+                                    el.textContent = decimalPlaces > 0 ? obj.val.toFixed(decimalPlaces) : Math.round(obj.val).toLocaleString();
+                                }
+                            });
+                        });
+                    }
+                }, { threshold: 0.3 });
+                var bar = document.querySelector('.stats-bar');
+                if (bar) observer.observe(bar);
+                // 兜底：2秒后还没触发就直接显示
+                setTimeout(function() {
+                    if (!triggered) {
+                        triggered = true;
+                        document.querySelectorAll('.counter').forEach(function(el) {
+                            el.textContent = el.getAttribute('data-target');
+                        });
+                    }
+                }, 2000);
+            })();
+
+            // --- 板块标题 fade-up ---
+            gsap.utils.toArray('.section-title').forEach(function(title) {
+                gsap.fromTo(title,
+                    { opacity: 0, y: 40 },
+                    {
+                        opacity: 1, y: 0,
+                        duration: 0.7,
+                        ease: 'power2.out',
+                        scrollTrigger: {
+                            trigger: title,
+                            start: 'top 85%',
+                            toggleActions: 'play none none none',
+                        }
+                    }
+                );
+            });
+
+            // --- 简介板块 fade-up（staggered） ---
+            gsap.utils.toArray('.intro-section').forEach(function(section, i) {
+                var img = section.querySelector('img');
+                if (img) {
+                    gsap.fromTo(img,
+                        { opacity: 0, x: -40 },
+                        {
+                            opacity: 1, x: 0,
+                            duration: 0.8,
+                            ease: 'power2.out',
+                            scrollTrigger: {
+                                trigger: section,
+                                start: 'top 80%',
+                                toggleActions: 'play none none none',
+                            }
+                        }
+                    );
+                }
+                var card = section.querySelector('.glass-card');
+                if (card) {
+                    gsap.fromTo(card,
+                        { opacity: 0, x: 40 },
+                        {
+                            opacity: 1, x: 0,
+                            duration: 0.8,
+                            ease: 'power2.out',
+                            scrollTrigger: {
+                                trigger: section,
+                                start: 'top 80%',
+                                toggleActions: 'play none none none',
+                            }
+                        }
+                    );
+                }
+            });
+
+            // --- 数据条 fade-up ---
+            gsap.fromTo('.stat-item',
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1, y: 0,
+                    stagger: 0.12,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.stats-bar',
+                        start: 'top 85%',
+                        toggleActions: 'play none none none',
+                    }
+                }
+            );
+
+            // --- 毕业生封面（无需动画，避免闪烁） ---
+
+            // --- 特色卡片 stagger fade-up ---
+            gsap.fromTo('.feature-card',
+                { opacity: 0, y: 40 },
+                {
+                    opacity: 1, y: 0,
+                    stagger: 0.15,
+                    duration: 0.7,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.features',
+                        start: 'top 80%',
+                        toggleActions: 'play none none none',
+                    }
+                }
+            );
+
+            // --- 时间轴节点 fade-up ---
+            gsap.fromTo('.timeline-node',
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1, y: 0,
+                    stagger: 0.12,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.history-section',
+                        start: 'top 80%',
+                        toggleActions: 'play none none none',
+                    }
+                }
+            );
+
+            // --- 联系我们板块 fade-up ---
+            gsap.fromTo('.structure-section .structure-leader, .structure-card, .structure-group-tag',
+                { opacity: 0, y: 25 },
+                {
+                    opacity: 1, y: 0,
+                    stagger: 0.1,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.structure-section',
+                        start: 'top 80%',
+                        toggleActions: 'play none none none',
+                    }
+                }
+            );
+
+            // --- 分隔带视差 ---
+            gsap.to('.divider-quote', {
+                yPercent: -20,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.divider-strip',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: true,
+                }
+            });
+
+            // --- 赞助商 Logo 网格 fade-up ---
+            gsap.fromTo('.sponsor-item',
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    stagger: 0.1,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: '.sponsors',
+                        start: 'top 85%',
+                        toggleActions: 'play none none none',
+                    }
+                }
+            );
+
+            // --- 页脚 fade-up ---
+            gsap.fromTo('footer',
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1, y: 0,
+                    duration: 0.7,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: 'footer',
+                        start: 'top 90%',
+                        toggleActions: 'play none none none',
+                    }
+                }
+            );
+
+            // --- 赞助商跑马灯（JS 驱动无缝无限循环） ---
+            (function initMarquee() {
+                var inner = document.getElementById('marqueeInner');
+                var set  = document.getElementById('marqueeSet');
+                if (!inner || !set) return;
+
+                // 克隆直到总宽度 ≥ 视口宽度 × 2
+                while (inner.scrollWidth < window.innerWidth * 2) {
+                    var clone = set.cloneNode(true);
+                    clone.setAttribute('aria-hidden', 'true');
+                    inner.appendChild(clone);
+                }
+
+                var speed = 0.6;     // 像素/帧（60fps ≈ 36px/s）
+                var pos = 0;
+                var setWidth = set.offsetWidth;
+                var paused = false;
+
+                function tick() {
+                    if (!paused) {
+                        pos -= speed;
+                        // 滚完一组就复位（视觉无缝因为克隆内容完全一样）
+                        if (Math.abs(pos) >= setWidth) {
+                            pos += setWidth;
+                        }
+                        inner.style.transform = 'translateX(' + pos + 'px)';
+                    }
+                    requestAnimationFrame(tick);
+                }
+
+                inner.parentElement.addEventListener('mouseenter', function() { paused = true; });
+                inner.parentElement.addEventListener('mouseleave', function() { paused = false; });
+
+                // 窗口大小变化时重新克隆
+                var resizeTimer;
+                window.addEventListener('resize', function() {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(function() {
+                        // 清除克隆
+                        var clones = inner.querySelectorAll('.marquee-set[aria-hidden]');
+                        clones.forEach(function(c) { c.remove(); });
+                        // 重新克隆
+                        while (inner.scrollWidth < window.innerWidth * 2) {
+                            var c = set.cloneNode(true);
+                            c.setAttribute('aria-hidden', 'true');
+                            inner.appendChild(c);
+                        }
+                        setWidth = set.offsetWidth;
+                        pos = 0;
+                        inner.style.transform = 'translateX(0)';
+                    }, 250);
+                });
+
+                requestAnimationFrame(tick);
+            })();
+
+            // --- 刷新 ScrollTrigger（等图片加载后重新计算位置） ---
+            window.addEventListener('load', function() {
+                ScrollTrigger.refresh();
+            });
+
+            // --- 检查 prefers-reduced-motion ---
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                ScrollTrigger.getAll().forEach(function(st) { st.kill(); });
+                gsap.set('.intro-section img, .glass-card, .section-title, .stat-item, footer, .feature-card, .timeline-node, .structure-leader, .structure-card, .structure-group-tag, .sponsor-item', {
+                    opacity: 1, y: 0, x: 0, clearProps: 'all'
+                });
+            }
+        });
+    </script>
+</body>
+</html>

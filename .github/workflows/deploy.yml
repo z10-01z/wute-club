@@ -1,0 +1,33 @@
+# ============================================================
+# WUTE 官网自动部署工作流
+# 每次 push 到 main 分支后，通过 SSH 增量同步到服务器
+# 服务器连接信息读取 GitHub Secrets（仓库 Settings → Secrets）
+# ============================================================
+name: 部署到服务器
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:   # 也支持手动触发（Actions 页面点 Run workflow）
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 配置 SSH 部署密钥
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ secrets.SERVER_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: rsync 增量同步到服务器
+        run: |
+          rsync -avz --delete \
+            -e "ssh -p ${{ secrets.SERVER_PORT }}" \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            ./ "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_PATH }}"
