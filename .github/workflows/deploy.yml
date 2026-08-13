@@ -30,4 +30,9 @@ jobs:
             -e "ssh -p ${{ secrets.SERVER_PORT }}" \
             --exclude='.git/' \
             --exclude='.github/' \
+            --exclude='.gitignore' \
+            --exclude='README.md' \
+            --exclude='.well-known/' \
+            --exclude='.user.ini' \
+            --exclude='.htaccess' \
             ./ "${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_PATH }}"
