@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -61,200 +61,12 @@
     </style>
     <!-- GSAP 预连接（脚本已移到 body 末尾执行，不阻塞首屏渲染） -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <!-- 共享设计系统（全站统一：设计令牌 / 导航 / 页脚 / 工具类） -->
+    <link rel="stylesheet" href="assets/wute.css">
     <style>
-        /* ===== CSS 变量设计系统（AMG 风格：纯黑基底） ===== */
-        :root {
-            /* 背景层级（纯黑体系） */
-            --bg-deep:        #000000;
-            --bg-surface:     #050508;
-            --bg-elevated:    #0a0a10;
-            --bg-glass:       rgba(0, 0, 0, 0.75);
+        /* 设计令牌 / 全局重置 / 字体栈已迁移至 assets/wute.css（:root 单一事实来源） */
 
-            /* 品牌色 */
-            --brand-blue:       #00489b;
-            --brand-blue-hover: #005db8;
-            --brand-blue-dim:   rgba(0, 72, 155, 0.15);
-            --brand-red:        #d0121b;
-            --brand-red-hover:  #e81e27;
-            --brand-red-dim:    rgba(208, 18, 27, 0.15);
-
-            /* 文字层级 */
-            --text-primary:    #f0f0f2;
-            --text-secondary:  #888894;
-            --text-muted:      #555560;
-            --text-inverse:    #000000;
-
-            /* 功能色 */
-            --accent:          #ff6b00;
-            --color-success:   #00c853;
-            --color-warning:   #ffc107;
-            --color-error:     #ff1744;
-
-            /* 边框 */
-            --border-subtle:   rgba(255, 255, 255, 0.04);
-            --border-default:  rgba(255, 255, 255, 0.08);
-            --border-accent:   var(--brand-blue);
-
-            /* 毛玻璃 */
-            --glass-blur:      24px;
-            --glass-border:    rgba(255, 255, 255, 0.05);
-
-            /* 阴影 */
-            --shadow-sm:  0 2px 16px rgba(0, 0, 0, 0.6);
-            --shadow-md:  0 8px 40px rgba(0, 0, 0, 0.7);
-            --shadow-lg:  0 24px 80px rgba(0, 0, 0, 0.8);
-
-            /* 布局 */
-            --nav-height:  72px;
-            --section-gap: 8rem;
-            --radius-sm:   4px;
-            --radius-md:   8px;
-            --radius-lg:   12px;
-        }
-
-        /* ===== 全局重置 ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-        body {
-            font-family: 'Arial', 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            background: var(--bg-deep);
-            color: var(--text-primary);
-            line-height: 1.7;
-            letter-spacing: 0.02em;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* 导航栏样式（AMG 极简风格） */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: var(--nav-height);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 4%;
-            z-index: 1000;
-            background: transparent;
-            transition: background 0.5s ease, box-shadow 0.5s ease, backdrop-filter 0.5s ease;
-        }
-        /* 滚动后纯黑毛玻璃 */
-        nav.scrolled {
-            background: rgba(0, 0, 0, 0.88);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 1px 0 rgba(255, 252, 252, 0.04);
-        }
-        /* 浅色背景区域切换深色文字导航 */
-        nav.light-mode {
-            background: rgba(255, 255, 255, 0.92) !important;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
-        }
-        nav.light-mode .nav-links a {
-            color: #555;
-        }
-        nav.light-mode .nav-links a:hover,
-        nav.light-mode .nav-links a.active {
-            color: #000;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            padding: 0.35rem 0;
-            position: relative;
-            transition: color 0.35s ease;
-        }
-        /* 细微下划线 */
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--brand-blue);
-            transition: width 0.35s ease;
-        }
-        .nav-links a:hover {
-            color: #fff;
-        }
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        .nav-links a.active {
-            color: #fff;
-        }
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        .nav-right .nav-logo {
-            height: 32px;
-            transition: opacity 0.3s ease;
-        }
-        .nav-right .nav-logo:hover {
-            opacity: 0.8;
-        }
-
-        /* 汉堡菜单按钮（桌面端隐藏） */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            gap: 5px;
-            width: 40px;
-            height: 40px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            z-index: 1001;
-            padding: 8px;
-        }
-        .hamburger span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--text-primary);
-            border-radius: 2px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            transform-origin: center;
-        }
-        /* 三横线 → X 动画 */
-        .hamburger.open span:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
-        }
-        .hamburger.open span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.open span:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
-        }
+        /* 导航栏样式见 assets/wute.css（.site-nav / .nav-links / .hamburger） */
 
         /* 轮播图样式 */
         .hero-slider {
@@ -421,24 +233,7 @@
             background: var(--brand-blue-hover);
             transform: translateY(-1px);
         }
-        .cta-secondary {
-            display: inline-block;
-            padding: 0.75rem 2.6rem;
-            background: transparent;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 500;
-            font-size: 0.8rem;
-            border-radius: 4px;
-            text-decoration: none;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            transition: all 0.35s ease;
-        }
-        .cta-secondary:hover {
-            border-color: rgba(255, 255, 255, 0.6);
-            color: #fff;
-        }
+        /* cta-secondary 已废弃，统一使用 assets/wute.css 的 .btn-ghost */
 
         /* 向下滚动指示器 */
         .scroll-indicator {
@@ -480,38 +275,7 @@
             50% { transform: translateX(-50%) translateY(8px); }
         }
 
-        /* 板块标题统一样式（AMG 大胆排版） */
-        .section-title {
-            font-size: clamp(2rem, 4vw, 3.2rem);
-            font-weight: 800;
-            text-align: center;
-            color: var(--text-primary);
-            margin-bottom: 4rem;
-            padding-bottom: 1rem;
-            position: relative;
-            letter-spacing: 0.05em;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 2px;
-            background: var(--brand-blue);
-        }
-        /* 板块序号标签 */
-        .section-label {
-            display: block;
-            text-align: center;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 0.75rem;
-        }
+        /* 板块标题与序号标签见 assets/wute.css */
 
         /* 简介板块容器 */
         .intro-section {
@@ -519,30 +283,7 @@
             padding: 7rem 5%;
         }
 
-        /* 毛玻璃卡片 */
-        .glass-card {
-            background: var(--bg-glass);
-            backdrop-filter: blur(var(--glass-blur));
-            -webkit-backdrop-filter: blur(var(--glass-blur));
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-md);
-            padding: 2.5rem;
-            box-shadow: var(--shadow-sm);
-            color: var(--text-primary);
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
-        }
-        .glass-card:hover {
-            box-shadow: var(--shadow-md);
-        }
-        .glass-card img {
-            border-radius: var(--radius-sm);
-        }
-        .glass-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.8;
-            letter-spacing: 0.03em;
-        }
+        /* 毛玻璃卡片见 assets/wute.css（.glass-card） */
 
         /* 滚动进度条 */
         .scroll-progress {
@@ -1053,31 +794,7 @@
             box-shadow: none;
         }
 
-        /* 页脚样式（AMG 极简） */
-        footer {
-            background: #000;
-            color: var(--text-muted);
-            padding: 3rem 5%;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .record-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-            font-size: 0.72rem;
-            letter-spacing: 0.06em;
-        }
-
-        .record-info a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        .record-info a:hover {
-            color: var(--text-secondary);
-        }
+        /* 页脚样式见 assets/wute.css（.site-footer） */
 
         /* ===== AMG 风格全幅分隔带 ===== */
         .divider-strip {
@@ -1216,38 +933,9 @@
             color: rgba(0,0,0,0.85);
         }
 
-        /* 响应式适配 */
+        /* 响应式适配（导航/汉堡菜单见 assets/wute.css） */
         @media (max-width: 768px) {
             .section-nav { display: none; }
-            .hamburger {
-                display: flex;
-            }
-
-            .nav-links {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                height: 100dvh;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2.5rem;
-                background: rgba(0, 0, 0, 0.97);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                transform: translateX(100%);
-                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                z-index: 999;
-            }
-            .nav-links.open {
-                transform: translateX(0);
-            }
-            .nav-links a {
-                font-size: 1.2rem;
-                letter-spacing: 0.1em;
-            }
 
             .slide-text {
                 bottom: 18%;
@@ -1325,10 +1013,6 @@
                 max-width: 105px;
                 max-height: 48px;
             }
-            .nav-logo {
-                height: 26px;
-            }
-
             footer {
                 padding: 2rem 5%;
             }
@@ -1339,9 +1023,6 @@
             .divider-sub {
                 font-size: 2.2rem !important;
                 font-style: italic !important;
-            }
-            .record-info {
-                font-size: 0.7rem;
             }
         }
 
@@ -1360,23 +1041,28 @@
     </div>
     <!-- 滚动进度条 -->
     <div class="scroll-progress"></div>
-    <!-- 导航栏 -->
-    <nav>
-        <div class="nav-links">
-            <a href="#home" >回到顶部</a>
-            <a href="#structure" >联系我们</a>
-            <a href="blog-红包封面.html" style="color: var(--brand-red);">马年春节设计作品展示</a>
-            <!-- 跳转页面写法 target表示是否需要新开页面 -->
-            <!-- <a href="coming soon.html" target="_blank">队史</a> -->
-        </div>
+    <!-- 导航栏（全站统一组件，见 assets/wute.css） -->
+    <nav class="site-nav">
+        <a href="#home" class="nav-brand" aria-label="WUTE 首页">
+            <img width="647" height="142" src="picture/WUTE_logo_white.png" alt="WUTE">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#home">首页</a></li>
+            <li><a href="about.html">车队历史</a></li>
+            <li><a href="gallery.html">队员风采</a></li>
+            <li><a href="#teams">技术组别</a></li>
+            <li><a href="honors.html">荣誉奖项</a></li>
+            <li><a href="car.html">E03赛车</a></li>
+            <li><a href="join.html">加入我们</a></li>
+        </ul>
         <div class="nav-right">
-            <img width="647" height="142" src="picture/WUTE_logo_white.png" alt="WUTE" style="height: 36px;" class="nav-logo">
+            <a href="#structure" class="btn btn-ghost nav-cta">联系我们</a>
+            <button class="hamburger" id="hamburger" aria-label="菜单" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <button class="hamburger" id="hamburger" aria-label="菜单" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
     </nav>
 
     <!-- 全屏轮播图区域 -->
@@ -1611,8 +1297,50 @@
 
     <!-- 赞助商板块（Logo 网格 + 文字跑马灯） -->
     <section class="sponsors" id="sponsors">
-        <span class="section-label">06 — Partners</span>
         <h2>官方赞助商</h2>
+
+        <!-- ===== 合作案例区（预留排版） =====
+             排版规则：主打案例（.case-card--featured）独占一行居中，其余案例在下方两列居中排列。
+             添加新案例：复制一个 .case-card 卡片，改 logo 图片路径、标题、描述与链接即可；
+             想升级为主打案例则加 case-card--featured 类。
+             案例图片建议放 赞助商/ 目录，用 赞助商-XXX.png 命名。 -->
+        <div class="case-section">
+            <h3 class="case-title">合作案例</h3>
+            <p class="case-sub">从冠名到共建，每一段合作都写在赛道上</p>
+            <div class="case-grid">
+                <a href="sponsors/case-lantu.html" class="case-card case-card--featured">
+                    <div class="case-logo">
+                        <img width="424" height="146" loading="lazy" src="赞助商/赞助商-岚图汽车.png" alt="岚图汽车">
+                    </div>
+                    <div class="case-body">
+                        <h3>岚图汽车 · 冠名赞助</h3>
+                        <p>作为冠名赞助商，岚图汽车深度参与车队品牌建设，共同见证 E03 征战 2025 赛季。</p>
+                        <span class="case-more">了解合作详情 →</span>
+                    </div>
+                </a>
+                <a href="sponsors/case-zfsycf.html" class="case-card">
+                    <div class="case-logo">
+                        <img width="1362" height="343" loading="lazy" src="赞助商/赞助商-中复神鹰.png" alt="中复神鹰">
+                    </div>
+                    <div class="case-body">
+                        <h3>中复神鹰 · 战略合作</h3>
+                        <p>国产高端碳纤维领军企业与 WUTE 深度协同，为单体壳与空套的轻量化研发提供材料支撑。</p>
+                        <span class="case-more">了解合作详情 →</span>
+                    </div>
+                </a>
+                <a href="sponsors/case-hylicreate.html" class="case-card">
+                    <div class="case-logo">
+                        <img width="2723" height="1004" loading="lazy" src="赞助商/赞助商-合源锂创.png" alt="合源锂创">
+                    </div>
+                    <div class="case-body">
+                        <h3>合源锂创 · 战略合作</h3>
+                        <p>新能源锂电领域新锐企业与 WUTE 携手，为四电机架构的 E03 提供能量与安全的技术底座。</p>
+                        <span class="case-more">了解合作详情 →</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
         <div class="sponsor-grid">
             <!-- 冠名赞助商 -->
             <p class="sponsor-cat tight">冠名赞助商</p>
@@ -1792,12 +1520,51 @@
         </div>
     </section>
 
-    <!-- 页脚（备案号区域） -->
-    <footer id="about">
-        <div class="record-info">
-            <p>ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" >鄂ICP备2026002558号</a></p>
-            <p>公安部联网备案号：<a >鄂公网安备42011102006006号</a></p>
+    <!-- 页脚（全站统一组件） -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <img width="647" height="142" src="picture/WUTE_logo_white.png" alt="WUTE">
+                <p>武汉理工大学 WUTE 电动方程式赛车队。成立于 2013 年，连续十四年征战 FSEC，以赛促学、以赛促研。</p>
+                <div class="footer-motto">#MAXIMUM PUSH!</div>
+            </div>
+            <div class="footer-col">
+                <h4>导航</h4>
+                <a href="index.html">首页</a>
+                <a href="about.html">车队历史</a>
+                <a href="gallery.html">队员风采</a>
+                <a href="index.html#teams">技术组别</a>
+                <a href="honors.html">荣誉奖项</a>
+                <a href="car.html">E03 赛车</a>
+                <a href="join.html">加入我们</a>
+            </div>
+            <div class="footer-col">
+                <h4>作品与相册</h4>
+                <a href="blog-红包封面.html">马年春节设计作品</a>
+                <a href="album-2025-赛场.html">2025 赛场相册</a>
+                <a href="album-2026-毕业季.html">2026 毕业季相册</a>
+                <a href="sponsors/rsc.html">RSC 合作伙伴</a>
+                <a href="sponsors.html">赞助商合作</a>
+            </div>
+            <div class="footer-col footer-contact">
+                <h4>联系我们</h4>
+                <div><label>车队队长</label><a href="tel:13797779699">卫君翰 · 13797779699</a></div>
+                <div><label>车队邮箱</label><a href="mailto:wuteteam@126.com">wuteteam@126.com</a></div>
+                <div><label>招新 QQ 群</label><a href="https://qm.qq.com/q/1064738364" target="_blank" rel="noopener">1064738364</a></div>
+                <div class="social-row">
+                    <a class="social-chip" href="https://mp.weixin.qq.com/s/l-wVbdXZl6kDwawCfwXjYA" target="_blank" rel="noopener">微信公众号</a>
+                    <a class="social-chip" href="https://b23.tv/hBzQazA" target="_blank" rel="noopener">Bilibili</a>
+                    <a class="social-chip" href="https://www.douyin.com/user/MS4wLjABAAAAJRc0nkTfASsGep9BQqw0h47E4478GGN4zltLH2-5d6s" target="_blank" rel="noopener">抖音</a>
+                    <a class="social-chip" href="https://www.xiaohongshu.com/user/profile/26548826682" target="_blank" rel="noopener">小红书</a>
+                    <a class="social-chip" href="https://www.zhihu.com/people/--94-68-2-90" target="_blank" rel="noopener">知乎</a>
+                    <a class="social-chip" href="https://weibo.com/u/5494169022" target="_blank" rel="noopener">微博</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
             <p>© 2026 WUTE 版权所有</p>
+            <p>ICP备案号：<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">鄂ICP备2026002558号</a></p>
+            <p>公安部联网备案号：鄂公网安备42011102006006号</p>
         </div>
     </footer>
 
