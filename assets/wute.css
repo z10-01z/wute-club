@@ -898,6 +898,47 @@ body {
 }
 
 /* ===== 14. 响应式 ===== */
+
+/* 回到顶部按钮（全站，wute.js 动态注入） */
+.to-top {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--border-default);
+    color: var(--text-secondary);
+    font-size: 1.15rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 900;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.35s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+.to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.to-top:hover {
+    border-color: var(--brand-blue);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(0, 72, 155, 0.35);
+}
+@media (max-width: 768px) {
+    .to-top { right: 1rem; bottom: 1rem; width: 40px; height: 40px; font-size: 1rem; }
+}
+
 @media (max-width: 1024px) {
     .nav-links { gap: 1.2rem; }
     .nav-links a { font-size: 0.64rem; letter-spacing: 0.05em; }

@@ -31,6 +31,8 @@
     }
     </script>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%2300489b'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='16' font-weight='bold' font-family='Arial'>W</text></svg>">
+    <link rel="icon" type="image/png" sizes="32x32" href="picture/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="picture/apple-touch-icon.png">
         <!-- Tailwind 工具类（静态提取，替代 CDN 运行时编译） -->
     <style>
         .container { width: 100%; }
@@ -1579,6 +1581,23 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14/dist/ScrollTrigger.min.js"></script>
     <!-- 全局交互逻辑 -->
     <script>
+        // ===== 回到顶部按钮（与共享 wute.js 逻辑一致） =====
+        (function () {
+            var toTopBtn = document.createElement('button');
+            toTopBtn.className = 'to-top';
+            toTopBtn.setAttribute('aria-label', '回到顶部');
+            toTopBtn.innerHTML = '&uarr;';
+            toTopBtn.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            document.body.appendChild(toTopBtn);
+            function toggleToTop() {
+                toTopBtn.classList.toggle('show', window.scrollY > 600);
+            }
+            toggleToTop();
+            window.addEventListener('scroll', toggleToTop, { passive: true });
+        })();
+
         // ===== 轮播图 =====
         const slides = document.querySelectorAll('.slide');
         const prevBtn = document.querySelector('.slider-prev');

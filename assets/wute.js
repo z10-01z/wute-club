@@ -1,10 +1,27 @@
 /* ==========================================================================
    WUTE 官网 — 共享交互 wute.js
    依赖：GSAP + ScrollTrigger（页面需先加载 CDN 脚本）
-   职责：导航滚动态 / 汉堡菜单 / 白底区导航反色 / 通用滚动显现动画
+   职责：导航滚动态 / 汉堡菜单 / 白底区导航反色 / 回到顶部按钮 / 通用滚动显现动画
    ========================================================================== */
 (function () {
     'use strict';
+
+    /* ---- 回到顶部按钮（动态注入） ---- */
+    (function initToTop() {
+        var btn = document.createElement('button');
+        btn.className = 'to-top';
+        btn.setAttribute('aria-label', '回到顶部');
+        btn.innerHTML = '&uarr;';
+        btn.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        document.body.appendChild(btn);
+        var onScroll = function () {
+            btn.classList.toggle('show', window.scrollY > 600);
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+    })();
 
     /* ---- 导航栏：滚动后毛玻璃 ---- */
     var nav = document.querySelector('.site-nav');
