@@ -151,7 +151,6 @@
                 if (wPresses.length >= 5) { wPresses = []; openGame(); return; }
             }
             // Konami 序列：e.code 与 e.key 双通道匹配（兼容输入法/键盘布局）
-            // 调试日志：按一遍序列后把控制台输出发回
             var expect = konami[konamiIdx];
             var hit;
             if (expect === 'KeyB' || expect === 'KeyA') {
@@ -159,7 +158,6 @@
             } else {
                 hit = code === expect || key === expect.toLowerCase();
             }
-            if (typeof console !== 'undefined' && console.log) console.log('[WUTE-EGG]', code, '| expect:', expect, '| hit:', hit, '| idx:', konamiIdx);
             if (hit) {
                 konamiIdx++;
                 if (konamiIdx === konami.length) { konamiIdx = 0; openGame(); }

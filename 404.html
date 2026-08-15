@@ -31,9 +31,10 @@
             font-weight: 800;
             line-height: 1;
             letter-spacing: -0.02em;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(0, 72, 155, 0.6);
-            text-shadow: 0 0 80px rgba(0, 72, 155, 0.25);
+            color: #fff;
+            text-shadow:
+                0 0 40px rgba(0, 72, 155, 0.55),
+                0 0 120px rgba(0, 72, 155, 0.3);
         }
         .err-kicker {
             margin-top: 1.5rem;
@@ -74,7 +75,7 @@
     <div class="err-code">404</div>
     <div class="err-kicker">Off Course</div>
     <h1>这个弯道走错了</h1>
-    <p class="err-sub">您访问的页面不存在或已下线——就像赛道上的一个急弯，我们回到主线继续前进。</p>
+    <p class="err-sub">您访问的页面不存在或已下线，请检查链接是否正确。</p>
     <div class="err-actions">
         <a href="index.html" class="btn btn-primary">返回首页</a>
         <button class="btn btn-ghost" onclick="history.back()">返回上一页</button>

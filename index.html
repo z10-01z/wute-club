@@ -1663,7 +1663,6 @@
                 } else {
                     hit = code === expect || key === expect.toLowerCase();
                 }
-                if (typeof console !== 'undefined' && console.log) console.log('[WUTE-EGG]', code, '| expect:', expect, '| hit:', hit, '| idx:', konamiIdx);
                 if (hit) {
                     konamiIdx++;
                     if (konamiIdx === konami.length) { konamiIdx = 0; openGame(); }
