@@ -332,22 +332,6 @@
             }
         }
 
-        // 动态死局救援：危险区三条车道全被占（玩家无路可走）时，移除最远（y 最小）的一辆，
-        // 保证始终存在逃生通道
-        var dangerNow = dangerZoneLanes();
-        if (dangerNow.length === LANES) {
-            var farCar = null;
-            for (var di = 0; di < cars.length; di++) {
-                var dc = cars[di];
-                if (dc.y > player.y - DANGER_FRONT && dc.y < player.y + DANGER_BACK) {
-                    if (!farCar || dc.y < farCar.y) farCar = dc;
-                }
-            }
-            if (farCar) {
-                cars.splice(cars.indexOf(farCar), 1);
-            }
-        }
-
         // 更新氮气道具
         for (var j = pickups.length - 1; j >= 0; j--) {
             var p = pickups[j];
