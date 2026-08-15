@@ -99,4 +99,54 @@
     } else {
         initReveal();
     }
+
+    /* ---- 彩蛋触发：Konami 秘技 / 连按 W / 页脚 logo 连点 ---- */
+    (function initEasterEgg() {
+        var konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        var konamiIdx = 0;
+        var wPresses = [], logoClicks = [], opening = false;
+
+        function openGame() {
+            if (opening) return;
+            opening = true;
+            if (window.WUTEGame) { WUTEGame.open(); opening = false; return; }
+            var s = document.createElement('script');
+            s.src = 'assets/wute-game.js';
+            if (location.pathname.indexOf('/groups/') >= 0 || location.pathname.indexOf('/sponsors/') >= 0) {
+                s.src = '../' + s.src;
+            }
+            s.onload = function () { if (window.WUTEGame) WUTEGame.open(); opening = false; };
+            s.onerror = function () { opening = false; };
+            document.head.appendChild(s);
+        }
+
+        document.addEventListener('keydown', function (e) {
+            var tag = e.target && e.target.tagName;
+            if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') { konamiIdx = 0; return; }
+            var k = e.key;
+            if (k === 'Escape' || e.ctrlKey || e.metaKey || e.altKey) return;
+            // 连按 W（2 秒内 5 次）
+            if ((k || '').toLowerCase() === 'w') {
+                wPresses.push(Date.now());
+                wPresses = wPresses.filter(function (t) { return Date.now() - t <= 2000; });
+                if (wPresses.length >= 5) { wPresses = []; openGame(); return; }
+            }
+            // Konami 序列
+            if (k === konami[konamiIdx]) {
+                konamiIdx++;
+                if (konamiIdx === konami.length) { konamiIdx = 0; openGame(); }
+            } else {
+                konamiIdx = (k === konami[0]) ? 1 : 0;
+            }
+        });
+
+        document.addEventListener('click', function (e) {
+            var t = e.target;
+            if (t && t.tagName === 'IMG' && t.closest('.footer-brand')) {
+                logoClicks.push(Date.now());
+                logoClicks = logoClicks.filter(function (x) { return Date.now() - x <= 2000; });
+                if (logoClicks.length >= 5) { logoClicks = []; openGame(); }
+            }
+        });
+    })();
 })();

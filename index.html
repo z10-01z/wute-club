@@ -1598,6 +1598,48 @@
             window.addEventListener('scroll', toggleToTop, { passive: true });
         })();
 
+        // ===== 彩蛋触发：Konami 秘技 / 连按 W / 页脚 logo 连点（与共享 wute.js 逻辑一致） =====
+        (function () {
+            var konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+            var konamiIdx = 0;
+            var wPresses = [], logoClicks = [], opening = false;
+            function openGame() {
+                if (opening) return;
+                opening = true;
+                if (window.WUTEGame) { WUTEGame.open(); opening = false; return; }
+                var s = document.createElement('script');
+                s.src = 'assets/wute-game.js';
+                s.onload = function () { if (window.WUTEGame) WUTEGame.open(); opening = false; };
+                s.onerror = function () { opening = false; };
+                document.head.appendChild(s);
+            }
+            document.addEventListener('keydown', function (e) {
+                var tag = e.target && e.target.tagName;
+                if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') { konamiIdx = 0; return; }
+                var k = e.key;
+                if (k === 'Escape' || e.ctrlKey || e.metaKey || e.altKey) return;
+                if ((k || '').toLowerCase() === 'w') {
+                    wPresses.push(Date.now());
+                    wPresses = wPresses.filter(function (t) { return Date.now() - t <= 2000; });
+                    if (wPresses.length >= 5) { wPresses = []; openGame(); return; }
+                }
+                if (k === konami[konamiIdx]) {
+                    konamiIdx++;
+                    if (konamiIdx === konami.length) { konamiIdx = 0; openGame(); }
+                } else {
+                    konamiIdx = (k === konami[0]) ? 1 : 0;
+                }
+            });
+            document.addEventListener('click', function (e) {
+                var t = e.target;
+                if (t && t.tagName === 'IMG' && t.closest('.footer-brand')) {
+                    logoClicks.push(Date.now());
+                    logoClicks = logoClicks.filter(function (x) { return Date.now() - x <= 2000; });
+                    if (logoClicks.length >= 5) { logoClicks = []; openGame(); }
+                }
+            });
+        })();
+
         // ===== 轮播图 =====
         const slides = document.querySelectorAll('.slide');
         const prevBtn = document.querySelector('.slider-prev');
