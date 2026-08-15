@@ -102,7 +102,8 @@
 
     /* ---- 彩蛋触发：Konami 秘技 / 连按 W / 页脚 logo 连点 ---- */
     (function initEasterEgg() {
-        var konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        // 用 e.code 匹配（不受输入法 / 大小写影响）：结尾严格 BA 顺序
+        var konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
         var konamiIdx = 0;
         var wPresses = [], logoClicks = [], opening = false;
 
@@ -121,22 +122,33 @@
         }
 
         document.addEventListener('keydown', function (e) {
+            if (e.repeat) return; // 忽略长按重复，防止序列错位
             var tag = e.target && e.target.tagName;
             if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') { konamiIdx = 0; return; }
-            var k = e.key;
-            if (k === 'Escape' || e.ctrlKey || e.metaKey || e.altKey) return;
+            var code = e.code;
+            var key = (e.key || '').toLowerCase();
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
             // 连按 W（2 秒内 5 次）
-            if ((k || '').toLowerCase() === 'w') {
+            if (code === 'KeyW') {
                 wPresses.push(Date.now());
                 wPresses = wPresses.filter(function (t) { return Date.now() - t <= 2000; });
                 if (wPresses.length >= 5) { wPresses = []; openGame(); return; }
             }
-            // Konami 序列
-            if (k === konami[konamiIdx]) {
+            // Konami 序列：e.code 与 e.key 双通道匹配（兼容输入法/键盘布局）
+            // 调试日志：按一遍序列后把控制台输出发回
+            var expect = konami[konamiIdx];
+            var hit;
+            if (expect === 'KeyB' || expect === 'KeyA') {
+                hit = code === expect || key === expect.toLowerCase().replace('key', '');
+            } else {
+                hit = code === expect || key === expect.toLowerCase();
+            }
+            if (typeof console !== 'undefined' && console.log) console.log('[WUTE-EGG]', code, '| expect:', expect, '| hit:', hit, '| idx:', konamiIdx);
+            if (hit) {
                 konamiIdx++;
                 if (konamiIdx === konami.length) { konamiIdx = 0; openGame(); }
             } else {
-                konamiIdx = (k === konami[0]) ? 1 : 0;
+                konamiIdx = (code === konami[0]) ? 1 : 0;
             }
         });
 

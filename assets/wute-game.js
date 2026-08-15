@@ -15,7 +15,7 @@
         '  font-family: Arial, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif; }',
         '#wuteGame.on { display: flex; }',
         '#wuteGame .g-head { width: 100%; max-width: 480px; display: flex; align-items: center;',
-        '  justify-content: space-between; padding: 10px 18px; box-sizing: border-box; }',
+        '  justify-content: space-between; padding: 10px 18px; box-sizing: border-box; position: relative; z-index: 3; }',
         '#wuteGame .g-title { color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.18em; }',
         '#wuteGame .g-title b { color: #00489b; }',
         '#wuteGame .g-head button { background: none; border: 1px solid rgba(255,255,255,0.2); color: #888;',
@@ -68,7 +68,6 @@
     var elapsed = 0;
     var player = { lane: 1, x: 0, y: 0, w: 32, h: 54 };
     var cars = [], pickups = [], particles = [];
-    var lastSpawnLanes = [];
     var muted = false, audioCtx = null;
     var keys = {};
 
@@ -92,7 +91,10 @@
             '  <div class="g-h1">DODGE <b>RACER</b></div>' +
             '  <div class="g-sub">方向键 / A·D / 滑动切换车道<br>躲避车流与锥桶 · 吃掉氮气胶囊加速 · 擦车得分</div>' +
             '  <div class="g-score">最高纪录 <b id="wuteGameBestStart">0</b></div>' +
-            '  <div class="g-actions"><button class="g-btn g-btn-primary" id="wuteGameStartBtn" type="button">开始游戏</button></div>' +
+            '  <div class="g-actions">' +
+            '    <button class="g-btn g-btn-primary" id="wuteGameStartBtn" type="button">开始游戏</button>' +
+            '    <button class="g-btn g-btn-ghost" id="wuteGameQuitStartBtn" type="button">返回首页</button>' +
+            '  </div>' +
             '</div>' +
             '<div class="g-panel" id="wuteGameOver">' +
             '  <div class="g-kicker">Game Over</div>' +
@@ -120,6 +122,7 @@
         overlay.querySelector('#wuteGameStartBtn').addEventListener('click', startGame);
         overlay.querySelector('#wuteGameRetryBtn').addEventListener('click', startGame);
         overlay.querySelector('#wuteGameQuitBtn').addEventListener('click', close);
+        overlay.querySelector('#wuteGameQuitStartBtn').addEventListener('click', close);
         overlay.querySelector('#wuteGameClose').addEventListener('click', close);
         muteBtn.addEventListener('click', toggleMute);
 
@@ -194,7 +197,6 @@
         spawnTimer = 0.4;
         nitroTimer = 0; nitroActive = false;
         cars = []; pickups = []; particles = [];
-        lastSpawnLanes = [];
         player.lane = 1; player.x = laneCenter(1); player.y = canvasH * 0.68;
         keys = {};
         state = 'running';
@@ -259,7 +261,11 @@
 
         // 氮气道具
         if (!nitroActive && Math.random() < dt * 0.18 && pickups.length === 0) {
-            var pl = randomLane();
+            // 随机选一个未与顶部车流同车道的车道（保证道具可见）
+            var pl = Math.floor(Math.random() * LANES);
+            for (var tryL = 0; tryL < 6 && laneBlockedNearTop(pl); tryL++) {
+                pl = Math.floor(Math.random() * LANES);
+            }
             pickups.push({ lane: pl, x: laneCenter(pl), y: -40, active: true });
         }
 
@@ -287,6 +293,18 @@
                 return;
             }
             if (c.y > canvasH + 60) { cars.splice(i, 1); }
+        }
+
+        // 追尾钳制：同车道后车（y 更小）不越过前车，保持 55px 间距（防止快车追尾重叠）
+        for (var ii = 0; ii < cars.length; ii++) {
+            var cc = cars[ii];
+            for (var jj = 0; jj < cars.length; jj++) {
+                if (ii === jj || cars[jj].lane !== cc.lane) continue;
+                var ff = cars[jj];
+                if (ff.y > cc.y && ff.y - cc.y < 55) {
+                    cc.y = ff.y - 55;
+                }
+            }
         }
 
         // 更新氮气道具
@@ -324,26 +342,43 @@
     }
 
     /* ---- 生成 ---- */
-    function randomLane() {
-        var l = Math.floor(Math.random() * LANES);
-        var guard = 0;
-        while (lastSpawnLanes.indexOf(l) >= 0 && guard++ < 10) l = Math.floor(Math.random() * LANES);
-        return l;
+    // 生成安全策略：只选"安全车道"（画面上部 230px 内未被占 + 同车道与前车保持间距），
+    // 三条车道都被占则跳过本批（保证始终有可躲通道，避免"无解"），防止车流重叠。
+    var SPAWN_SAFE_ZONE = 230;   // 顶部安全区：该区域内已占用的车道不参与本次生成
+    var SPAWN_MIN_GAP = 180;     // 同车道新生成车与最近前车的最小间距
+
+    function laneBlockedNearTop(lane) {
+        for (var i = 0; i < cars.length; i++) {
+            var c = cars[i];
+            if (c.lane !== lane) continue;
+            if (c.y < SPAWN_SAFE_ZONE) return true;                    // 安全区内已有车
+            if (c.y < SPAWN_SAFE_ZONE + SPAWN_MIN_GAP + 60) return true; // 距离顶部太近，保持间距
+        }
+        return false;
     }
 
     function spawn() {
-        var n = Math.random() < 0.32 ? 2 : 1;
+        // 可用车道 = 未在安全区内被占用的车道
+        var free = [];
+        for (var l = 0; l < LANES; l++) {
+            if (!laneBlockedNearTop(l)) free.push(l);
+        }
+        if (free.length === 0) return; // 全堵：跳过本批，保留逃生通道
+        var n = Math.min(free.length, Math.random() < 0.32 ? 2 : 1);
+        // 洗牌取前 n 个车道
+        for (var s = free.length - 1; s > 0; s--) {
+            var r = Math.floor(Math.random() * (s + 1));
+            var t = free[s]; free[s] = free[r]; free[r] = t;
+        }
         for (var i = 0; i < n; i++) {
-            var lane = randomLane();
-            lastSpawnLanes.push(lane);
-            if (lastSpawnLanes.length > 3) lastSpawnLanes.shift();
-            var isCone = Math.random() < 0.38;
+            var lane = free[i];
+            var isCone = Math.random() < 0.36;
             if (isCone) {
-                cars.push({ kind: 'cone', lane: lane, x: laneCenter(lane), y: -36, w: 22, h: 30, ratio: 1.15, scored: false });
+                cars.push({ kind: 'cone', lane: lane, x: laneCenter(lane), y: -36, w: 22, h: 30, ratio: 1.08, scored: false });
             } else {
                 cars.push({
                     kind: 'car', lane: lane, x: laneCenter(lane), y: -60,
-                    w: 30, h: 54, ratio: 0.85 + Math.random() * 0.5, scored: false
+                    w: 30, h: 54, ratio: 0.92 + Math.random() * 0.34, scored: false
                 });
             }
         }
@@ -583,15 +618,15 @@
     document.addEventListener('keydown', function (e) {
         if (!overlay || !overlay.classList.contains('on')) return;
         if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
-        var k = e.key;
-        if (k === 'ArrowLeft' || k === 'a' || k === 'A') { moveLane(-1); e.preventDefault(); }
-        else if (k === 'ArrowRight' || k === 'd' || k === 'D') { moveLane(1); e.preventDefault(); }
-        else if (k === ' ') {
+        var code = e.code;
+        if (code === 'ArrowLeft' || code === 'KeyA') { moveLane(-1); e.preventDefault(); }
+        else if (code === 'ArrowRight' || code === 'KeyD') { moveLane(1); e.preventDefault(); }
+        else if (code === 'Space') {
             e.preventDefault();
             if (state === 'running') { state = 'paused'; stopLoop(); }
             else if (state === 'paused') { state = 'running'; lastTime = 0; rafId = requestAnimationFrame(loop); }
         }
-        else if (k === 'Escape') { close(); }
+        else if (code === 'Escape') { close(); }
     });
 
     window.addEventListener('resize', function () {
