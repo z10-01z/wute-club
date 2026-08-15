@@ -53,6 +53,22 @@
         });
     }
 
+    /* ---- 导航下拉菜单（技术组别 / 历年赛车）：点击展开/收起，点击外部关闭 ---- */
+    document.addEventListener('click', function (e) {
+        var toggle = e.target.closest ? e.target.closest('.nav-drop-toggle') : null;
+        if (toggle) {
+            var li = toggle.parentElement;
+            var wasOpen = li.classList.contains('open');
+            document.querySelectorAll('.nav-drop.open').forEach(function (d) { d.classList.remove('open'); });
+            if (!wasOpen) li.classList.add('open');
+            e.preventDefault(); // 主链接只展开菜单，不跳转
+            return;
+        }
+        document.querySelectorAll('.nav-drop.open').forEach(function (d) {
+            if (!d.contains(e.target)) d.classList.remove('open');
+        });
+    });
+
     /* ---- 白底赞助商区：导航切换深色（赞助商页等） ---- */
     var sponsors = document.getElementById('sponsors');
     if (sponsors && nav && 'IntersectionObserver' in window) {

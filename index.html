@@ -1052,9 +1052,24 @@
             <li><a href="#home">首页</a></li>
             <li><a href="about.html">车队历史</a></li>
             <li><a href="gallery.html">队员风采</a></li>
-            <li><a href="#teams">技术组别</a></li>
+            <li class="nav-drop">
+                <a href="index.html#teams" class="nav-drop-toggle">技术组别</a>
+                <div class="drop-menu">
+                    <a href="groups/电气组.html">电气组</a>
+                    <a href="groups/单体壳组.html">单体壳组</a>
+                    <a href="groups/空套组.html">空套组</a>
+                    <a href="groups/悬架组.html">悬架组</a>
+                    <a href="groups/轮边组.html">轮边组</a>
+                    <a href="groups/运营组.html">运营组</a>
+                </div>
+            </li>
             <li><a href="honors.html">荣誉奖项</a></li>
-            <li><a href="car.html">E03赛车</a></li>
+            <li class="nav-drop">
+                <a href="car.html" class="nav-drop-toggle">历年赛车</a>
+                <div class="drop-menu">
+                    <a href="car.html">E03 赛车</a>
+                </div>
+            </li>
             <li><a href="join.html">加入我们</a></li>
             <li><a href="sponsors.html">赞助商合作</a></li>
         </ul>
@@ -1597,6 +1612,22 @@
             toggleToTop();
             window.addEventListener('scroll', toggleToTop, { passive: true });
         })();
+
+        // ===== 导航下拉菜单（技术组别 / 历年赛车）：点击展开/收起，点击外部关闭 =====
+        document.addEventListener('click', function (e) {
+            var toggle = e.target.closest ? e.target.closest('.nav-drop-toggle') : null;
+            if (toggle) {
+                var li = toggle.parentElement;
+                var wasOpen = li.classList.contains('open');
+                document.querySelectorAll('.nav-drop.open').forEach(function (d) { d.classList.remove('open'); });
+                if (!wasOpen) li.classList.add('open');
+                e.preventDefault();
+                return;
+            }
+            document.querySelectorAll('.nav-drop.open').forEach(function (d) {
+                if (!d.contains(e.target)) d.classList.remove('open');
+            });
+        });
 
         // ===== 彩蛋触发：Konami 秘技 / 连按 W / 页脚 logo 连点（与共享 wute.js 逻辑一致） =====
         (function () {

@@ -26,13 +26,17 @@
         '  box-shadow: 0 0 60px rgba(0,72,155,0.25); touch-action: none; }',
         '#wuteGame .g-panel { position: absolute; inset: 0; display: none; flex-direction: column;',
         '  align-items: center; justify-content: center; text-align: center; z-index: 2;',
-        '  background: rgba(0,0,0,0.88); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }',
+        '  background: rgba(0,0,0,0.9); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }',
         '#wuteGame .g-panel.on { display: flex; }',
         '#wuteGame .g-kicker { font-family: "JetBrains Mono", Consolas, monospace; font-size: 11px;',
         '  color: #00489b; letter-spacing: 0.35em; text-transform: uppercase; margin-bottom: 10px; }',
         '#wuteGame .g-h1 { color: #fff; font-size: 30px; font-weight: 800; letter-spacing: 0.12em; margin-bottom: 6px; }',
         '#wuteGame .g-h1 b { color: #00489b; }',
         '#wuteGame .g-sub { color: #888894; font-size: 12px; letter-spacing: 0.08em; line-height: 1.9; margin-bottom: 22px; }',
+        '#wuteGame .g-story { color: #9aa0ab; font-size: 12px; line-height: 2; letter-spacing: 0.05em;',
+        '  max-width: 330px; text-align: left; border-left: 2px solid #00489b; padding-left: 14px;',
+        '  margin: 0 auto 18px; }',
+        '#wuteGame .g-story b { color: #fff; }',
         '#wuteGame .g-score { color: #555560; font-size: 12px; letter-spacing: 0.15em; margin-bottom: 20px; }',
         '#wuteGame .g-score b { color: #fff; font-size: 22px; font-family: "JetBrains Mono", Consolas, monospace; }',
         '#wuteGame .g-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }',
@@ -42,6 +46,8 @@
         '#wuteGame .g-btn-primary:hover { background: #005db8; transform: translateY(-1px); }',
         '#wuteGame .g-btn-ghost { background: transparent; color: #888; border: 1px solid rgba(255,255,255,0.25); }',
         '#wuteGame .g-btn-ghost:hover { color: #fff; border-color: rgba(255,255,255,0.6); }',
+        '#wuteGame .g-note { color: #555560; font-size: 11px; letter-spacing: 0.1em; margin-top: 20px; line-height: 1.8; }',
+        '#wuteGame .g-note b { color: #888894; }',
         '#wuteGame .g-record { color: #d0121b; font-size: 13px; font-weight: 700; letter-spacing: 0.15em;',
         '  margin-bottom: 18px; animation: wuteGameBlink 1s steps(2) infinite; }',
         '@keyframes wuteGameBlink { 50% { opacity: 0.3; } }',
@@ -62,7 +68,7 @@
 
     var state = 'idle';            // idle | running | paused
     var rafId = 0, lastTime = 0;
-    var speed = 0, baseSpeed = 240;
+    var speed = 0, baseSpeed = 320;
     var distance = 0, score = 0, bonusScore = 0;
     var spawnTimer = 0, nitroTimer = 0, nitroActive = false;
     var elapsed = 0;
@@ -89,12 +95,14 @@
             '<div class="g-panel" id="wuteGameStart">' +
             '  <div class="g-kicker">Easter Egg · Dodge Racer</div>' +
             '  <div class="g-h1">DODGE <b>RACER</b></div>' +
-            '  <div class="g-sub">方向键 / A·D / 滑动切换车道<br>躲避车流与锥桶 · 吃掉氮气胶囊加速 · 擦车得分</div>' +
+            '  <div class="g-story">比赛动态期间，<b>车队空套受损</b>——<br>紧急将备件运往赛场，快来拯救车队的耐久赛！</div>' +
+            '  <div class="g-sub">← → / A·D / 滑动切换车道<br>超越前方车流 · 避开锥桶 · 氮气加速 · 擦车得分</div>' +
             '  <div class="g-score">最高纪录 <b id="wuteGameBestStart">0</b></div>' +
             '  <div class="g-actions">' +
-            '    <button class="g-btn g-btn-primary" id="wuteGameStartBtn" type="button">开始游戏</button>' +
+            '    <button class="g-btn g-btn-primary" id="wuteGameStartBtn" type="button">开始运输</button>' +
             '    <button class="g-btn g-btn-ghost" id="wuteGameQuitStartBtn" type="button">返回首页</button>' +
             '  </div>' +
+            '  <div class="g-note">本游戏为<b>虚构场景</b>，请遵守交通法规，文明驾驶</div>' +
             '</div>' +
             '<div class="g-panel" id="wuteGameOver">' +
             '  <div class="g-kicker">Game Over</div>' +
@@ -284,8 +292,8 @@
                     ding();
                 }
             }
-            // 碰撞（氮气无敌）
-            if (!nitroActive && c.y - c.h / 2 < player.y + player.h / 2 && c.y + c.h / 2 > player.y - player.h / 2 &&
+            // 碰撞（氮气仅加速，不提供无敌——撞车即结束）
+            if (c.y - c.h / 2 < player.y + player.h / 2 && c.y + c.h / 2 > player.y - player.h / 2 &&
                 Math.abs(c.x - player.x) < (c.w + player.w) / 2) {
                 explode(c.x, c.y);
                 boom();
@@ -315,7 +323,7 @@
                 Math.abs(p.x - player.x) < (22 + player.w) / 2) {
                 pickups.splice(j, 1);
                 nitroActive = true;
-                nitroTimer = 3;
+                nitroTimer = 5;
                 nitroSweep();
                 continue;
             }
@@ -374,11 +382,14 @@
             var lane = free[i];
             var isCone = Math.random() < 0.36;
             if (isCone) {
-                cars.push({ kind: 'cone', lane: lane, x: laneCenter(lane), y: -36, w: 22, h: 30, ratio: 1.08, scored: false });
+                // 锥桶：静止路障（屏幕速度 = 背景速度 ratio=1，玩家快速掠过）
+                cars.push({ kind: 'cone', lane: lane, x: laneCenter(lane), y: -36, w: 22, h: 30, ratio: 1, scored: false });
             } else {
+                // 同向慢车：真实速度 = 背景*(1-ratio)，ratio 0.55~0.85
+                // → 屏幕移动快（2~3 秒到玩家面前），相对超车速度 15%~45% 背景速度
                 cars.push({
                     kind: 'car', lane: lane, x: laneCenter(lane), y: -60,
-                    w: 30, h: 54, ratio: 0.92 + Math.random() * 0.34, scored: false
+                    w: 30, h: 54, ratio: 0.55 + Math.random() * 0.3, scored: false
                 });
             }
         }
@@ -442,10 +453,15 @@
                 ctx.fillStyle = '#fff';
                 ctx.fillRect(c.x - 7, c.y + c.h * 0.4, 14, 4);
             } else {
+                // 同向慢车：车头朝上（前挡风偏上），尾灯在下方朝向玩家
                 ctx.fillStyle = '#15151c';
                 roundRect(ctx, c.x - c.w / 2, c.y, c.w, c.h, 6);
                 ctx.fill();
-                // 尾灯（下方，迎面而来）
+                // 前挡风（车头方向）
+                ctx.fillStyle = '#0b0f1a';
+                roundRect(ctx, c.x - 9, c.y + 6, 18, 12, 3);
+                ctx.fill();
+                // 尾灯（下方，朝向玩家）
                 ctx.fillStyle = '#d0121b';
                 ctx.fillRect(c.x - c.w / 2 + 3, c.y + c.h - 8, 5, 5);
                 ctx.fillRect(c.x + c.w / 2 - 8, c.y + c.h - 8, 5, 5);

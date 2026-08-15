@@ -95,16 +95,16 @@ body {
     background: transparent;
     transition: background 0.5s ease, box-shadow 0.5s ease, backdrop-filter 0.5s ease;
 }
-/* 滚动后纯黑毛玻璃 */
+/* 滚动后毛玻璃（半透明：透出底层内容） */
 .site-nav.scrolled {
-    background: rgba(0, 0, 0, 0.88);
+    background: rgba(0, 0, 0, 0.72);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 /* 浅色背景区域（白色赞助商区）切换深色导航 */
 .site-nav.light-mode {
-    background: rgba(255, 255, 255, 0.92) !important;
+    background: rgba(255, 255, 255, 0.82) !important;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
@@ -158,6 +158,81 @@ body {
 .nav-links a:hover::after,
 .nav-links a.active::after { transform: scaleX(1); }
 .nav-links a.active { color: #fff; }
+
+/* ===== 导航下拉菜单（技术组别 / 历年赛车） ===== */
+.nav-drop { position: relative; }
+.nav-drop > .nav-drop-toggle { position: relative; padding-right: 14px; }
+/* 下拉指示箭头（下划线仍由 ::after 承担，箭头用 ::before） */
+.nav-drop > .nav-drop-toggle::before {
+    content: '▾';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    transition: transform 0.3s ease, color 0.3s ease;
+    pointer-events: none;
+}
+.nav-drop:hover > .nav-drop-toggle::before,
+.nav-drop.open > .nav-drop-toggle::before { transform: translateY(-50%) rotate(180deg); color: var(--brand-blue); }
+
+.drop-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(6px);
+    min-width: 168px;
+    /* 跟随导航栏：同透明度、同模糊（滚动后导航为 rgba(0,0,0,0.72)） */
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    z-index: 1200;
+}
+/* 白底赞助商区：导航变白，下拉菜单同步变白底深色文字 */
+.site-nav.light-mode .drop-menu {
+    background: rgba(255, 255, 255, 0.82);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+.site-nav.light-mode .drop-menu a { color: #555 !important; }
+.site-nav.light-mode .drop-menu a:hover {
+    color: #000 !important;
+    background: rgba(0, 0, 0, 0.05);
+}
+.site-nav.light-mode .nav-drop > .nav-drop-toggle::before { color: rgba(0, 0, 0, 0.35); }
+.site-nav.light-mode .nav-drop:hover > .nav-drop-toggle::before,
+.site-nav.light-mode .nav-drop.open > .nav-drop-toggle::before { color: var(--brand-blue); }
+.nav-drop:hover > .drop-menu,
+.nav-drop.open > .drop-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+.drop-menu a {
+    display: block;
+    padding: 9px 16px;
+    color: var(--text-secondary) !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.06em;
+    text-transform: none !important;
+    border-radius: 6px;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+.drop-menu a:hover {
+    color: #fff !important;
+    background: var(--brand-blue-dim);
+    padding-left: 20px;
+}
+.drop-menu a::after { display: none; }
 
 .nav-right { display: flex; align-items: center; gap: 1rem; }
 
@@ -958,15 +1033,42 @@ body {
         justify-content: center;
         align-items: center;
         gap: 2.4rem;
-        background: rgba(0, 0, 0, 0.97);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
         transform: translateX(100%);
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 999;
     }
     .nav-links.open { transform: translateX(0); }
     .nav-links a { font-size: 1.15rem; letter-spacing: 0.12em; }
+    /* 移动端：下拉菜单静态展开（全屏菜单内直接列出子项） */
+    .nav-drop { width: 100%; text-align: center; }
+    .nav-drop > .nav-drop-toggle::before { display: none; }
+    .nav-drop > .drop-menu {
+        position: static;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 10px 0 0;
+        min-width: 0;
+    }
+    .nav-drop > .drop-menu a {
+        font-size: 0.95rem !important;
+        color: var(--text-muted) !important;
+        padding: 7px 0;
+        text-align: center;
+        text-transform: uppercase !important;
+        letter-spacing: 0.1em;
+    }
+    .nav-drop > .drop-menu a:hover {
+        color: #fff !important;
+        background: none;
+        padding-left: 0;
+    }
 
     .page-hero { padding: 140px 5% 80px; }
     .page-hero::before { top: 40%; }
