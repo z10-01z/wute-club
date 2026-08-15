@@ -54,7 +54,21 @@
         '#wuteGame .g-hint { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center;',
         '  color: #555560; font-size: 11px; letter-spacing: 0.12em; }',
         '#wuteGame .g-hint kbd { border: 1px solid rgba(255,255,255,0.15); border-radius: 4px; padding: 1px 6px;',
-        '  background: rgba(255,255,255,0.04); }'
+        '  background: rgba(255,255,255,0.04); }',
+        '@media (max-width: 768px) {',
+        '  #wuteGame { padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); box-sizing: border-box; }',
+        '  #wuteGame .g-panel { overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 24px 6% 20px; box-sizing: border-box; }',
+        '  #wuteGame .g-h1 { font-size: 24px; }',
+        '  #wuteGame .g-story { font-size: 11px; line-height: 1.9; }',
+        '  #wuteGame .g-kicker { font-size: 10px; }',
+        '  #wuteGame .g-head { padding: 8px 12px; }',
+        '  #wuteGame .g-hint { display: none; }',
+        '  #wuteGame button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }',
+        '  #wuteGame .g-btn { padding: 12px 26px; font-size: 13px; }',
+        '  #wuteGame .g-sub { margin-bottom: 16px; }',
+        '  #wuteGame .g-score { margin-bottom: 16px; }',
+        '  #wuteGame canvas { touch-action: none; max-width: 94vw; }',
+        '}'
     ].join('\n');
 
     var HIGHSCORE_KEY = 'wute.game.highscore';
@@ -144,7 +158,7 @@
         canvas.addEventListener('touchmove', function (e) {
             if (touchHandled || state !== 'running') return;
             var dx = e.touches[0].clientX - touchStartX;
-            if (Math.abs(dx) > 36) {
+            if (Math.abs(dx) > 26) {
                 moveLane(dx > 0 ? 1 : -1);
                 touchStartX = e.touches[0].clientX;
                 touchHandled = true;
@@ -177,12 +191,13 @@
         drawIdle();
     }
 
-    /* ---- 画布尺寸 ---- */
+    /* ---- 画布尺寸（含移动端适配） ---- */
     function resize() {
         dpr = Math.min(window.devicePixelRatio || 1, 2);
+        // 高度：不超过视口可用高度（考虑手机地址栏），上限 680
         var vh = Math.min(window.innerHeight - 96, 680);
         var vw = Math.min(window.innerWidth - 24, 460);
-        canvasH = Math.max(320, vh);
+        canvasH = Math.max(320, Math.min(vh, window.innerHeight - 96));
         canvasW = Math.min(vw, Math.round(canvasH * 0.56));
         canvas.style.width = canvasW + 'px';
         canvas.style.height = canvasH + 'px';
@@ -191,6 +206,8 @@
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         laneWidth = canvasW / LANES;
         player.x = laneCenter(player.lane);
+        // 游戏运行中视口变化（手机地址栏收起/旋转）时同步玩家位置
+        if (state === 'running') player.y = canvasH * 0.68;
     }
 
     function laneCenter(lane) { return laneWidth * (lane + 0.5); }
@@ -264,7 +281,7 @@
         spawnTimer -= dt;
         if (spawnTimer <= 0) {
             spawn();
-            spawnTimer = Math.max(0.5, 1.05 - elapsed * 0.012) * (0.75 + Math.random() * 0.5);
+            spawnTimer = Math.max(0.62, 1.15 - elapsed * 0.012) * (0.78 + Math.random() * 0.44);
         }
 
         // 氮气道具
@@ -315,6 +332,22 @@
             }
         }
 
+        // 动态死局救援：危险区三条车道全被占（玩家无路可走）时，移除最远（y 最小）的一辆，
+        // 保证始终存在逃生通道
+        var dangerNow = dangerZoneLanes();
+        if (dangerNow.length === LANES) {
+            var farCar = null;
+            for (var di = 0; di < cars.length; di++) {
+                var dc = cars[di];
+                if (dc.y > player.y - DANGER_FRONT && dc.y < player.y + DANGER_BACK) {
+                    if (!farCar || dc.y < farCar.y) farCar = dc;
+                }
+            }
+            if (farCar) {
+                cars.splice(cars.indexOf(farCar), 1);
+            }
+        }
+
         // 更新氮气道具
         for (var j = pickups.length - 1; j >= 0; j--) {
             var p = pickups[j];
@@ -350,10 +383,15 @@
     }
 
     /* ---- 生成 ---- */
-    // 生成安全策略：只选"安全车道"（画面上部 230px 内未被占 + 同车道与前车保持间距），
-    // 三条车道都被占则跳过本批（保证始终有可躲通道，避免"无解"），防止车流重叠。
-    var SPAWN_SAFE_ZONE = 230;   // 顶部安全区：该区域内已占用的车道不参与本次生成
+    // 生成安全策略（三层防死局）：
+    // 1) 顶部安全区：只选画面上部 230px 内未被占 + 同车道保持间距的车道
+    // 2) 危险区检查：玩家面前 y∈[player.y-220, player.y+60] 已被占的车道不参与生成，
+    //    且若危险区已占 2 条、只剩 1 条逃生车道时跳过本批（不添堵）
+    // 3) 动态救援：主循环每帧检测危险区 3 车道全占时移除最远一辆（见 loop）
+    var SPAWN_SAFE_ZONE = 230;   // 顶部安全区
     var SPAWN_MIN_GAP = 180;     // 同车道新生成车与最近前车的最小间距
+    var DANGER_FRONT = 220;      // 危险区：玩家前方高度
+    var DANGER_BACK = 60;        // 危险区：玩家后方高度
 
     function laneBlockedNearTop(lane) {
         for (var i = 0; i < cars.length; i++) {
@@ -365,14 +403,31 @@
         return false;
     }
 
+    // 危险区占用的车道集合（即将到达玩家面前的车辆所在车道）
+    function dangerZoneLanes() {
+        var set = [];
+        for (var i = 0; i < cars.length; i++) {
+            var c = cars[i];
+            if (c.y > player.y - DANGER_FRONT && c.y < player.y + DANGER_BACK) {
+                if (set.indexOf(c.lane) < 0) set.push(c.lane);
+            }
+        }
+        return set;
+    }
+
     function spawn() {
-        // 可用车道 = 未在安全区内被占用的车道
+        var danger = dangerZoneLanes();
+        // 可用车道 = 不在危险区 && 顶部安全区未占用
         var free = [];
         for (var l = 0; l < LANES; l++) {
-            if (!laneBlockedNearTop(l)) free.push(l);
+            if (danger.indexOf(l) >= 0) continue;
+            if (laneBlockedNearTop(l)) continue;
+            free.push(l);
         }
-        if (free.length === 0) return; // 全堵：跳过本批，保留逃生通道
-        var n = Math.min(free.length, Math.random() < 0.32 ? 2 : 1);
+        if (free.length === 0) return; // 全堵：跳过本批
+        if (free.length === 1 && danger.length >= 2) return; // 只剩逃生通道：不添堵
+        var maxN = danger.length >= 2 ? 1 : 2;
+        var n = Math.min(free.length, maxN, Math.random() < 0.32 ? 2 : 1);
         // 洗牌取前 n 个车道
         for (var s = free.length - 1; s > 0; s--) {
             var r = Math.floor(Math.random() * (s + 1));
@@ -380,7 +435,7 @@
         }
         for (var i = 0; i < n; i++) {
             var lane = free[i];
-            var isCone = Math.random() < 0.36;
+            var isCone = Math.random() < 0.3;
             if (isCone) {
                 // 锥桶：静止路障（屏幕速度 = 背景速度 ratio=1，玩家快速掠过）
                 cars.push({ kind: 'cone', lane: lane, x: laneCenter(lane), y: -36, w: 22, h: 30, ratio: 1, scored: false });
