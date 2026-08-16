@@ -467,6 +467,48 @@ body {
     text-transform: uppercase;
     margin-bottom: 0.9rem;
 }
+/* 卡片顶部配图（赞助回报等卡片用） */
+.card-img-top {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 6px;
+    margin: -0.25rem 0 1.1rem;
+    border: 1px solid var(--border-default);
+    cursor: zoom-in;
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+.card-img-top:hover { filter: brightness(1.12); }
+
+/* 全站图片灯箱（卡片图点击放大，wute.js 动态创建） */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.97);
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+}
+.lightbox.on { display: flex; }
+.lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; }
+.lightbox .x {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    color: #fff;
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    background: none;
+    border: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+    z-index: 1;
+}
+.lightbox .x:hover { opacity: 1; }
 
 /* 按钮 */
 .btn {

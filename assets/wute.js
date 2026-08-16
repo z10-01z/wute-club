@@ -69,6 +69,34 @@
         });
     });
 
+    /* ---- 卡片图片点击放大（灯箱，动态创建，全站生效） ---- */
+    (function initLightbox() {
+        var lb = null;
+        function getLb() {
+            if (lb) return lb;
+            lb = document.createElement('div');
+            lb.className = 'lightbox';
+            lb.innerHTML = '<button class="x" aria-label="关闭">&times;</button><img alt="" src="">';
+            lb.addEventListener('click', function (e) {
+                if (e.target !== lb.querySelector('img')) lb.classList.remove('on');
+            });
+            lb.querySelector('.x').addEventListener('click', function () { lb.classList.remove('on'); });
+            document.body.appendChild(lb);
+            return lb;
+        }
+        document.addEventListener('click', function (e) {
+            var t = e.target;
+            if (t && t.classList && t.classList.contains('card-img-top')) {
+                var box = getLb();
+                box.querySelector('img').src = t.src;
+                box.classList.add('on');
+            }
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.code === 'Escape' && lb && lb.classList.contains('on')) lb.classList.remove('on');
+        });
+    })();
+
     /* ---- 白底赞助商区：导航切换深色（赞助商页等） ---- */
     var sponsors = document.getElementById('sponsors');
     if (sponsors && nav && 'IntersectionObserver' in window) {
