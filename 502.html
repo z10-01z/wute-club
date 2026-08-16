@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>502 — 进站检修中 | WUTE 电车队</title>
+    <meta name="description" content="502 — 网站正在维护中。返回 WUTE 电车队官网首页。">
+    <meta name="theme-color" content="#000000">
+    <link rel="canonical" href="https://www.wute.club/502.html">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%2300489b'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='16' font-weight='bold' font-family='Arial'>W</text></svg>">
+    <link rel="icon" type="image/png" sizes="32x32" href="picture/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="picture/apple-touch-icon.png">
+    <link rel="stylesheet" href="assets/wute.css">
+    <style>
+        .err-page {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 5%;
+            background:
+                radial-gradient(ellipse 60% 45% at 50% 0%, rgba(0, 72, 155, 0.2) 0%, transparent 70%),
+                var(--bg-deep);
+        }
+        .err-code {
+            font-family: 'JetBrains Mono', 'Consolas', monospace;
+            font-size: clamp(6rem, 20vw, 12rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            color: #fff;
+            text-shadow:
+                0 0 40px rgba(0, 72, 155, 0.55),
+                0 0 120px rgba(0, 72, 155, 0.3);
+        }
+        .err-kicker {
+            margin-top: 1.5rem;
+            font-family: 'JetBrains Mono', 'Consolas', monospace;
+            font-size: 0.72rem;
+            color: var(--brand-blue);
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+        }
+        .err-page h1 {
+            margin-top: 1rem;
+            font-size: clamp(1.5rem, 4vw, 2.4rem);
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            color: #fff;
+        }
+        .err-sub {
+            margin-top: 0.75rem;
+            max-width: 420px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+        }
+        .err-actions {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        @media (max-width: 768px) {
+            .err-code { font-size: clamp(5rem, 30vw, 8rem); }
+        }
+    </style>
+</head>
+<body>
+<div class="err-page">
+    <div class="err-code">502</div>
+    <div class="err-kicker">Pit Stop</div>
+    <h1>进站检修中</h1>
+    <p class="err-sub">网站正在维护，请稍后重试。如持续无法访问，可通过微信公众号「WUTE电车队」或邮箱 wuteteam@126.com 联系我们。</p>
+    <div class="err-actions">
+        <a href="index.html" class="btn btn-primary">返回首页</a>
+        <a href="index.html#structure" class="btn btn-ghost">联系我们</a>
+    </div>
+</div>
+</body>
+</html>
