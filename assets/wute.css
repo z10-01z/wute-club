@@ -7,11 +7,17 @@
 
 /* ===== 1. 设计令牌（全站唯一事实来源） ===== */
 :root {
-    /* 背景层级（纯黑体系） */
-    --bg-deep:        #000000;
-    --bg-surface:     #050508;
-    --bg-elevated:    #0a0a10;
-    --bg-glass:       rgba(0, 0, 0, 0.75);
+    /* 背景层级：冷调近黑（不再是纯黑，纯黑会让所有表面塌成一片） */
+    --bg-deep:        #05070c;
+    --bg-surface:     #090d14;
+    --bg-elevated:    #0f141d;
+    --bg-glass:       rgba(5, 7, 12, 0.72);
+
+    /* 工程网格基底（图纸/测量语言，全站签名元素） */
+    --grid-fine:   linear-gradient(rgba(255, 255, 255, 0.020) 1px, transparent 1px),
+                   linear-gradient(90deg, rgba(255, 255, 255, 0.020) 1px, transparent 1px);
+    --grid-major:  linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
+                   linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
 
     /* 品牌色 */
     --brand-blue:       #00489b;
@@ -21,11 +27,14 @@
     --brand-red:        #d0121b;
     --brand-red-hover:  #e81e27;
     --brand-red-dim:    rgba(208, 18, 27, 0.15);
+    /* 红只承担一个职责：测量基线上的「基准刻度」 */
+    --brand-red-line:   #e01f28;
 
     /* 文字层级 */
-    --text-primary:    #f0f0f2;
-    --text-secondary:  #888894;
-    --text-muted:      #82828f;
+    --text-primary:    #eef1f6;
+    --text-secondary:  #9aa2b1;
+    --text-muted:      #868e9e;
+    --text-faint:      #727a8a;
     --text-inverse:    #000000;
 
     /* 功能色 */
@@ -35,25 +44,53 @@
     --color-error:     #ff1744;
 
     /* 边框 */
-    --border-subtle:   rgba(255, 255, 255, 0.04);
-    --border-default:  rgba(255, 255, 255, 0.08);
+    --border-subtle:   rgba(255, 255, 255, 0.055);
+    --border-default:  rgba(255, 255, 255, 0.10);
+    --border-strong:   rgba(255, 255, 255, 0.17);
     --border-accent:   var(--brand-blue);
+    /* 表面顶光：暗色 UI 的「材质感」几乎全靠这一层 */
+    --edge-light:      rgba(255, 255, 255, 0.14);
 
     /* 毛玻璃 */
     --glass-blur:      24px;
-    --glass-border:    rgba(255, 255, 255, 0.05);
+    --glass-border:    rgba(255, 255, 255, 0.06);
 
-    /* 阴影 */
-    --shadow-sm:  0 2px 16px rgba(0, 0, 0, 0.6);
-    --shadow-md:  0 8px 40px rgba(0, 0, 0, 0.7);
-    --shadow-lg:  0 24px 80px rgba(0, 0, 0, 0.8);
+    /* 阴影：分层而不是一团黑 */
+    --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.35);
+    --shadow-md:  0 2px 8px rgba(0, 0, 0, 0.55), 0 16px 48px rgba(0, 0, 0, 0.45);
+    --shadow-lg:  0 4px 16px rgba(0, 0, 0, 0.6), 0 32px 96px rgba(0, 0, 0, 0.55);
+    --shadow-glow: 0 0 0 1px rgba(74, 144, 226, 0.22), 0 12px 40px rgba(0, 72, 155, 0.30);
 
-    /* 布局 */
+    /* 字体 */
+    --font-display: 'Noto Sans SC Display', 'PingFang SC', 'HarmonyOS Sans SC', 'Source Han Sans SC', 'Microsoft YaHei', sans-serif;
+    --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'HarmonyOS Sans SC', 'Source Han Sans SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    --font-mono:    ui-monospace, 'SF Mono', 'Cascadia Mono', 'Segoe UI Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+    /* 布局：统一间距刻度（原来 4rem/6rem/5% 混用） */
     --nav-height:  72px;
     --section-gap: 8rem;
-    --radius-sm:   4px;
-    --radius-md:   8px;
-    --radius-lg:   12px;
+    --gutter:      clamp(1.25rem, 5vw, 3rem);
+    --maxw:        1200px;
+    --section-pad: clamp(3.5rem, 6vw, 5.5rem);
+
+    /* 动效曲线：快出慢入，比 all .35s ease 精确得多 */
+    --ease:      cubic-bezier(0.22, 0.61, 0.36, 1);
+    --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+
+    --radius-sm:   3px;
+    --radius-md:   6px;
+    --radius-lg:   10px;
+    --radius-xl:   16px;
+}
+
+/* ===== 1b. 展示字体（Noto Sans SC 子集，OFL 许可，仅覆盖站内展示层用字）===== */
+@font-face {
+    font-family: 'Noto Sans SC Display';
+    src: url('../fonts/NotoSansSC-Display.woff2') format('woff2-variations'),
+         url('../fonts/NotoSansSC-Display.woff2') format('woff2');
+    font-weight: 500 900;
+    font-style: normal;
+    font-display: swap;
 }
 
 /* ===== 2. 全局重置 ===== */
@@ -64,25 +101,38 @@ picture { display: contents; }
 img { max-width: 100%; height: auto; }
 html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
-    font-family: 'Arial', 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    background: var(--bg-deep);
+    font-family: var(--font-body);
+    background-color: var(--bg-deep);
+    background-image: var(--grid-fine);
+    background-size: 24px 24px;
     color: var(--text-primary);
-    line-height: 1.7;
-    letter-spacing: 0.02em;
+    font-size: 1rem;
+    line-height: 1.8;
+    letter-spacing: 0.01em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* 中文标题：字距收紧、行高压缩——原站 0.05em 在中文大字上会散 */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
 }
 
 ::selection { background: var(--brand-blue); color: #fff; }
 
 /* 自定义滚动条（Chrome/Edge） */
 ::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: #000; }
-::-webkit-scrollbar-thumb { background: #1c1c24; border-radius: 5px; border: 2px solid #000; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: #1e2531; border-radius: 5px; border: 2px solid var(--bg-deep); }
 ::-webkit-scrollbar-thumb:hover { background: var(--brand-blue); }
 
-/* 等宽数字字体（数据、年份、编号） */
-.mono { font-family: 'JetBrains Mono', 'Consolas', 'Courier New', monospace; }
+/* 等宽 / 数据字体（原来声明了 JetBrains Mono 却从未加载，实际一直回落 Consolas） */
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
 /* ===== 3. 统一导航栏 ===== */
 .site-nav {
@@ -273,12 +323,15 @@ body {
 /* ===== 4. 二级页面 Hero（统一模板） ===== */
 .page-hero {
     position: relative;
-    padding: 190px 5% 110px;
+    padding: 190px var(--gutter) 110px;
     text-align: center;
     overflow: hidden;
-    background:
-        radial-gradient(ellipse 70% 55% at 50% -5%, rgba(0, 72, 155, 0.22) 0%, transparent 70%),
-        var(--bg-deep);
+    background-color: var(--bg-deep);
+    background-image:
+        radial-gradient(ellipse 68% 58% at 50% -8%, rgba(0, 72, 155, 0.30) 0%, transparent 68%),
+        var(--grid-fine);
+    background-size: 100% 100%, 24px 24px;
+    border-bottom: 1px solid var(--border-subtle);
 }
 /* 超大描边水印字（data-mark 属性控制文案） */
 .page-hero::before {
@@ -287,12 +340,15 @@ body {
     top: 44%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: clamp(6rem, 22vw, 20rem);
-    font-weight: 800;
-    letter-spacing: 0.02em;
+    font-size: clamp(5rem, 17vw, 15rem);
+    font-weight: 900;
+    letter-spacing: 0.01em;
     line-height: 1;
     color: transparent;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.055);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.075);
+    /* 让水印在两侧溶解，而不是被硬生生切掉 */
+    -webkit-mask-image: radial-gradient(ellipse 60% 100% at 50% 50%, #000 28%, transparent 76%);
+    mask-image: radial-gradient(ellipse 60% 100% at 50% 50%, #000 28%, transparent 76%);
     white-space: nowrap;
     user-select: none;
     pointer-events: none;
@@ -304,26 +360,27 @@ body {
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, rgba(0, 72, 155, 0.55) 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(74, 144, 226, 0.5) 50%, transparent 100%);
 }
 .page-hero .kicker {
     position: relative;
     z-index: 1;
     display: block;
-    font-family: 'JetBrains Mono', 'Consolas', monospace;
-    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 500;
     color: var(--brand-blue-text);
-    letter-spacing: 0.22em;
+    letter-spacing: 0.26em;
     text-transform: uppercase;
-    margin-bottom: 1.4rem;
+    margin-bottom: 1.5rem;
 }
 .page-hero h1 {
     position: relative;
     z-index: 1;
-    font-size: clamp(2.8rem, 6vw, 4.8rem);
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    line-height: 1.08;
+    font-size: clamp(2.6rem, 5.6vw, 4.4rem);
+    font-weight: 900;
+    letter-spacing: -0.015em;
+    line-height: 1.1;
     margin-bottom: 1.3rem;
     color: #fff;
 }
@@ -366,47 +423,49 @@ body {
 .page-hero .logo-box img { max-width: 260px; max-height: 100px; object-fit: contain; }
 
 /* ===== 5. 通用板块标题 ===== */
-.section { padding: 6rem 5%; background: #000; }
+.section { padding: var(--section-pad) var(--gutter); background: transparent; }
 .section-label {
     display: block;
     text-align: center;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--text-muted);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.9rem;
 }
 .section-title {
-    font-size: clamp(1.9rem, 4vw, 3rem);
-    font-weight: 800;
+    font-size: clamp(1.8rem, 3.6vw, 2.7rem);
+    font-weight: 900;
     text-align: center;
     color: var(--text-primary);
-    margin-bottom: 3.5rem;
-    padding-bottom: 1rem;
+    margin-bottom: 3.25rem;
+    padding-bottom: 1.1rem;
     position: relative;
-    letter-spacing: 0.05em;
+    letter-spacing: -0.01em;
 }
 .section-title::after {
     content: '';
     position: absolute;
     bottom: 0; left: 50%;
     transform: translateX(-50%);
-    width: 40px; height: 2px;
+    width: 48px; height: 2px;
     background: var(--brand-blue);
 }
 .section-subtitle {
     text-align: center;
-    font-size: 0.8rem;
+    font-size: 0.84rem;
     color: var(--text-muted);
-    margin-top: -2.5rem;
+    margin-top: -2.4rem;
     margin-bottom: 3.5rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
 /* ===== 6. 内容排版（二级页正文） ===== */
-.content { max-width: 760px; margin: 0 auto; padding: 4.5rem 5% 6rem; }
+.content { max-width: 760px; margin: 0 auto; padding: 4.5rem var(--gutter) 6rem; }
 .content h2 {
     font-size: 1.25rem;
     margin: 3rem 0 1.25rem;
@@ -416,7 +475,7 @@ body {
 }
 .content h2::before { content: '// '; color: var(--brand-blue-text); font-weight: 400; }
 .content h2:first-child { margin-top: 0; }
-.content p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1rem; line-height: 1.9; }
+.content p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.1rem; line-height: 1.95; }
 .content p strong { color: #fff; font-weight: 600; }
 .content ul { padding-left: 1.5rem; margin-bottom: 1.5rem; }
 .content li { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem; line-height: 1.75; }
@@ -448,27 +507,39 @@ body {
     margin: 2rem auto 0;
 }
 .card {
-    background: var(--bg-surface);
+    position: relative;
+    background: linear-gradient(180deg, var(--bg-elevated) 0%, var(--bg-surface) 100%);
     border: 1px solid var(--border-default);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     padding: 2rem 1.75rem;
-    transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+/* 顶光：暗色卡片的「材质感」几乎全靠这一条 */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 12%; right: 12%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--edge-light), transparent);
+    pointer-events: none;
 }
 .card:hover {
-    border-color: rgba(0, 72, 155, 0.55);
+    border-color: rgba(74, 144, 226, 0.42);
     transform: translateY(-3px);
     box-shadow: var(--shadow-md);
 }
-.card h3 { font-size: 1.05rem; color: #fff; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
-.card p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.8; }
+.card h3 { font-size: 1.05rem; color: #fff; letter-spacing: 0; margin-bottom: 0.75rem; }
+.card p { color: var(--text-secondary); font-size: 0.86rem; line-height: 1.85; }
 .card .card-num {
     display: block;
-    font-family: 'JetBrains Mono', 'Consolas', monospace;
-    font-size: 0.68rem;
-    color: var(--brand-blue-text);
-    letter-spacing: 0.18em;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    color: var(--text-faint);
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    margin-bottom: 0.9rem;
+    margin-bottom: 0.85rem;
 }
 /* 卡片顶部配图（赞助回报等卡片用） */
 .card-img-top {
@@ -518,25 +589,29 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem 2.2rem;
+    position: relative;
+    padding: 0.8rem 2.1rem;
     border-radius: var(--radius-sm);
-    font-size: 0.8rem;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     text-decoration: none;
     border: none;
     cursor: pointer;
-    transition: all 0.35s ease;
+    overflow: hidden;
+    transition: background 0.25s var(--ease), border-color 0.25s var(--ease),
+                color 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
-.btn-primary { background: var(--brand-blue); color: #fff; }
-.btn-primary:hover { background: var(--brand-blue-hover); transform: translateY(-1px); }
+.btn-primary { background: var(--brand-blue); color: #fff; box-shadow: 0 6px 24px rgba(0, 72, 155, 0.35); }
+.btn-primary:hover { background: var(--brand-blue-hover); transform: translateY(-2px); box-shadow: var(--shadow-glow); }
 .btn-ghost {
     background: transparent;
     color: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid var(--border-strong);
 }
-.btn-ghost:hover { border-color: rgba(255, 255, 255, 0.65); color: #fff; }
+.btn-ghost:hover { border-color: rgba(255, 255, 255, 0.6); color: #fff; transform: translateY(-2px); }
 .btn-red { background: var(--brand-red); color: #fff; }
 .btn-red:hover { background: var(--brand-red-hover); transform: translateY(-1px); }
 .btn-row { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2.5rem; }
@@ -561,36 +636,40 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 2rem 4.5rem;
-    padding: 3.5rem 5%;
+    gap: 2.5rem 4.5rem;
+    padding: 3.5rem var(--gutter);
     border-top: 1px solid var(--border-subtle);
     border-bottom: 1px solid var(--border-subtle);
-    background: #000;
+    background: transparent;
 }
 .stat-item { text-align: center; position: relative; }
 .stat-item .stat-value {
-    font-family: 'JetBrains Mono', 'Consolas', monospace;
-    font-size: clamp(2.2rem, 5vw, 3.6rem);
-    font-weight: 300;
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5.2vw, 3.9rem);
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
     color: #fff;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.035em;
     line-height: 1;
 }
 .stat-item .stat-unit {
-    font-size: 0.7rem;
-    color: var(--text-muted);
     display: block;
-    margin-top: 0.7rem;
-    letter-spacing: 0.14em;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    margin-top: 0.85rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     font-weight: 500;
 }
 .stat-item::after {
     content: '';
     position: absolute;
-    right: -2.25rem; top: 15%;
-    height: 40%; width: 1px;
-    background: rgba(255, 255, 255, 0.08);
+    right: -2.25rem; top: 50%;
+    transform: translateY(-50%);
+    height: 36px; width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--border-strong) 32%, var(--border-strong) 68%, transparent);
 }
 .stat-item:last-child::after { display: none; }
 @media (max-width: 768px) {
@@ -616,7 +695,7 @@ body {
         rgba(255, 255, 255, 0.12) 97%,
         transparent 100%);
 }
-.timeline-node { position: relative; margin-bottom: 3.5rem; padding-left: 2.5rem; }
+.timeline-node { position: relative; margin-bottom: 2.75rem; padding-left: 2.5rem; }
 .timeline-node::before {
     content: '';
     position: absolute;
@@ -1198,6 +1277,94 @@ body {
     font-size: 0.85rem;
     line-height: 1.85;
     letter-spacing: 0.03em;
+}
+
+
+/* ===== 16. 设计升级新增原语（2026-09 第十四轮）===== */
+
+/* 遥测刻度线：工程师测量语言，用作板块分界
+   左上角那一段红色是「基准刻度」——全站唯一使用红色的地方 */
+.rule {
+    position: relative;
+    height: 11px;
+    margin: 0;
+    border-bottom: 1px solid var(--border-default);
+    overflow: hidden;
+}
+.rule::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 6px;
+    background-image: repeating-linear-gradient(90deg,
+        var(--border-strong) 0 1px, transparent 1px 40px);
+}
+.rule::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 40px; height: 2px;
+    background: var(--brand-red-line);
+}
+.rule--wide::before { background-image: repeating-linear-gradient(90deg, var(--border-strong) 0 1px, transparent 1px 72px); }
+
+/* 组别页影像区：现在先摆占位骨架，车队把照片丢进去即可 */
+.group-media {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin: 2.25rem 0 0;
+    max-width: 920px;
+}
+.group-media > * {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border-default);
+}
+.group-media > :first-child { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
+.group-media > :not(:first-child) { aspect-ratio: 4 / 3; }
+.group-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* 占位块：把 <div class="media-slot"> 整块换成 <img src="..." alt="..."> 即可 */
+.media-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    text-align: center;
+    background-color: var(--bg-surface);
+    background-image: var(--grid-fine);
+    background-size: 20px 20px;
+    border-style: dashed !important;
+    border-color: var(--border-strong) !important;
+}
+.media-slot__label { font-size: 0.86rem; color: var(--text-secondary); letter-spacing: 0.02em; }
+.media-slot__spec {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+}
+
+/* 工具链标签（组别页「我们用的工具」） */
+.tool-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.5rem 0 1.5rem; }
+.tool-tags span {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-default);
+    background: var(--bg-surface);
+    border-radius: var(--radius-sm);
+    padding: 0.35rem 0.7rem;
+}
+
+@media (max-width: 768px) {
+    .group-media { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .group-media > :first-child { aspect-ratio: 16 / 9; }
 }
 
 /* ===== 15. 可访问性补充 ===== */
