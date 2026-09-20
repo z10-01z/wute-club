@@ -252,7 +252,7 @@
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.68);
             font-size: 0.65rem;
             letter-spacing: 0.15em;
             cursor: pointer;
@@ -406,7 +406,7 @@
             letter-spacing: 0.06em;
         }
         .grad-cover-arrow {
-            color: var(--brand-blue);
+            color: var(--brand-blue-text);
             font-size: 1.6rem;
             transition: transform 0.3s ease;
         }
@@ -561,7 +561,7 @@
             color: #333;
             letter-spacing: 0.06em;
         }
-        .sponsors .section-label { color: #888; }
+        .sponsors .section-label { color: #6b6b76; }
         .sponsors .sponsor-item { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.06); }
         .sponsors .sponsor-item:hover { background: #fff; border-color: rgba(0,0,0,0.15); }
         .sponsors .sponsor-title-card { background: #fff; border-color: rgba(0,0,0,0.08); }
@@ -614,7 +614,7 @@
             font-family: 'JetBrains Mono', 'Consolas', monospace;
             font-size: 2rem;
             font-weight: 200;
-            color: rgba(255,255,255,0.12);
+            color: rgba(255,255,255,0.42);
             letter-spacing: 0.06em;
             margin-bottom: 0.5rem;
             line-height: 1;
@@ -743,7 +743,7 @@
         .sponsor-cat {
             grid-column: 1 / -1;
             text-align: center;
-            color: #888;
+            color: #6b6b76;
             font-size: 0.7rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
@@ -886,14 +886,14 @@
             font-family: 'JetBrains Mono', 'Consolas', monospace;
             font-size: 0.62rem;
             font-weight: 400;
-            color: rgba(255,255,255,0.18);
+            color: rgba(255,255,255,0.5);
             letter-spacing: 0.06em;
             transition: color 0.45s ease;
             min-width: 1.1rem;
         }
         .section-nav a .title {
             font-size: 0.68rem;
-            color: rgba(255,255,255,0.18);
+            color: rgba(255,255,255,0.5);
             letter-spacing: 0.08em;
             transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             white-space: nowrap;
@@ -908,7 +908,7 @@
             height: 7px;
         }
         .section-nav a.active .num {
-            color: var(--brand-blue);
+            color: var(--brand-blue-text);
             text-shadow: 0 0 12px rgba(0,72,155,0.6);
         }
         .section-nav a.active .title {
@@ -1035,6 +1035,7 @@
     </style>
 </head>
 <body>
+<h1 class="sr-only">武汉理工大学 WUTE 电动方程式赛车队</h1>
     <!-- 左侧悬浮板块导航 -->
     <div class="section-nav">
         <a href="#intro-fsc"><span class="dot"></span><span class="num">01</span><span class="title">赛事简介</span></a>
@@ -1091,9 +1092,9 @@
     <section class="hero-slider" id="home">
         <!-- 轮播图1 -->
         <div class="slide active">
-            <img width="2880" height="1920" src="picture/ABC_3469-opq4142934343-hd.jpg" alt="方程式赛车1" fetchpriority="high">
+            <picture><source srcset="picture/ABC_3469-opq4142934343-hd.webp" type="image/webp"><img width="2880" height="1920" src="picture/ABC_3469-opq4142934343-hd.jpg" alt="方程式赛车1" fetchpriority="high"></picture>
             <div class="slide-text">
-                <h1 class="custom-h1">2026赛季全新启航</h1>
+                <h2 class="custom-h1">2026赛季全新启航</h2>
                 <p>速度与激情的极致碰撞，见证传奇诞生</p>
                 <div class="hero-cta-group">
                     <a href="#intro-e03" class="cta-primary">了解E03赛车</a>
@@ -1102,9 +1103,9 @@
         </div>
         <!-- 轮播图2 -->
         <div class="slide">
-            <img width="2880" height="1920" src="picture/淋雨测试-hd.jpg" alt="方程式赛车2" loading="lazy">
+            <picture><source srcset="picture/淋雨测试-hd.webp" type="image/webp"><img width="2880" height="1920" src="picture/淋雨测试-hd.jpg" alt="方程式赛车2" loading="lazy"></picture>
             <div class="slide-text">
-                <h1 class="custom-h1">全速推进</h1>
+                <h2 class="custom-h1">全速推进</h2>
                 <p>用团结与拼搏铸就不朽荣耀</p>
                 <div class="hero-cta-group">
                     <a href="#intro-wute" class="cta-primary">了解车队</a>
@@ -1113,9 +1114,9 @@
         </div>
         <!-- 轮播图3 -->
         <div class="slide">
-            <img width="2880" height="1920" src="picture/动火区夕阳-hd.jpg" alt="方程式赛车3" loading="lazy">
+            <picture><source srcset="picture/动火区夕阳-hd.webp" type="image/webp"><img width="2880" height="1920" src="picture/动火区夕阳-hd.jpg" alt="方程式赛车3" loading="lazy"></picture>
             <div class="slide-text">
-                <h1 class="custom-h1">赞助商</h1>
+                <h2 class="custom-h1">赞助商</h2>
                 <p>感谢每一位合作伙伴的鼎力支持</p>
                 <div class="hero-cta-group">
                     <a href="#sponsors" class="cta-primary">了解合作伙伴</a>
@@ -1167,7 +1168,7 @@
                 <!-- 简介图片区域 -->
                 <div class="w-full md:w-1/2">
                     <a href="http://www.formulastudent.com.cn/" target="_blank" rel="noopener">
-                        <img width="1268" height="846" loading="lazy" src="picture/赛事介绍.png" alt="赛事简介图片" class="rounded-lg shadow-lg w-full object-cover hover:opacity-80 transition-opacity" style="cursor:pointer;">
+                        <picture><source srcset="picture/赛事介绍.webp" type="image/webp"><img width="1268" height="846" loading="lazy" src="picture/赛事介绍.png" alt="赛事简介图片" class="rounded-lg shadow-lg w-full object-cover hover:opacity-80 transition-opacity" style="cursor:pointer;"></picture>
                     </a>
                     <p style="text-align:center; color:var(--text-muted); font-size:0.7rem; letter-spacing:0.06em; margin-top:0.5rem;">点击浏览赛事官网 →</p>
                 </div>
@@ -1204,7 +1205,7 @@
                 <!-- 简介图片区域 -->
                 <div class="w-full md:w-1/2">
                     <a href="about.html">
-                        <img width="1920" height="1280" loading="lazy" src="picture/25大合影.jpg" alt="车队简介图片" class="rounded-lg shadow-lg w-full object-cover hover:opacity-80 transition-opacity" style="cursor:pointer;">
+                        <picture><source srcset="picture/25大合影.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/25大合影.jpg" alt="车队简介图片" class="rounded-lg shadow-lg w-full object-cover hover:opacity-80 transition-opacity" style="cursor:pointer;"></picture>
                     </a>
                     <p style="text-align:center; color:var(--text-muted); font-size:0.7rem; letter-spacing:0.06em; margin-top:0.5rem;">点击了解车队历史 →</p>
                 </div>
@@ -1236,34 +1237,34 @@
         <p class="section-subtitle">六大组别协同研发，打造高性能电动方程式赛车</p>
         <div class="feature-grid">
             <a href="groups/电气组.html" class="feature-card">
-                <img width="1920" height="1280" src="picture/车检贴纸.jpg" alt="电气组" loading="lazy">
+                <picture><source srcset="picture/车检贴纸.webp" type="image/webp"><img width="1920" height="1280" src="picture/车检贴纸.jpg" alt="电气组" loading="lazy"></picture>
                 <h3>电气组</h3>
                 <p>
                     负责整车高压电气系统、电池管理系统（BMS）、电机控制器及线束设计，确保赛车动力输出的安全与高效。
                 </p>
             </a>
             <a href="groups/单体壳组.html" class="feature-card">
-                <img width="1920" height="1280" src="picture/淋雨测试.jpg" alt="单体壳组" loading="lazy">
+                <picture><source srcset="picture/淋雨测试.webp" type="image/webp"><img width="1920" height="1280" src="picture/淋雨测试.jpg" alt="单体壳组" loading="lazy"></picture>
                 <h3>单体壳组</h3>
                 <p>主导碳纤维单体壳车身的设计、仿真与制造，在保证车手安全的前提下追求极致轻量化和结构刚性。</p>
             </a>
             <a href="groups/空套组.html" class="feature-card">
-                <img width="1920" height="1280" src="picture/透明赛车.jpg" alt="空套组" loading="lazy">
+                <picture><source srcset="picture/透明赛车.webp" type="image/webp"><img width="1920" height="1280" src="picture/透明赛车.jpg" alt="空套组" loading="lazy"></picture>
                 <h3>空套组</h3>
                 <p>专注于空气动力学套件的 CFD 仿真与制造，通过前翼、尾翼及扩散器设计提升赛车的下压力与操控稳定性。</p>
             </a>
             <a href="groups/悬架组.html" class="feature-card">
-                <img width="1920" height="1280" src="picture/返回p房.jpg" alt="悬架组" loading="lazy">
+                <picture><source srcset="picture/返回p房.webp" type="image/webp"><img width="1920" height="1280" src="picture/返回p房.jpg" alt="悬架组" loading="lazy"></picture>
                 <h3>悬架组</h3>
                 <p>负责悬架系统、转向系统及轮边总成的设计与调校，确保赛车在极限工况下拥有精准的操控反馈与抓地力。</p>
             </a>
             <a href="groups/轮边组.html" class="feature-card">
-                <img width="1920" height="1280" src="picture/车检贴纸.jpg" alt="轮边组" loading="lazy">
+                <picture><source srcset="picture/车检贴纸.webp" type="image/webp"><img width="1920" height="1280" src="picture/车检贴纸.jpg" alt="轮边组" loading="lazy"></picture>
                 <h3>轮边组</h3>
                 <p>主导轮边减速器、轮毂及制动系统的设计与集成，兼顾传动效率与轻量化目标，为赛车提供高效可靠的驱动与制动性能。</p>
             </a>
             <a href="groups/运营组.html" class="feature-card">
-                <img width="1920" height="1280" src="picture/25大合影.jpg" alt="运营组" loading="lazy">
+                <picture><source srcset="picture/25大合影.webp" type="image/webp"><img width="1920" height="1280" src="picture/25大合影.jpg" alt="运营组" loading="lazy"></picture>
                 <h3>运营组</h3>
                 <p>负责车队品牌运营、商业营销、媒体宣传及赛事后勤保障，搭建车队与社会各界的沟通桥梁，推动车队文化的传播与发展。</p>
             </a>
@@ -1279,7 +1280,7 @@
                 <!-- 简介图片区域 -->
                 <div class="w-full md:w-1/2">
                     <a href="car.html">
-                        <img width="1920" height="1280" loading="lazy" src="picture/透明赛车.jpg" alt="E03 赛车" class="rounded-lg shadow-lg w-full object-cover hover:opacity-80 transition-opacity" style="cursor:pointer;">
+                        <picture><source srcset="picture/透明赛车.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/透明赛车.jpg" alt="E03 赛车" class="rounded-lg shadow-lg w-full object-cover hover:opacity-80 transition-opacity" style="cursor:pointer;"></picture>
                     </a>
                     <p style="text-align:center; color:var(--text-muted); font-size:0.7rem; letter-spacing:0.06em; margin-top:0.5rem;">点击查看 E03 技术规格 →</p>
                 </div>
@@ -1312,7 +1313,7 @@
             <h2 class="section-title">队员风采</h2>
             <a href="gallery.html" class="grad-cover-link">
                 <div class="grad-cover-card">
-                    <img width="1920" height="1280" loading="lazy" src="picture/grad-cover.jpg" alt="WUTE毕业生合影">
+                    <picture><source srcset="picture/grad-cover.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/grad-cover.jpg" alt="WUTE毕业生合影"></picture>
                 </div>
                 <p style="text-align:center; margin-top:1rem; color:var(--text-primary); font-size:0.9rem; letter-spacing:0.06em;">查看完整相册 →</p>
             </a>
@@ -1355,7 +1356,7 @@
                 </a>
                 <a href="sponsors/case-hylicreate.html" class="case-card">
                     <div class="case-logo">
-                        <img width="2723" height="1004" loading="lazy" src="赞助商/赞助商-合源锂创.png" alt="合源锂创">
+                        <picture><source srcset="赞助商/赞助商-合源锂创.webp" type="image/webp"><img width="2723" height="1004" loading="lazy" src="赞助商/赞助商-合源锂创.png" alt="合源锂创"></picture>
                     </div>
                     <div class="case-body">
                         <h3>合源锂创 · 战略合作</h3>
@@ -1384,7 +1385,7 @@
                     <img width="1362" height="343" loading="lazy" src="赞助商/赞助商-中复神鹰.png" alt="中复神鹰">
                 </a>
                 <a href="https://www.hylicreate.com/" target="_blank" rel="noopener" class="sponsor-item key-sponsor">
-                    <img width="2723" height="1004" loading="lazy" src="赞助商/赞助商-合源锂创.png" alt="合源锂创">
+                    <picture><source srcset="赞助商/赞助商-合源锂创.webp" type="image/webp"><img width="2723" height="1004" loading="lazy" src="赞助商/赞助商-合源锂创.png" alt="合源锂创"></picture>
                 </a>
             </div>
             
@@ -1395,13 +1396,13 @@
                 <img width="1135" height="741" loading="lazy" src="赞助商/赞助商-LIQUIMOLY-力魔.png" alt="LIQUIMOLY力魔">
             </a>
             <div class="sponsor-item no-link">
-                <img width="1676" height="378" loading="lazy" src="赞助商/赞助商-转子复材-v2.png" alt="转子复材">
+                <picture><source srcset="赞助商/赞助商-转子复材-v2.webp" type="image/webp"><img width="1676" height="378" loading="lazy" src="赞助商/赞助商-转子复材-v2.png" alt="转子复材"></picture>
             </div>
             <a href="https://www.yato-sh.com/" target="_blank" rel="noopener" class="sponsor-item">
-                <img width="722" height="208" loading="lazy" src="赞助商/赞助商-yato.png" alt="yato">
+                <picture><source srcset="赞助商/赞助商-yato.webp" type="image/webp"><img width="722" height="208" loading="lazy" src="赞助商/赞助商-yato.png" alt="yato"></picture>
             </a>
             <a href="https://onefilms.com/" target="_blank" rel="noopener" class="sponsor-item">
-                <img width="1644" height="1043" loading="lazy" src="赞助商/赞助商-ONE酷莱特.png" alt="ONE 酷莱特" style="max-width:248px;max-height:113px;">
+                <picture><source srcset="赞助商/赞助商-ONE酷莱特.webp" type="image/webp"><img width="1644" height="1043" loading="lazy" src="赞助商/赞助商-ONE酷莱特.png" alt="ONE 酷莱特" style="max-width:248px;max-height:113px;"></picture>
             </a>
             <a href="https://www.ntnglobal.com/" target="_blank" rel="noopener" class="sponsor-item">
                 <img width="1134" height="406" loading="lazy" src="赞助商/赞助商-NTN.png" alt="NTN">
@@ -1410,13 +1411,13 @@
                 <img width="1135" height="523" loading="lazy" src="赞助商/赞助商-SMT-赛玛特.png" alt="SMT赛玛特">
             </a>
             <a href="https://www.vi-grade.com/" target="_blank" rel="noopener" class="sponsor-item">
-                <img width="2042" height="649" loading="lazy" src="赞助商/赞助商-VI-Grade.png" alt="VI-Grade">
+                <picture><source srcset="赞助商/赞助商-VI-Grade.webp" type="image/webp"><img width="2042" height="649" loading="lazy" src="赞助商/赞助商-VI-Grade.png" alt="VI-Grade"></picture>
             </a>
             <a href="https://www.tosunai.com/" target="_blank" rel="noopener" class="sponsor-item">
                 <img width="1361" height="187" loading="lazy" src="赞助商/赞助商-同星.png" alt="同星智能">
             </a>
             <a href="https://www.zgnyw.net/index.php?homepage=a76007" target="_blank" rel="noopener" class="sponsor-item">
-                <img width="1135" height="673" loading="lazy" src="赞助商/赞助商-上海瑞垒.png" alt="上海瑞垒">
+                <picture><source srcset="赞助商/赞助商-上海瑞垒.webp" type="image/webp"><img width="1135" height="673" loading="lazy" src="赞助商/赞助商-上海瑞垒.png" alt="上海瑞垒"></picture>
             </a>
             <a href="https://www.ebyte.com/" target="_blank" rel="noopener" class="sponsor-item">
                 <img width="1135" height="553" loading="lazy" src="赞助商/赞助商-成都亿佰特.png" alt="成都亿佰特">
@@ -1431,7 +1432,7 @@
                 <img width="1816" height="346" loading="lazy" src="赞助商/赞助商-Amphenol-安费诺.png" alt="Amphenol安费诺">
             </a>
             <div class="sponsor-item no-link">
-                <img width="1135" height="1102" loading="lazy" src="赞助商/赞助商-凯晨模具.png" alt="凯晨模具">
+                <picture><source srcset="赞助商/赞助商-凯晨模具.webp" type="image/webp"><img width="1135" height="1102" loading="lazy" src="赞助商/赞助商-凯晨模具.png" alt="凯晨模具"></picture>
             </div>
             <a href="https://www.wago.com/" target="_blank" rel="noopener" class="sponsor-item">
                 <img width="1135" height="410" loading="lazy" src="赞助商/赞助商-WAGO.png" alt="WAGO">
@@ -1440,7 +1441,7 @@
                 <img width="1361" height="377" loading="lazy" src="赞助商/赞助商-睿思电阻.png" alt="睿思电阻">
             </a>
             <a href="https://www.kafuter.cn/" target="_blank" rel="noopener" class="sponsor-item">
-                <img width="1899" height="1828" loading="lazy" src="赞助商/赞助商-卡夫特密封胶.png" alt="卡夫特密封胶">
+                <picture><source srcset="赞助商/赞助商-卡夫特密封胶.webp" type="image/webp"><img width="1899" height="1828" loading="lazy" src="赞助商/赞助商-卡夫特密封胶.png" alt="卡夫特密封胶"></picture>
             </a>
             <a href="https://www.wd40.com/" target="_blank" rel="noopener" class="sponsor-item">
                 <img width="1134" height="778" loading="lazy" src="赞助商/赞助商-WD-40.png" alt="WD-40">
@@ -1449,10 +1450,10 @@
                 <img width="437" height="172" loading="lazy" src="赞助商/赞助商-伊莎.png" alt="伊莎">
             </a>
             <a href="http://www.meiwocell.com/" target="_blank" rel="noopener" class="sponsor-item">
-                <img width="2269" height="702" loading="lazy" src="赞助商/赞助商-美沃工程材料.png" alt="美沃工程材料">
+                <picture><source srcset="赞助商/赞助商-美沃工程材料.webp" type="image/webp"><img width="2269" height="702" loading="lazy" src="赞助商/赞助商-美沃工程材料.png" alt="美沃工程材料"></picture>
             </a>
             <div class="sponsor-item no-link">
-                <img width="1134" height="450" loading="lazy" src="赞助商/赞助商-IMK-Brakes.png" alt="IMK Brakes">
+                <picture><source srcset="赞助商/赞助商-IMK-Brakes.webp" type="image/webp"><img width="1134" height="450" loading="lazy" src="赞助商/赞助商-IMK-Brakes.png" alt="IMK Brakes"></picture>
             </div>
             <div class="sponsor-item no-link">
                 <img width="2042" height="533" loading="lazy" src="赞助商/赞助商-Super-速迫.png" alt="Super速迫">
@@ -1467,44 +1468,44 @@
                 <img width="1361" height="503" loading="lazy" src="赞助商/赞助商-HIOKI-日置.png" alt="HIOKI日置">
             </a>
             <div class="sponsor-item no-link">
-                <img width="3498" height="587" loading="lazy" src="赞助商/赞助商-MPS-涂装.PNG" alt="MPS涂装">
+                <picture><source srcset="赞助商/赞助商-MPS-涂装.webp" type="image/webp"><img width="3498" height="587" loading="lazy" src="赞助商/赞助商-MPS-涂装.PNG" alt="MPS涂装"></picture>
             </div>
             <a href="sponsors/rsc.html" class="sponsor-item">
                 <img width="1664" height="797" loading="lazy" src="赞助商/赞助商-RSC.png" alt="RSC">
             </a>
             <div class="sponsor-item no-link">
-                <img width="3403" height="534" loading="lazy" src="赞助商/赞助商-汉江湾卡丁车世界.png" alt="汉江湾卡丁车世界">
+                <picture><source srcset="赞助商/赞助商-汉江湾卡丁车世界.webp" type="image/webp"><img width="3403" height="534" loading="lazy" src="赞助商/赞助商-汉江湾卡丁车世界.png" alt="汉江湾卡丁车世界"></picture>
             </div>
             <div class="sponsor-item no-link">
-                <img width="2042" height="306" loading="lazy" src="赞助商/赞助商-ONEKART.png" alt="ONEKART">
+                <picture><source srcset="赞助商/赞助商-ONEKART.webp" type="image/webp"><img width="2042" height="306" loading="lazy" src="赞助商/赞助商-ONEKART.png" alt="ONEKART"></picture>
             </div>
             <!-- 赛事赞助商 -->
             <p class="sponsor-cat">赛事合作伙伴</p>
             <div class="sponsor-row">
                 <a href="https://www.nio.com/" target="_blank" rel="noopener" class="sponsor-item">
-                    <img width="3445" height="1195" loading="lazy" src="赞助商/赞助商-蔚来NIO.png" alt="蔚来NIO">
+                    <picture><source srcset="赞助商/赞助商-蔚来NIO.webp" type="image/webp"><img width="3445" height="1195" loading="lazy" src="赞助商/赞助商-蔚来NIO.png" alt="蔚来NIO"></picture>
                 </a>
                 <a href="https://www.calb-tech.com/" target="_blank" rel="noopener" class="sponsor-item">
                     <img width="2042" height="244" loading="lazy" src="赞助商/赞助商-中创新航.png" alt="中创新航">
                 </a>
                 <a href="https://www.sae-china.org/" target="_blank" rel="noopener" class="sponsor-item">
-                    <img width="2268" height="310" loading="lazy" src="赞助商/赞助商-中国汽车工程学会.png" alt="中国汽车工程学会">
+                    <picture><source srcset="赞助商/赞助商-中国汽车工程学会.webp" type="image/webp"><img width="2268" height="310" loading="lazy" src="赞助商/赞助商-中国汽车工程学会.png" alt="中国汽车工程学会"></picture>
                 </a>
                 <a href="https://ansys.synopsys.com/zh-cn/" target="_blank" rel="noopener" class="sponsor-item">
-                    <img width="1152" height="648" loading="lazy" src="赞助商/赞助商-Ansys.png" alt="Ansys">
+                    <picture><source srcset="赞助商/赞助商-Ansys.webp" type="image/webp"><img width="1152" height="648" loading="lazy" src="赞助商/赞助商-Ansys.png" alt="Ansys"></picture>
                 </a>
                 <a href="https://www.mathworks.com/" target="_blank" rel="noopener" class="sponsor-item">
-                    <img width="2460" height="489" loading="lazy" src="赞助商/赞助商-MathWorks.png" alt="MathWorks">
+                    <picture><source srcset="赞助商/赞助商-MathWorks.webp" type="image/webp"><img width="2460" height="489" loading="lazy" src="赞助商/赞助商-MathWorks.png" alt="MathWorks"></picture>
                 </a>
             </div>
             <!-- 支持单位 -->
             <p class="sponsor-cat sm">支持单位</p>
             <div class="sponsor-row">
                 <a href="https://www.whut.edu.cn/" target="_blank" rel="noopener" class="sponsor-item">
-                    <img width="3402" height="682" loading="lazy" src="赞助商/赞助商-武汉理工大学-v2.png" alt="武汉理工大学">
+                    <picture><source srcset="赞助商/赞助商-武汉理工大学-v2.webp" type="image/webp"><img width="3402" height="682" loading="lazy" src="赞助商/赞助商-武汉理工大学-v2.png" alt="武汉理工大学"></picture>
                 </a>
                 <a href="http://www.formulastudent.com.cn/" target="_blank" rel="noopener" class="sponsor-item">
-                    <img width="708" height="256" loading="lazy" src="赞助商/赞助商-2026-FSEC.png" alt="2026 FSEC">
+                    <picture><source srcset="赞助商/赞助商-2026-FSEC.webp" type="image/webp"><img width="708" height="256" loading="lazy" src="赞助商/赞助商-2026-FSEC.png" alt="2026 FSEC"></picture>
                 </a>
             </div>
         </div>

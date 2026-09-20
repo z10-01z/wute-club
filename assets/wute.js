@@ -105,37 +105,26 @@
         }, { rootMargin: '-72px 0px -50% 0px' }).observe(sponsors);
     }
 
-    /* ---- 通用滚动显现动画（.reveal） ---- */
+    /* ---- 通用滚动显现动画（.reveal）：IntersectionObserver + CSS，无第三方依赖 ---- */
     function initReveal() {
-        if (!window.gsap || !window.ScrollTrigger) return;
-        gsap.registerPlugin(ScrollTrigger);
-        var items = gsap.utils.toArray('.reveal');
+        var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
         if (!items.length) return;
+        if (!('IntersectionObserver' in window)) return;                       // 老浏览器：直接显示
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // 尊重系统"减少动态效果"
 
-        // 尊重系统"减少动态效果"偏好
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            gsap.set(items, { clearProps: 'all' });
-            return;
-        }
+        items.forEach(function (el) { el.classList.add('reveal-init'); });
 
-        items.forEach(function (el, i) {
-            gsap.fromTo(el,
-                { opacity: 0, y: 36 },
-                {
-                    opacity: 1, y: 0,
-                    duration: 0.8,
-                    ease: 'power2.out',
-                    delay: (i % 8) * 0.06,
-                    scrollTrigger: {
-                        trigger: el,
-                        start: 'top 88%',
-                        toggleActions: 'play none none none',
-                    }
-                }
-            );
-        });
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var el = entry.target;
+                io.unobserve(el);
+                setTimeout(function () { el.classList.add('reveal-in'); },
+                    (items.indexOf(el) % 8) * 60);
+            });
+        }, { rootMargin: '0px 0px -12% 0px' });
 
-        window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+        items.forEach(function (el) { io.observe(el); });
     }
 
     if (document.readyState === 'loading') {

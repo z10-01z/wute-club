@@ -11,6 +11,8 @@
   <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white&style=flat-square" alt="CSS3">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black&style=flat-square" alt="JavaScript">
   <img src="https://img.shields.io/badge/GSAP-88CE02?logo=greensock&logoColor=white&style=flat-square" alt="GSAP">
+  <img src="https://img.shields.io/badge/WebP-4285F4?logo=webp&logoColor=white&style=flat-square" alt="WebP">
+  <img src="https://img.shields.io/badge/a11y-WCAG_AA-2ea44f?style=flat-square" alt="Accessibility">
 </p>
 
 ---
@@ -27,18 +29,19 @@
 
 - **20 个页面**：首页、车队历史、荣誉奖项、E03 赛车规格、队员风采、六大技术组别、赞助商合作、合作案例详情、相册、设计作品集等
 - **全站统一设计系统**：`assets/wute.css` 提供设计令牌（AMG 纯黑 + 品牌蓝 `#00489b` + 品牌红 `#d0121b`）、导航、页脚、Hero、卡片、按钮等组件——改品牌色只改一个文件
-- **GSAP 滚动动画**：滚动显现、视差、计数器、赞助商跑马灯、全屏轮播（Ken Burns 效果）
-- **交互细节**：悬浮目录、灯箱（支持 Esc 关闭）、移动端全屏菜单、图片懒加载
-- **性能优化**：字体子集化（42.8MB → 50KB）、图片批量压缩（406MB → 72MB）、CLS 修复、SEO / 分享 meta（og:image 等）
+- **GSAP 滚动动画**（仅首页加载）：视差、计数器、赞助商跑马灯、全屏轮播（Ken Burns 效果）；其余 19 页的滚动显现动画改用 IntersectionObserver + CSS，**全站零第三方请求**
+- **交互细节**：悬浮目录、灯箱（Esc 关闭 + ← → 切换）、移动端全屏菜单、图片懒加载、卡片图点击放大
+- **无障碍**：全站文字对比度实测满足 WCAG AA、相册照片键盘可达、图片 alt 全覆盖、:focus-visible 焦点环、prefers-reduced-motion 支持
+- **性能优化**：字体子集化（42.8MB → 50KB）、图片压缩（406MB → 72MB）、**全站 WebP 化 + 按显示尺寸生成变体**（相册页 27.5MB → 6.0MB）、CLS 修复、SEO / 分享 meta（og:image 等）
 
 ## 🛠 技术栈
 
 | 技术 | 说明 |
 |---|---|
 | 原生 HTML + CSS + JavaScript | 无框架、无构建流程、无后端 |
-| [GSAP](https://gsap.com/) + ScrollTrigger | CDN 引入，滚动动画 |
-| `assets/wute.css` | 共享设计系统（设计令牌 / 导航 / 页脚 / hero / 通用组件） |
-| `assets/wute.js` | 共享交互（导航滚动 / 汉堡菜单 / 滚动显现） |
+| [GSAP](https://gsap.com/) + ScrollTrigger | CDN 引入，**仅首页**（轮播 / 计数 / 跑马灯）；其余页面无第三方 JS |
+| `assets/wute.css` | 共享设计系统（设计令牌 / 导航 / 页脚 / hero / 通用组件 / 工具类） |
+| `assets/wute.js` | 共享交互（导航滚动 / 汉堡菜单 / 滚动显现 / 灯箱 / 彩蛋），零依赖 |
 | GitHub Actions | push 即自动部署到服务器 |
 
 ## 📄 页面一览
@@ -51,7 +54,7 @@
 | `car.html` | E03 赛车技术规格 |
 | `gallery.html` | 队员风采（相册入口） |
 | `album-2025-赛场.html` / `album-2026-毕业季.html` | 2025 赛场 / 2026 毕业季相册（128 张照片） |
-| `join.html` | 加入我们（六大组别 + 招新流程） |
+| `join.html` | 加入我们（六大组别 + 招新流程 + 常见问题） |
 | `sponsors.html` | 赞助商合作（赞助回报 / 支持方式 / 赞助商墙） |
 | `sponsors/case-*.html` | 合作案例详情（岚图汽车 / 中复神鹰 / 合源锂创） |
 | `sponsors/rsc.html` | RSC 退役队员联合组织 |
@@ -65,7 +68,8 @@
 | 变量 | 值 | 用途 |
 |---|---|---|
 | `--bg-deep` | `#000000` | 页面主背景 |
-| `--brand-blue` | `#00489b` | 品牌蓝（强调色） |
+| `--brand-blue` | `#00489b` | 品牌蓝（按钮底色 / 边框 / 白底区文字） |
+| `--brand-blue-text` | `#4a90e2` | **深色底上当文字用的蓝**（#00489b 在黑底上只有 2.4:1，不达标） |
 | `--brand-red` | `#d0121b` | 品牌红 |
 | `--text-primary` | `#f0f0f2` | 主文字 |
 
@@ -81,7 +85,7 @@ www.wute.club/
 │   └── wute.js           # 共享交互
 ├── groups/               # 六大技术组别页
 ├── sponsors/             # 赞助商页（RSC + 3 个合作案例）
-├── picture/              # 照片资源（首页 / 历史 / 相册）
+├── picture/              # 照片资源（首页 / 历史 / 相册；每张图附带同名 .webp 变体）
 ├── fonts/                # 子集化字体（woff2）
 ├── 赞助商/                # 赞助商 logo
 └── 红包封面/              # 设计作品图
@@ -95,7 +99,9 @@ python -m http.server 8000
 # 打开 http://localhost:8000
 ```
 
-或直接双击 `index.html` 以 file:// 打开（GSAP 走 CDN，需联网）。
+或直接双击 `index.html` 以 file:// 打开。
+
+> 只有首页需要联网加载 GSAP CDN；其余 19 个页面离线也能完整浏览。
 
 ## 📦 部署
 
@@ -109,7 +115,10 @@ python -m http.server 8000
 - **改品牌色 / 导航 / 页脚 / Hero**：只改 `assets/wute.css`
 - **新增页面**：照抄现有二级页模板（nav / page-hero / content / footer + GSAP + `wute.js`）
 - **新增 Tailwind 类**：需手动在 `wute.css` 工具类节补 CSS 规则
-- **更换字体/图片**：字体子集化用 `字体子集化工具.py`，图片压缩用 `图片压缩工具.py`（项目根目录）
+- **更换字体**：字体子集化用 `字体子集化工具.py`（项目根目录，改了页面里的新汉字要重跑）
+- **新增 / 更换图片**：正常写 `<img>` 即可；想让图片走 WebP 就运行 `生成webp图.py`（项目根目录）——
+  它会按目录预设宽度生成 `.webp` 并自动把 `<img>` 包进 `<picture>`，**原图不动、删掉 webp 即可回滚**
+- **压缩图片体积**：`图片压缩工具.py`（可选，WebP 化之后收益已经不大）
 
 ## 📝 版权声明
 
