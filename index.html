@@ -141,13 +141,14 @@
             z-index: 3;
             opacity: 0;
             transition: opacity 1s ease-in-out 0.7s;
-            max-width: 720px;
+            max-width: 1000px;
         }
         .slide.active .slide-text {
             opacity: 1;
         }
-        .slide-text h1 {
-            font-size: clamp(2.4rem, 5.5vw, 5.5rem);
+        .slide-text h1,
+        .slide-text .custom-h1 {
+            font-size: clamp(2.6rem, 6.4vw, 6.5rem);
             color: #ffffff;
             margin-bottom: 1.25rem;
             text-shadow:
@@ -159,7 +160,7 @@
             text-wrap: balance;
         }
         .slide-text p {
-            font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+            font-size: clamp(1rem, 1.7vw, 1.35rem);
             color: rgba(255, 255, 255, 0.86);
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
             letter-spacing: 0.035em;
@@ -232,7 +233,7 @@
             background: var(--brand-blue);
             color: #fff;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.95rem;
             border-radius: 4px;
             text-decoration: none;
             letter-spacing: 0.1em;
@@ -258,7 +259,7 @@
             align-items: center;
             gap: 10px;
             color: rgba(255, 255, 255, 0.68);
-            font-size: 0.65rem;
+            font-size: 0.82rem;
             letter-spacing: 0.15em;
             cursor: pointer;
             animation: bounceDown 2.5s ease-in-out infinite;
@@ -335,7 +336,7 @@
             line-height: 1;
         }
         .stat-item .stat-unit {
-            font-size: 0.7rem;
+            font-size: 0.84rem;
             color: var(--text-muted);
             display: block;
             margin-top: 0.75rem;
@@ -535,7 +536,7 @@
             right: 1.75rem;
             z-index: 2;
             color: rgba(255,255,255,0.55);
-            font-size: 0.72rem;
+            font-size: 0.86rem;
             letter-spacing: 0.05em;
             margin: 0;
             line-height: 1.5;
@@ -549,7 +550,7 @@
                 aspect-ratio: 16 / 9;
             }
             .feature-card h3 { font-size: 1.15rem; bottom: 2.5rem; left: 1.25rem; }
-            .feature-card p { bottom: 0.5rem; left: 1.25rem; right: 1.25rem; font-size: 0.68rem; }
+            .feature-card p { bottom: 0.5rem; left: 1.25rem; right: 1.25rem; font-size: 0.82rem; }
         }
 
         /* 赞助商板块样式 */
@@ -560,7 +561,7 @@
 
         .sponsors h2 {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.9rem;
             font-weight: 800;
             margin-bottom: 3rem;
             color: #333;
@@ -686,7 +687,7 @@
         }
         .structure-group-tag {
             color: var(--text-muted);
-            font-size: 0.75rem;
+            font-size: 0.88rem;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             text-align: center;
@@ -707,8 +708,8 @@
         }
 
         .sponsor-item {
-            width: 210px;
-            height: 105px;
+            width: 232px;
+            height: 116px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -720,13 +721,13 @@
             text-decoration: none;
         }
         .sponsor-item.key-sponsor {
-            width: 270px;
-            height: 135px;
+            width: 300px;
+            height: 150px;
             flex-shrink: 0;
         }
         .sponsor-item.key-sponsor img {
-            max-width: 222px;
-            max-height: 96px;
+            max-width: 246px;
+            max-height: 106px;
         }
         .sponsor-item:hover {
             background: #fff;
@@ -735,8 +736,8 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
         .sponsor-item img {
-            max-width: 165px;
-            max-height: 75px;
+            max-width: 182px;
+            max-height: 84px;
             object-fit: contain;
             opacity: 0.9;
             transition: opacity 0.4s ease;
@@ -749,13 +750,13 @@
             grid-column: 1 / -1;
             text-align: center;
             color: #6b6b76;
-            font-size: 0.7rem;
-            letter-spacing: 0.12em;
+            font-size: 1.2rem;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
             margin: 1rem 0 0.5rem;
         }
         .sponsor-cat.sm {
-            font-size: 0.65rem;
+            font-size: 1.05rem;
             letter-spacing: 0.1em;
             margin-top: 1.5rem;
         }
@@ -889,7 +890,7 @@
         }
         .section-nav a .num {
             font-family: 'JetBrains Mono', 'Consolas', monospace;
-            font-size: 0.62rem;
+            font-size: 0.80rem;
             font-weight: 400;
             color: rgba(255,255,255,0.5);
             letter-spacing: 0.06em;
@@ -897,7 +898,7 @@
             min-width: 1.1rem;
         }
         .section-nav a .title {
-            font-size: 0.68rem;
+            font-size: 0.82rem;
             color: rgba(255,255,255,0.5);
             letter-spacing: 0.08em;
             transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -953,11 +954,12 @@
                 left: 5%;
                 max-width: 90%;
             }
-            .slide-text h1 {
-                font-size: clamp(1.8rem, 7vw, 3rem);
+            .slide-text h1,
+            .slide-text .custom-h1 {
+                font-size: clamp(2rem, 8vw, 3.2rem);
             }
             .slide-text p {
-                font-size: 0.75rem;
+                font-size: 0.88rem;
                 letter-spacing: 0.08em;
             }
 
@@ -1175,7 +1177,7 @@
                     <a href="http://www.formulastudent.com.cn/" target="_blank" rel="noopener">
                         <picture><source srcset="picture/赛事介绍.webp" type="image/webp"><img width="1268" height="846" loading="lazy" src="picture/赛事介绍.png" alt="赛事简介图片" class="rounded-lg shadow-lg w-full object-cover hover:opacity-80 transition-opacity" style="cursor:pointer;"></picture>
                     </a>
-                    <p style="text-align:center; color:var(--text-muted); font-size:0.7rem; letter-spacing:0.06em; margin-top:0.5rem;">点击浏览赛事官网 →</p>
+                    <p style="text-align:center; color:var(--text-muted); font-size:0.84rem; letter-spacing:0.06em; margin-top:0.5rem;">点击浏览赛事官网 →</p>
                 </div>
                 <!-- 简介文字区域 -->
                 <div class="w-full md:w-1/2 glass-card">
@@ -1212,7 +1214,7 @@
                     <a href="about.html">
                         <picture><source srcset="picture/25大合影.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/25大合影.jpg" alt="车队简介图片" class="rounded-lg shadow-lg w-full object-cover hover:opacity-80 transition-opacity" style="cursor:pointer;"></picture>
                     </a>
-                    <p style="text-align:center; color:var(--text-muted); font-size:0.7rem; letter-spacing:0.06em; margin-top:0.5rem;">点击了解车队历史 →</p>
+                    <p style="text-align:center; color:var(--text-muted); font-size:0.84rem; letter-spacing:0.06em; margin-top:0.5rem;">点击了解车队历史 →</p>
                 </div>
                 <!-- 简介文字区域 -->
                 <div class="w-full md:w-1/2 glass-card">
@@ -1287,7 +1289,7 @@
                     <a href="car.html">
                         <picture><source srcset="picture/透明赛车.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/透明赛车.jpg" alt="E03 赛车" class="rounded-lg shadow-lg w-full object-cover hover:opacity-80 transition-opacity" style="cursor:pointer;"></picture>
                     </a>
-                    <p style="text-align:center; color:var(--text-muted); font-size:0.7rem; letter-spacing:0.06em; margin-top:0.5rem;">点击查看 E03 技术规格 →</p>
+                    <p style="text-align:center; color:var(--text-muted); font-size:0.84rem; letter-spacing:0.06em; margin-top:0.5rem;">点击查看 E03 技术规格 →</p>
                 </div>
                 <!-- 简介文字区域（预留填写位置） -->
                 <div class="w-full md:w-1/2 glass-card">
