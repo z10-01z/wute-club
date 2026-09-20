@@ -1214,7 +1214,6 @@ h1, h2, h3, h4, h5, h6 {
     .footer-bottom { justify-content: center; text-align: center; }
 }
 
-
 /* 滚动显现动画（wute.js 用 IntersectionObserver 驱动；无 JS 时元素照常可见） */
 .reveal-init { opacity: 0; transform: translateY(36px); }
 .reveal-init.reveal-in {
@@ -1280,34 +1279,7 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 0.03em;
 }
 
-
 /* ===== 16. 设计升级新增原语（2026-09 第十四轮）===== */
-
-/* 遥测刻度线：工程师测量语言，用作板块分界
-   左上角那一段红色是「基准刻度」——全站唯一使用红色的地方 */
-.rule {
-    position: relative;
-    height: 11px;
-    margin: 0;
-    border-bottom: 1px solid var(--border-default);
-    overflow: hidden;
-}
-.rule::before {
-    content: '';
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: 6px;
-    background-image: repeating-linear-gradient(90deg,
-        var(--border-strong) 0 1px, transparent 1px 40px);
-}
-.rule::after {
-    content: '';
-    position: absolute;
-    left: 0; bottom: 0;
-    width: 40px; height: 2px;
-    background: var(--brand-red-line);
-}
-.rule--wide::before { background-image: repeating-linear-gradient(90deg, var(--border-strong) 0 1px, transparent 1px 72px); }
 
 /* 组别页影像区：现在先摆占位骨架，车队把照片丢进去即可 */
 .group-media {
