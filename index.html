@@ -154,8 +154,7 @@
             text-shadow:
                 0 2px 16px rgba(0, 0, 0, 0.9),
                 0 0 80px rgba(0, 0, 0, 0.5);
-            letter-spacing: 0.015em;
-            font-weight: 800;
+            letter-spacing: 0.06em;
             line-height: 1.08;
             text-wrap: balance;
         }
@@ -210,7 +209,11 @@
             font-display: swap;
         }
         .custom-h1 {
-            font-family: '狂派手书';
+            /* 狂派手书只有 Regular（usWeightClass=400）：
+               指定 700/800 会被浏览器合成粗体，把笔画涂抹成一片 */
+            font-family: '狂派手书', var(--font-display);
+            font-weight: 400;
+            letter-spacing: 0.06em;
         }
 
         /* Hero CTA 按钮（AMG 克制风格） */
