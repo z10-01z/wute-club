@@ -37,36 +37,75 @@
     var burger = document.getElementById('hamburger');
     var links = document.querySelector('.nav-links');
     if (burger && links) {
-        burger.addEventListener('click', function () {
-            var open = links.classList.toggle('open');
+        function setMenuOpen(open, returnFocus) {
+            links.classList.toggle('open', open);
             burger.classList.toggle('open', open);
             burger.setAttribute('aria-expanded', open ? 'true' : 'false');
             document.body.style.overflow = open ? 'hidden' : '';
+            if (open) links.querySelector('a').focus();
+            if (!open && returnFocus) burger.focus();
+        }
+        burger.addEventListener('click', function () {
+            setMenuOpen(!links.classList.contains('open'), false);
         });
         links.querySelectorAll('a').forEach(function (a) {
             a.addEventListener('click', function () {
-                links.classList.remove('open');
-                burger.classList.remove('open');
-                burger.setAttribute('aria-expanded', 'false');
-                document.body.style.overflow = '';
+                if (links.classList.contains('open')) setMenuOpen(false, false);
             });
+        });
+        document.addEventListener('keydown', function (e) {
+            if (!links.classList.contains('open')) return;
+            if (e.key === 'Escape') { setMenuOpen(false, true); return; }
+            if (e.key !== 'Tab') return;
+            var items = Array.prototype.slice.call(links.querySelectorAll('a')).concat(burger);
+            var first = items[0], last = items[items.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        });
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 768 && links.classList.contains('open')) setMenuOpen(false, false);
         });
     }
 
-    /* ---- 导航下拉菜单（技术组别 / 历年赛车）：点击展开/收起，点击外部关闭 ---- */
+    /* ---- 下拉菜单：链接负责导航，独立按钮负责展开 ---- */
+    document.querySelectorAll('.nav-drop > .nav-drop-toggle').forEach(function (link, index) {
+        var button = document.createElement('button');
+        var menu = link.parentElement.querySelector('.drop-menu');
+        menu.id = menu.id || 'nav-drop-menu-' + index;
+        button.type = 'button';
+        button.className = 'nav-drop-button';
+        button.dataset.menuName = link.textContent.trim();
+        button.setAttribute('aria-label', '展开' + button.dataset.menuName + '菜单');
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-controls', menu.id);
+        button.textContent = '▾';
+        link.insertAdjacentElement('afterend', button);
+    });
+    function closeDropdowns() {
+        document.querySelectorAll('.nav-drop.open').forEach(function (item) {
+            item.classList.remove('open');
+            var button = item.querySelector('.nav-drop-button');
+            button.setAttribute('aria-expanded', 'false');
+            button.setAttribute('aria-label', '展开' + button.dataset.menuName + '菜单');
+        });
+    }
     document.addEventListener('click', function (e) {
-        var toggle = e.target.closest ? e.target.closest('.nav-drop-toggle') : null;
+        var toggle = e.target.closest ? e.target.closest('.nav-drop-button') : null;
         if (toggle) {
             var li = toggle.parentElement;
             var wasOpen = li.classList.contains('open');
-            document.querySelectorAll('.nav-drop.open').forEach(function (d) { d.classList.remove('open'); });
-            if (!wasOpen) li.classList.add('open');
-            e.preventDefault(); // 主链接只展开菜单，不跳转
+            closeDropdowns();
+            if (!wasOpen) {
+                li.classList.add('open');
+                toggle.setAttribute('aria-expanded', 'true');
+                toggle.setAttribute('aria-label', '收起' + toggle.dataset.menuName + '菜单');
+            }
             return;
         }
-        document.querySelectorAll('.nav-drop.open').forEach(function (d) {
-            if (!d.contains(e.target)) d.classList.remove('open');
-        });
+        if (!e.target.closest || !e.target.closest('.nav-drop')) closeDropdowns();
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeDropdowns();
     });
 
     /* ---- 卡片图片点击放大（灯箱，动态创建，全站生效） ---- */

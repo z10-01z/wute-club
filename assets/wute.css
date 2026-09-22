@@ -99,7 +99,8 @@ picture { display: contents; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 /* 图片基础规则（替代原 Tailwind preflight）：防止 height 属性锁定导致图片竖向裁切 */
 img { max-width: 100%; height: auto; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html { scroll-behavior: smooth; overflow-x: hidden; color-scheme: dark; }
+section[id], main[id] { scroll-margin-top: var(--nav-height); }
 body {
     font-family: var(--font-body);
     background-color: var(--bg-deep);
@@ -213,26 +214,30 @@ h1, h2, h3, h4, h5, h6 {
 .nav-links a.active { color: #fff; }
 
 /* ===== 导航下拉菜单（技术组别 / 历年赛车） ===== */
-.nav-drop { position: relative; }
-.nav-drop > .nav-drop-toggle { position: relative; padding-right: 14px; }
-/* 下拉指示箭头（下划线仍由 ::after 承担，箭头用 ::before） */
+.nav-drop { position: relative; display: flex; align-items: center; }
+.nav-drop > .nav-drop-toggle { padding-right: 0; }
+/* 箭头由独立按钮承担，主链接保持正常导航 */
 .nav-drop > .nav-drop-toggle::before {
-    content: '▾';
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.80rem;
-    color: var(--text-muted);
-    transition: transform 0.3s ease, color 0.3s ease;
-    pointer-events: none;
+    display: none;
 }
-.nav-drop:hover > .nav-drop-toggle::before,
-.nav-drop.open > .nav-drop-toggle::before { transform: translateY(-50%) rotate(180deg); color: var(--brand-blue-text); }
+.nav-drop-button {
+    margin-left: 0.25rem;
+    padding: 0.25rem;
+    border: 0;
+    background: none;
+    color: var(--text-secondary);
+    font: inherit;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+.nav-drop-button:hover,
+.nav-drop-button[aria-expanded="true"] { color: var(--text-primary); }
+.nav-drop-button[aria-expanded="true"] { transform: rotate(180deg); }
 
 .drop-menu {
     position: absolute;
-    top: calc(100% + 10px);
+    top: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(6px);
     min-width: 168px;
@@ -256,6 +261,7 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
 }
 .site-nav.light-mode .drop-menu a { color: #555 !important; }
+.site-nav.light-mode .nav-drop-button { color: #555; }
 .site-nav.light-mode .drop-menu a:hover {
     color: #000 !important;
     background: rgba(0, 0, 0, 0.05);
@@ -1166,13 +1172,19 @@ h1, h2, h3, h4, h5, h6 {
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
         transform: translateX(100%);
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        visibility: hidden;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.4s;
         z-index: 999;
     }
-    .nav-links.open { transform: translateX(0); }
+    .nav-links.open {
+        transform: translateX(0);
+        visibility: visible;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
     .nav-links a { font-size: 1.15rem; letter-spacing: 0.12em; }
     /* 移动端：下拉菜单静态展开（全屏菜单内直接列出子项） */
-    .nav-drop { width: 100%; text-align: center; }
+    .nav-drop { width: 100%; text-align: center; flex-direction: column; }
+    .nav-drop-button { display: none; }
     .nav-drop > .nav-drop-toggle::before { display: none; }
     .nav-drop > .drop-menu {
         position: static;
@@ -1279,49 +1291,6 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 0.03em;
 }
 
-/* ===== 16. 设计升级新增原语（2026-09 第十四轮）===== */
-
-/* 组别页影像区：现在先摆占位骨架，车队把照片丢进去即可 */
-.group-media {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-    margin: 2.25rem 0 0;
-    max-width: 920px;
-}
-.group-media > * {
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    border: 1px solid var(--border-default);
-}
-.group-media > :first-child { grid-column: 1 / -1; aspect-ratio: 21 / 9; }
-.group-media > :not(:first-child) { aspect-ratio: 4 / 3; }
-.group-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
-
-/* 占位块：把 <div class="media-slot"> 整块换成 <img src="..." alt="..."> 即可 */
-.media-slot {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 1.25rem;
-    text-align: center;
-    background-color: var(--bg-surface);
-    background-image: var(--grid-fine);
-    background-size: 20px 20px;
-    border-style: dashed !important;
-    border-color: var(--border-strong) !important;
-}
-.media-slot__label { font-size: 0.86rem; color: var(--text-secondary); letter-spacing: 0.02em; }
-.media-slot__spec {
-    font-family: var(--font-mono);
-    font-size: 0.80rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--text-faint);
-}
-
 /* 工具链标签（组别页「我们用的工具」） */
 .tool-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.5rem 0 1.5rem; }
 .tool-tags span {
@@ -1333,11 +1302,6 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--bg-surface);
     border-radius: var(--radius-sm);
     padding: 0.35rem 0.7rem;
-}
-
-@media (max-width: 768px) {
-    .group-media { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .group-media > :first-child { aspect-ratio: 16 / 9; }
 }
 
 /* ===== 15. 可访问性补充 ===== */
@@ -1355,6 +1319,17 @@ h1, h2, h3, h4, h5, h6 {
     outline: 2px solid var(--brand-blue-text);
     outline-offset: 3px;
 }
+.skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 3000;
+    padding: 0.7rem 1rem;
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    transform: translateY(-150%);
+}
+.skip-link:focus-visible { transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after {

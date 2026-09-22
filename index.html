@@ -90,12 +90,15 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            visibility: hidden;
+            transition: opacity 1s ease-in-out, visibility 0s linear 1s;
             transform: translateZ(0);
             backface-visibility: hidden;
         }
         .slide.active {
             opacity: 1;
+            visibility: visible;
+            transition: opacity 1s ease-in-out;
             z-index: 1;
         }
 
@@ -175,10 +178,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.4s ease;
-            opacity: 0;
+            transition: background-color 0.4s ease, color 0.4s ease, opacity 0.4s ease;
+            opacity: 0.75;
         }
-        .hero-slider:hover .slider-arrow {
+        .hero-slider:hover .slider-arrow,
+        .hero-slider:focus-within .slider-arrow {
             opacity: 1;
         }
         .slider-arrow:hover {
@@ -187,6 +191,24 @@
         }
         .slider-prev { left: 2%; }
         .slider-next { right: 2%; }
+        .slider-pause {
+            position: absolute;
+            right: 2%;
+            bottom: 2.5rem;
+            z-index: 4;
+            padding: 0.45rem 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            border-radius: 3px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font: inherit;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        .slider-pause:hover { background: rgba(0, 0, 0, 0.8); }
+        @media (prefers-reduced-motion: reduce) {
+            .slider-pause { display: none; }
+        }
 
         /* 轮播图自定义字体（woff2 子集化：42.8MB→50KB，仅含页面所需字符；改标题后重跑 字体子集化工具.py） */
         @font-face {
@@ -256,6 +278,9 @@
             font-size: 0.82rem;
             letter-spacing: 0.15em;
             cursor: pointer;
+            border: 0;
+            background: none;
+            font-family: inherit;
             animation: bounceDown 2.5s ease-in-out infinite;
             transition: color 0.3s ease;
         }
@@ -1036,7 +1061,7 @@
     </style>
 </head>
 <body>
-<h1 class="sr-only">武汉理工大学 WUTE 电动方程式赛车队</h1>
+<a class="skip-link" href="#main-content">跳到正文</a>
     <!-- 左侧悬浮板块导航 -->
     <div class="section-nav">
         <a href="#intro-fsc"><span class="dot"></span><span class="num">01</span><span class="title">赛事简介</span></a>
@@ -1089,11 +1114,13 @@
         </div>
     </nav>
 
+    <main id="main-content">
+    <h1 class="sr-only">武汉理工大学 WUTE 电动方程式赛车队</h1>
     <!-- 全屏轮播图区域 -->
     <section class="hero-slider" id="home">
         <!-- 轮播图1 -->
         <div class="slide active">
-            <picture><source srcset="picture/ABC_3469-opq4142934343-hd.webp" type="image/webp"><img width="2880" height="1920" src="picture/ABC_3469-opq4142934343-hd.jpg" alt="方程式赛车1" fetchpriority="high"></picture>
+            <picture><source srcset="picture/ABC_3469-opq4142934343-hd.webp" type="image/webp"><img width="2880" height="1920" src="picture/ABC_3469-opq4142934343-hd.jpg" alt="WUTE E03 赛车在 2025 年大学生电动方程式赛场行驶" fetchpriority="high"></picture>
             <div class="slide-text">
                 <h2 class="custom-h1">2026赛季全新启航</h2>
                 <p>速度与激情的极致碰撞，见证传奇诞生</p>
@@ -1103,8 +1130,8 @@
             </div>
         </div>
         <!-- 轮播图2 -->
-        <div class="slide">
-            <picture><source srcset="picture/淋雨测试-hd.webp" type="image/webp"><img width="2880" height="1920" src="picture/淋雨测试-hd.jpg" alt="方程式赛车2" loading="lazy"></picture>
+        <div class="slide" inert aria-hidden="true">
+            <picture><source srcset="picture/淋雨测试-hd.webp" type="image/webp"><img width="2880" height="1920" src="picture/淋雨测试-hd.jpg" alt="队员在夕阳下为 E03 赛车进行淋雨测试" loading="lazy"></picture>
             <div class="slide-text">
                 <h2 class="custom-h1">全速推进</h2>
                 <p>用团结与拼搏铸就不朽荣耀</p>
@@ -1114,8 +1141,8 @@
             </div>
         </div>
         <!-- 轮播图3 -->
-        <div class="slide">
-            <picture><source srcset="picture/动火区夕阳-hd.webp" type="image/webp"><img width="2880" height="1920" src="picture/动火区夕阳-hd.jpg" alt="方程式赛车3" loading="lazy"></picture>
+        <div class="slide" inert aria-hidden="true">
+            <picture><source srcset="picture/动火区夕阳-hd.webp" type="image/webp"><img width="2880" height="1920" src="picture/动火区夕阳-hd.jpg" alt="夕阳下停在赛场维修区的 WUTE E03 赛车" loading="lazy"></picture>
             <div class="slide-text">
                 <h2 class="custom-h1">赞助商</h2>
                 <p>感谢每一位合作伙伴的鼎力支持</p>
@@ -1128,12 +1155,13 @@
         <!-- 轮播图箭头 -->
         <button class="slider-arrow slider-prev" aria-label="上一张">&#10094;</button>
         <button class="slider-arrow slider-next" aria-label="下一张">&#10095;</button>
+        <button class="slider-pause" type="button" aria-label="暂停轮播" aria-pressed="false">暂停轮播</button>
 
         <!-- 向下滚动指示器 -->
-        <div class="scroll-indicator" onclick="document.getElementById('stats-bar').scrollIntoView({behavior:'smooth'})">
+        <button type="button" class="scroll-indicator" onclick="document.getElementById('stats-bar').scrollIntoView({behavior:'smooth'})">
             <span>滚动探索</span>
             <div class="arrow"></div>
-        </div>
+        </button>
 
     </section>
 
@@ -1141,15 +1169,15 @@
     <section class="stats-bar" id="stats-bar">
         <div class="stats-grid">
             <div class="stat-item">
-                <span class="stat-value"><span class="counter" data-target="6.48">0</span></span>
+                <span class="stat-value"><span class="counter" data-target="6.48">6.48</span></span>
                 <span class="stat-unit">Cl*A</span>
             </div>
             <div class="stat-item">
-                <span class="stat-value"><span class="counter" data-target="183">0</span></span>
+                <span class="stat-value"><span class="counter" data-target="183">183</span></span>
                 <span class="stat-unit">整车质量 kg</span>
             </div>
             <div class="stat-item">
-                <span class="stat-value"><span class="counter" data-target="14">0</span></span>
+                <span class="stat-value"><span class="counter" data-target="14">14</span></span>
                 <span class="stat-unit">连续参赛 年</span>
             </div>
         </div>
@@ -1550,6 +1578,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- 页脚（全站统一组件） -->
     <footer class="site-footer">
@@ -1621,20 +1650,45 @@
             window.addEventListener('scroll', toggleToTop, { passive: true });
         })();
 
-        // ===== 导航下拉菜单（技术组别 / 历年赛车）：点击展开/收起，点击外部关闭 =====
+        // ===== 下拉菜单：链接负责导航，独立按钮负责展开 =====
+        document.querySelectorAll('.nav-drop > .nav-drop-toggle').forEach(function (link, index) {
+            var button = document.createElement('button');
+            var menu = link.parentElement.querySelector('.drop-menu');
+            menu.id = menu.id || 'nav-drop-menu-' + index;
+            button.type = 'button';
+            button.className = 'nav-drop-button';
+            button.dataset.menuName = link.textContent.trim();
+            button.setAttribute('aria-label', '展开' + button.dataset.menuName + '菜单');
+            button.setAttribute('aria-expanded', 'false');
+            button.setAttribute('aria-controls', menu.id);
+            button.textContent = '▾';
+            link.insertAdjacentElement('afterend', button);
+        });
+        function closeDropdowns() {
+            document.querySelectorAll('.nav-drop.open').forEach(function (item) {
+                item.classList.remove('open');
+                var button = item.querySelector('.nav-drop-button');
+                button.setAttribute('aria-expanded', 'false');
+                button.setAttribute('aria-label', '展开' + button.dataset.menuName + '菜单');
+            });
+        }
         document.addEventListener('click', function (e) {
-            var toggle = e.target.closest ? e.target.closest('.nav-drop-toggle') : null;
+            var toggle = e.target.closest ? e.target.closest('.nav-drop-button') : null;
             if (toggle) {
                 var li = toggle.parentElement;
                 var wasOpen = li.classList.contains('open');
-                document.querySelectorAll('.nav-drop.open').forEach(function (d) { d.classList.remove('open'); });
-                if (!wasOpen) li.classList.add('open');
-                e.preventDefault();
+                closeDropdowns();
+                if (!wasOpen) {
+                    li.classList.add('open');
+                    toggle.setAttribute('aria-expanded', 'true');
+                    toggle.setAttribute('aria-label', '收起' + toggle.dataset.menuName + '菜单');
+                }
                 return;
             }
-            document.querySelectorAll('.nav-drop.open').forEach(function (d) {
-                if (!d.contains(e.target)) d.classList.remove('open');
-            });
+            if (!e.target.closest || !e.target.closest('.nav-drop')) closeDropdowns();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeDropdowns();
         });
 
         // ===== 彩蛋触发：Konami 秘技 / 连按 W / 页脚 logo 连点（与共享 wute.js 逻辑一致） =====
@@ -1692,15 +1746,24 @@
         const slides = document.querySelectorAll('.slide');
         const prevBtn = document.querySelector('.slider-prev');
         const nextBtn = document.querySelector('.slider-next');
+        const pauseBtn = document.querySelector('.slider-pause');
         const slider = document.querySelector('.hero-slider');
         let currentSlide = 0;
         let autoPlayTimer = null;
+        let userPaused = false;
+        let pointerInside = false;
+        let focusInside = false;
+        let touching = false;
         const AUTO_DELAY = 5000;
 
         function goToSlide(index) {
             slides[currentSlide].classList.remove('active');
+            slides[currentSlide].setAttribute('inert', '');
+            slides[currentSlide].setAttribute('aria-hidden', 'true');
             currentSlide = ((index % slides.length) + slides.length) % slides.length;
             slides[currentSlide].classList.add('active');
+            slides[currentSlide].removeAttribute('inert');
+            slides[currentSlide].removeAttribute('aria-hidden');
         }
 
         function nextSlide() { goToSlide(currentSlide + 1); }
@@ -1708,6 +1771,7 @@
 
         function startAutoPlay() {
             stopAutoPlay();
+            if (userPaused || pointerInside || focusInside || touching || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             autoPlayTimer = setInterval(nextSlide, AUTO_DELAY);
         }
         function stopAutoPlay() {
@@ -1717,16 +1781,25 @@
         // 箭头按钮
         prevBtn.addEventListener('click', function() { prevSlide(); startAutoPlay(); });
         nextBtn.addEventListener('click', function() { nextSlide(); startAutoPlay(); });
+        pauseBtn.addEventListener('click', function() {
+            userPaused = !userPaused;
+            pauseBtn.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
+            pauseBtn.setAttribute('aria-label', userPaused ? '播放轮播' : '暂停轮播');
+            pauseBtn.textContent = userPaused ? '播放轮播' : '暂停轮播';
+            if (userPaused) stopAutoPlay(); else startAutoPlay();
+        });
 
         // 悬停暂停
-        slider.addEventListener('mouseenter', stopAutoPlay);
-        slider.addEventListener('mouseleave', startAutoPlay);
-        slider.addEventListener('focusin', stopAutoPlay);
-        slider.addEventListener('focusout', startAutoPlay);
+        slider.addEventListener('mouseenter', function() { pointerInside = true; stopAutoPlay(); });
+        slider.addEventListener('mouseleave', function() { pointerInside = false; startAutoPlay(); });
+        slider.addEventListener('focusin', function() { focusInside = true; stopAutoPlay(); });
+        slider.addEventListener('focusout', function(e) {
+            if (!slider.contains(e.relatedTarget)) { focusInside = false; startAutoPlay(); }
+        });
 
         // 触摸暂停
-        slider.addEventListener('touchstart', stopAutoPlay, { passive: true });
-        slider.addEventListener('touchend', function() { startAutoPlay(); }, { passive: true });
+        slider.addEventListener('touchstart', function() { touching = true; stopAutoPlay(); }, { passive: true });
+        slider.addEventListener('touchend', function() { touching = false; startAutoPlay(); }, { passive: true });
 
         // 键盘方向键
         document.addEventListener('keydown', function(e) {
@@ -1838,24 +1911,39 @@
         // ===== 汉堡菜单 =====
         var hamburger = document.getElementById('hamburger');
         var navLinksContainer = document.querySelector('.nav-links');
-        hamburger.addEventListener('click', function() {
-            var isOpen = navLinksContainer.classList.toggle('open');
+        function setMenuOpen(isOpen, returnFocus) {
+            navLinksContainer.classList.toggle('open', isOpen);
             hamburger.classList.toggle('open', isOpen);
-            hamburger.setAttribute('aria-expanded', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
             document.body.style.overflow = isOpen ? 'hidden' : '';
+            if (isOpen) navLinksContainer.querySelector('a').focus();
+            if (!isOpen && returnFocus) hamburger.focus();
+        }
+        hamburger.addEventListener('click', function() {
+            setMenuOpen(!navLinksContainer.classList.contains('open'), false);
         });
         // 点击链接后关闭菜单
         navLinksContainer.querySelectorAll('a').forEach(function(link) {
             link.addEventListener('click', function() {
-                navLinksContainer.classList.remove('open');
-                hamburger.classList.remove('open');
-                hamburger.setAttribute('aria-expanded', 'false');
-                document.body.style.overflow = '';
+                if (navLinksContainer.classList.contains('open')) setMenuOpen(false, false);
             });
+        });
+        document.addEventListener('keydown', function(e) {
+            if (!navLinksContainer.classList.contains('open')) return;
+            if (e.key === 'Escape') { setMenuOpen(false, true); return; }
+            if (e.key !== 'Tab') return;
+            var items = Array.prototype.slice.call(navLinksContainer.querySelectorAll('a')).concat(hamburger);
+            var first = items[0], last = items[items.length - 1];
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        });
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768 && navLinksContainer.classList.contains('open')) setMenuOpen(false, false);
         });
 
         // ===== GSAP 动画（ScrollTrigger） =====
         document.addEventListener('DOMContentLoaded', function() {
+            if (!window.gsap || !window.ScrollTrigger) return;
             gsap.registerPlugin(ScrollTrigger);
 
             // --- Hero 视差滚动（AMG 微调） ---
