@@ -113,6 +113,7 @@ python -m http.server 8000
 ## 🧰 维护指南
 
 - **改品牌色 / 导航 / 页脚 / Hero**：只改 `assets/wute.css`
+- **改共享 CSS / JS**：同时更新各 HTML 中 `wute.css?v=...` / `wute.js?v=...` 的版本号，让浏览器立即获取新文件；服务器可能缓存旧 URL 7 天
 - **新增页面**：照抄现有二级页模板（nav / page-hero / content / footer + GSAP + `wute.js`）
 - **新增 Tailwind 类**：需手动在 `wute.css` 工具类节补 CSS 规则
 - **更换字体**：字体子集化用 `字体子集化工具.py`（项目根目录，改了页面里的新汉字要重跑）

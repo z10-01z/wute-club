@@ -68,7 +68,7 @@
     <!-- GSAP 预连接（脚本已移到 body 末尾执行，不阻塞首屏渲染） -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <!-- 共享设计系统（全站统一：设计令牌 / 导航 / 页脚 / 工具类） -->
-    <link rel="stylesheet" href="assets/wute.css">
+    <link rel="stylesheet" href="assets/wute.css?v=20260923b">
     <style>
         /* 设计令牌 / 全局重置 / 字体栈已迁移至 assets/wute.css（:root 单一事实来源） */
 
@@ -191,24 +191,6 @@
         }
         .slider-prev { left: 2%; }
         .slider-next { right: 2%; }
-        .slider-pause {
-            position: absolute;
-            right: 2%;
-            bottom: 2.5rem;
-            z-index: 4;
-            padding: 0.45rem 0.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.45);
-            border-radius: 3px;
-            background: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            font: inherit;
-            font-size: 0.8rem;
-            cursor: pointer;
-        }
-        .slider-pause:hover { background: rgba(0, 0, 0, 0.8); }
-        @media (prefers-reduced-motion: reduce) {
-            .slider-pause { display: none; }
-        }
 
         /* 轮播图自定义字体（woff2 子集化：42.8MB→50KB，仅含页面所需字符；改标题后重跑 字体子集化工具.py） */
         @font-face {
@@ -1155,7 +1137,6 @@
         <!-- 轮播图箭头 -->
         <button class="slider-arrow slider-prev" aria-label="上一张">&#10094;</button>
         <button class="slider-arrow slider-next" aria-label="下一张">&#10095;</button>
-        <button class="slider-pause" type="button" aria-label="暂停轮播" aria-pressed="false">暂停轮播</button>
 
         <!-- 向下滚动指示器 -->
         <button type="button" class="scroll-indicator" onclick="document.getElementById('stats-bar').scrollIntoView({behavior:'smooth'})">
@@ -1746,11 +1727,9 @@
         const slides = document.querySelectorAll('.slide');
         const prevBtn = document.querySelector('.slider-prev');
         const nextBtn = document.querySelector('.slider-next');
-        const pauseBtn = document.querySelector('.slider-pause');
         const slider = document.querySelector('.hero-slider');
         let currentSlide = 0;
         let autoPlayTimer = null;
-        let userPaused = false;
         let pointerInside = false;
         let focusInside = false;
         let touching = false;
@@ -1771,7 +1750,7 @@
 
         function startAutoPlay() {
             stopAutoPlay();
-            if (userPaused || pointerInside || focusInside || touching || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            if (pointerInside || focusInside || touching || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             autoPlayTimer = setInterval(nextSlide, AUTO_DELAY);
         }
         function stopAutoPlay() {
@@ -1781,13 +1760,6 @@
         // 箭头按钮
         prevBtn.addEventListener('click', function() { prevSlide(); startAutoPlay(); });
         nextBtn.addEventListener('click', function() { nextSlide(); startAutoPlay(); });
-        pauseBtn.addEventListener('click', function() {
-            userPaused = !userPaused;
-            pauseBtn.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
-            pauseBtn.setAttribute('aria-label', userPaused ? '播放轮播' : '暂停轮播');
-            pauseBtn.textContent = userPaused ? '播放轮播' : '暂停轮播';
-            if (userPaused) stopAutoPlay(); else startAutoPlay();
-        });
 
         // 悬停暂停
         slider.addEventListener('mouseenter', function() { pointerInside = true; stopAutoPlay(); });
