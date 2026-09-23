@@ -26,11 +26,11 @@
 
 ## ✨ 功能特性
 
-- **20 个页面**：首页、车队历史、荣誉奖项、E03 赛车规格、队员风采、六大技术组别、赞助商合作、合作案例详情、相册、设计作品集等
-- **设计系统**：`assets/wute.css` 提供共享导航、页脚与组件；首页的 `assets/home.css` 使用碳黑、浅灰和赛车蓝白红配色，包含首屏、E03 技术展示与团队介绍
-- **原生交互**：首页使用 CSS 淡入轮播与原生 JavaScript，已移除 GSAP、持续缩放和滚动视差；内页使用 IntersectionObserver + CSS 滚动显现
+- **22 个页面**：首页、车队历史、荣誉奖项、E03 赛车规格、队员风采、六大技术组别、赞助商合作、合作案例详情、相册、设计作品集及错误页
+- **设计系统**：`assets/wute.css` 统一全站导航、字体、石墨色背景、容器、按钮与页脚；`assets/home.css` 仅定义首页布局
+- **原生交互**：`assets/home.js` 负责首页轮播；`assets/wute.js` 负责全站导航、菜单、灯箱及回到顶部
 - **交互细节**：轮播箭头与页码、灯箱（Esc 关闭 + ← → 切换）、移动端全屏菜单、图片懒加载、卡片图点击放大
-- **无障碍**：全站文字对比度实测满足 WCAG AA、相册照片键盘可达、图片 alt 全覆盖、:focus-visible 焦点环、prefers-reduced-motion 支持
+- **无障碍**：相册照片可用键盘打开、灯箱关闭后恢复焦点、图片提供 alt 文本、键盘焦点可见，并尊重系统减少动态效果设置
 - **性能优化**：字体子集化（42.8MB → 50KB）、图片压缩（406MB → 72MB）、**全站 WebP 化 + 按显示尺寸生成变体**（相册页 27.5MB → 6.0MB）、CLS 修复、SEO / 分享 meta（og:image 等）
 
 ## 🛠 技术栈
@@ -38,16 +38,17 @@
 | 技术 | 说明 |
 |---|---|
 | 原生 HTML + CSS + JavaScript | 无框架、无构建流程、无后端 |
-| `assets/home.css` | 第一轮首页视觉样式；在共享样式及旧板块样式之后加载，仅作用于首页 |
+| `assets/home.css` | 首页首屏及章节布局，仅作用于首页 |
+| `assets/home.js` | 首页轮播；保留自动播放与箭头，手动切换后停止自动轮播 |
 | `assets/wute.css` | 共享设计系统（设计令牌 / 导航 / 页脚 / hero / 通用组件 / 工具类） |
-| `assets/wute.js` | 共享交互（导航滚动 / 汉堡菜单 / 滚动显现 / 灯箱 / 彩蛋），零依赖 |
+| `assets/wute.js` | 共享交互（导航滚动 / 手机菜单 / 灯箱 / 彩蛋），零依赖 |
 | GitHub Actions | push 即自动部署到服务器 |
 
 ## 📄 页面一览
 
 | 页面 | 说明 |
 |---|---|
-| `index.html` | 首页（轮播 / E03 技术展示 / 车队 / 技术组别 / 赛事简述 / 相册 / 赞助商 / 联系） |
+| `index.html` | 首页（全屏轮播 / E03 技术展示 / 车队与组别 / 影像 / 合作伙伴 / 加入入口） |
 | `about.html` | 车队历史（2013–2026 十四代赛车时间轴） |
 | `honors.html` | 荣誉奖项（赛季成绩 + 技术里程碑） |
 | `car.html` | E03 赛车技术规格 |
@@ -62,26 +63,28 @@
 
 ## 🎨 设计系统
 
-共享设计令牌位于 `assets/wute.css` 的 `:root`。首页通过 `assets/home.css` 的 `.home-page` 覆盖背景与标题字体，内页沿用共享设计：
+共享设计令牌位于 `assets/wute.css` 的 `:root`。首页与内页共用这些规则，`assets/home.css` 仅处理首页独有布局：
 
 | 变量 | 值 | 用途 |
 |---|---|---|
-| `--bg-deep` | `#05070c`（首页 `#101216`） | 页面主背景 |
-| `--brand-blue` | `#00489b` | 品牌蓝（按钮底色 / 边框 / 白底区文字） |
-| `--brand-blue-text` | `#4a90e2` | **深色底上当文字用的蓝**（#00489b 在黑底上只有 2.4:1，不达标） |
+| `--bg-deep` | `#0b0d10` | 页面主背景 |
+| `--bg-surface` | `#15181d` | 石墨色章节与卡片 |
+| `--brand-blue` | `#00489b` | 品牌标识 |
+| `--brand-blue-text` | `#7db4ff` | 深色背景上的链接与焦点 |
 | `--brand-red` | `#d0121b` | 品牌红 |
-| `--text-primary` | `#eef1f6` | 主文字 |
+| `--text-primary` | `#f4f5f6` | 主文字与主按钮背景 |
 
-统一组件：`.site-nav`（导航）、`.page-hero`（二级页 Hero，含描边水印字）、`.site-footer`（页脚）、`.card` / `.btn` / `.timeline` / `.spec-table` 等。
+统一组件：`.site-nav`（导航）、`.page-hero`（内页标题）、`.site-footer`（页脚）、`.card` / `.btn` / `.timeline` / `.spec-table` 等。
 
 ## 📁 目录结构
 
 ```
 www.wute.club/
-├── index.html / about.html / honors.html / car.html ...   # 20 个页面
+├── index.html / about.html / honors.html / car.html ...   # 22 个页面
 ├── assets/
 │   ├── wute.css          # 共享设计系统（改品牌色只改这里）
 │   ├── home.css          # 首页视觉与响应式布局
+│   ├── home.js           # 首页轮播
 │   └── wute.js           # 共享交互
 ├── groups/               # 六大技术组别页
 ├── sponsors/             # 赞助商页（RSC + 3 个合作案例）
@@ -101,7 +104,7 @@ python -m http.server 8000
 
 或直接双击 `index.html` 以 file:// 打开。
 
-> 只有首页需要联网加载 GSAP CDN；其余 19 个页面离线也能完整浏览。
+> 网站不依赖运行时 CDN，静态资源按页面的相对路径加载。
 
 ## 📦 部署
 
@@ -114,8 +117,8 @@ python -m http.server 8000
 
 - **改品牌色 / 导航 / 页脚 / Hero**：只改 `assets/wute.css`
 - **改共享 CSS / JS**：同时更新各 HTML 中 `wute.css?v=...` / `wute.js?v=...` 的版本号，让浏览器立即获取新文件；服务器可能缓存旧 URL 7 天
-- **新增页面**：照抄现有二级页模板（nav / page-hero / content / footer + GSAP + `wute.js`）
-- **新增 Tailwind 类**：需手动在 `wute.css` 工具类节补 CSS 规则
+- **新增页面**：沿用现有内页结构（nav / page-hero / content / footer + `wute.js`）
+- **新增样式**：优先复用 `wute.css` 中的共享组件与设计令牌
 - **更换字体**：字体子集化用 `字体子集化工具.py`（项目根目录，改了页面里的新汉字要重跑）
 - **新增 / 更换图片**：正常写 `<img>` 即可；想让图片走 WebP 就运行 `生成webp图.py`（项目根目录）——
   它会按目录预设宽度生成 `.webp` 并自动把 `<img>` 包进 `<picture>`，**原图不动、删掉 webp 即可回滚**

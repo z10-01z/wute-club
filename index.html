@@ -17,7 +17,7 @@
     <meta property="og:url" content="https://www.wute.club/">
     <meta property="og:site_name" content="WUTE 电动方程式赛车队">
     <meta property="og:locale" content="zh_CN">
-    <meta name="theme-color" content="#101216">
+    <meta name="theme-color" content="#0b0d10">
     <link rel="canonical" href="https://www.wute.club/">
     <script type="application/ld+json">
     {
@@ -37,583 +37,40 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%2300489b'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='16' font-weight='bold' font-family='Arial'>W</text></svg>">
     <link rel="icon" type="image/png" sizes="32x32" href="picture/favicon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="picture/apple-touch-icon.png">
-        <!-- Tailwind 工具类（静态提取，替代 CDN 运行时编译） -->
-    <style>
-        .container { width: 100%; }
-        @media (min-width: 640px) { .container { max-width: 640px; } }
-        @media (min-width: 768px) { .container { max-width: 768px; } }
-        @media (min-width: 1024px) { .container { max-width: 1024px; } }
-        @media (min-width: 1280px) { .container { max-width: 1280px; } }
-        @media (min-width: 1536px) { .container { max-width: 1536px; } }
-        .mx-auto { margin-left: auto; margin-right: auto; }
-        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-        .mb-4 { margin-bottom: 1rem; }
-        .flex { display: flex; }
-        .flex-col { flex-direction: column; }
-        .items-center { align-items: center; }
-        .gap-8 { gap: 2rem; }
-        .w-full { width: 100%; }
-        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-        .max-w-3xl { max-width: 48rem; }
-        .rounded-lg { border-radius: 0.5rem; }
-        .object-cover { object-fit: cover; }
-        .shadow-lg { box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
-        .transition-opacity { transition-property: opacity; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
-        .hover\:opacity-80:hover { opacity: 0.8; }
-        @media (min-width: 768px) {
-            .md\:flex-row { flex-direction: row; }
-            .md\:w-1\/2 { width: 50%; }
-        }
-    </style>
+
     <!-- 共享设计系统（全站统一：设计令牌 / 导航 / 页脚 / 工具类） -->
-    <link rel="stylesheet" href="assets/wute.css?v=20260923b">
-    <style>
-        /* 设计令牌 / 全局重置 / 字体栈已迁移至 assets/wute.css（:root 单一事实来源） */
-
-        /* 导航栏样式见 assets/wute.css（.site-nav / .nav-links / .hamburger） */
-
-        .grad-cover-link {
-            display: block;
-            max-width: 800px;
-            margin: 0 auto;
-            text-decoration: none;
-        }
-        .grad-cover-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: var(--radius-md);
-            aspect-ratio: 16 / 9;
-            cursor: pointer;
-            border: 1px solid var(--border-subtle);
-            transition: border-color 0.35s ease;
-        }
-        .grad-cover-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease, filter 0.6s ease;
-        }
-        .grad-cover-link:hover .grad-cover-card img {
-            transform: scale(1.05);
-            filter: brightness(1.15);
-        }
-        .grad-cover-link:hover .grad-cover-card {
-            border-color: var(--brand-blue);
-        }
-        .grad-cover-overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            pointer-events: none;
-        }
-        .grad-cover-text {
-            color: #fff;
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-        }
-        .grad-cover-arrow {
-            color: var(--brand-blue-text);
-            font-size: 1.6rem;
-            transition: transform 0.3s ease;
-        }
-        .grad-cover-link:hover .grad-cover-arrow {
-            transform: translateX(6px);
-        }
-
-        /* 赞助商跑马灯 */
-        .sponsors-strip {
-            background: var(--bg-surface);
-            padding: 1.75rem 0;
-            overflow: hidden;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-        }
-        .sponsors-strip .marquee-inner {
-            display: flex;
-            width: fit-content;
-            will-change: transform;
-        }
-        .sponsors-strip .marquee-set {
-            display: flex;
-            gap: 4rem;
-            flex-shrink: 0;
-            padding: 0 2rem;
-        }
-        .sponsor-logo-item {
-            flex-shrink: 0;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.25;
-            transition: opacity 0.5s ease, color 0.5s ease;
-            color: var(--text-secondary);
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            white-space: nowrap;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
-        .sponsor-logo-item:hover {
-            opacity: 0.7;
-            color: #fff;
-        }
-
-        /* 特色板块样式（AMG 大幅面网格 + 文字叠加） */
-        .features {
-            padding: 7rem 4%;
-            background: #000;
-        }
-
-        .features .section-subtitle {
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: -3rem;
-            margin-bottom: 4rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 3 / 2;
-            cursor: pointer;
-            background: #0a0a0a;
-        }
-
-        .feature-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s ease;
-            opacity: 0.6;
-        }
-
-        .feature-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.3) 100%);
-            pointer-events: none;
-            transition: background 0.5s ease;
-        }
-
-        .feature-card:hover img {
-            transform: scale(1.06);
-            opacity: 0.75;
-        }
-
-        .feature-card:hover::after {
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.4) 100%);
-        }
-
-        .feature-card h3 {
-            position: absolute;
-            bottom: 2.75rem;
-            left: 1.75rem;
-            z-index: 2;
-            color: #fff;
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 0.06em;
-            margin: 0;
-        }
-
-        .feature-card p {
-            position: absolute;
-            bottom: 0.75rem;
-            left: 1.75rem;
-            right: 1.75rem;
-            z-index: 2;
-            color: rgba(255,255,255,0.55);
-            font-size: 0.86rem;
-            letter-spacing: 0.05em;
-            margin: 0;
-            line-height: 1.5;
-        }
-
-        @media (max-width: 768px) {
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
-            .feature-card {
-                aspect-ratio: 16 / 9;
-            }
-            .feature-card h3 { font-size: 1.15rem; bottom: 2.5rem; left: 1.25rem; }
-            .feature-card p { bottom: 0.5rem; left: 1.25rem; right: 1.25rem; font-size: 0.82rem; }
-        }
-
-        /* 赞助商板块样式 */
-        .sponsors {
-            padding: 7rem 5%;
-            background: #FFFFFF;
-        }
-
-        .sponsors h2 {
-            text-align: center;
-            font-size: 2.9rem;
-            font-weight: 800;
-            margin-bottom: 3rem;
-            color: #333;
-            letter-spacing: 0.06em;
-        }
-        .sponsors .section-label { color: #6b6b76; }
-        .sponsors .sponsor-item { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.06); }
-        .sponsors .sponsor-item:hover { background: #fff; border-color: rgba(0,0,0,0.15); }
-        .sponsors .sponsor-title-card { background: #fff; border-color: rgba(0,0,0,0.08); }
-
-        /* ===== 车队历史时间轴（AMG 极简） ===== */
-        .history-section {
-            padding: 7rem 5%;
-            background: #000;
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 700px;
-            margin: 0 auto;
-            padding-left: 3rem;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: linear-gradient(to bottom,
-                transparent 0%,
-                rgba(255,255,255,0.12) 3%,
-                rgba(255,255,255,0.12) 97%,
-                transparent 100%);
-        }
-
-        .timeline-node {
-            position: relative;
-            margin-bottom: 4rem;
-            padding-left: 2.5rem;
-        }
-        .timeline-node::before {
-            content: '';
-            position: absolute;
-            left: -3.3rem;
-            top: 0.3rem;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--brand-blue);
-            border: 3px solid #000;
-            box-shadow: 0 0 0 1px var(--brand-blue);
-        }
-
-        .timeline-year {
-            font-family: 'JetBrains Mono', 'Consolas', monospace;
-            font-size: 2rem;
-            font-weight: 200;
-            color: rgba(255,255,255,0.42);
-            letter-spacing: 0.06em;
-            margin-bottom: 0.5rem;
-            line-height: 1;
-        }
-        .timeline-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.4rem;
-            letter-spacing: 0.04em;
-        }
-        .timeline-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-            letter-spacing: 0.03em;
-        }
-
-        /* ===== 联系我们/队员架构（AMG 极简） ===== */
-        .structure-section {
-            padding: 7rem 5%;
-            background: #000;
-        }
-
-        .structure-leader {
-            color: var(--text-primary);
-            text-align: center;
-            padding: 0 0 2rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .structure-cards {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 3rem;
-            margin: 0 0 3rem;
-        }
-        .structure-card {
-            text-align: center;
-        }
-        .structure-card h4 {
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.3rem;
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
-        }
-        .structure-card p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            letter-spacing: 0.04em;
-        }
-
-        .structure-groups {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0 3rem;
-        }
-        .structure-group-tag {
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            text-align: center;
-            transition: color 0.3s ease;
-        }
-        .structure-group-tag:hover {
-            color: #fff;
-        }
-
-        .sponsor-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-            gap: 1.875rem;
-            justify-items: center;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .sponsor-item {
-            width: 232px;
-            height: 116px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: var(--radius-sm);
-            transition: opacity 0.4s ease, border-color 0.4s ease, background 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .sponsor-item.key-sponsor {
-            width: 300px;
-            height: 150px;
-            flex-shrink: 0;
-        }
-        .sponsor-item.key-sponsor img {
-            max-width: 246px;
-            max-height: 106px;
-        }
-        .sponsor-item:hover {
-            background: #fff;
-            border-color: rgba(0, 0, 0, 0.12);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
-        .sponsor-item img {
-            max-width: 182px;
-            max-height: 84px;
-            object-fit: contain;
-            opacity: 0.9;
-            transition: opacity 0.4s ease;
-        }
-        .sponsor-item:hover img {
-            opacity: 1;
-        }
-        /* 赞助商分类标签（横跨整行） */
-        .sponsor-cat {
-            grid-column: 1 / -1;
-            text-align: center;
-            color: #6b6b76;
-            font-size: 1.2rem;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            margin: 1rem 0 0.5rem;
-        }
-        .sponsor-cat.sm {
-            font-size: 1.05rem;
-            letter-spacing: 0.1em;
-            margin-top: 1.5rem;
-        }
-        .sponsor-cat.tight { margin: 0.5rem 0 0.25rem; }
-        .sponsor-cat.wide { margin-top: 2rem; }
-        /* 赞助商横向排列行 */
-        .sponsor-row {
-            grid-column: 1 / -1;
-            display: flex;
-            justify-content: center;
-            gap: 1.25rem;
-            flex-wrap: wrap;
-        }
-        .sponsor-row .sponsor-item { margin: 0; }
-        /* 冠名赞助商（独占一行、放大） */
-        .sponsor-title-card {
-            grid-column: 1 / -1;
-            width: 100%;
-            max-width: 570px;
-            height: 142px;
-            justify-self: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #fff;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            border-radius: var(--radius-sm);
-            transition: all 0.4s ease;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .sponsor-title-card:hover {
-            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-            transform: translateY(-2px);
-        }
-        .sponsor-title-card img {
-            max-width: 450px;
-            max-height: 105px;
-            object-fit: contain;
-        }
-        /* 无链接项 */
-        .sponsor-item.no-link {
-            cursor: default;
-        }
-        .sponsor-item.no-link:hover {
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* 页脚样式见 assets/wute.css（.site-footer） */
-
-/* 响应式适配（导航/汉堡菜单见 assets/wute.css） */
-        @media (max-width: 768px) {
-
-.glass-card {
-                padding: 1.5rem;
-            }
-
-            .section-title {
-                font-size: 1.6rem;
-                margin-bottom: 2.5rem;
-            }
-
-            .features .section-subtitle {
-                margin-top: -1.5rem;
-                margin-bottom: 2.5rem;
-            }
-            .features {
-                padding: 4rem 2%;
-            }
-
-            .history-section {
-                padding: 4rem 5%;
-            }
-
-            .sponsor-grid {
-                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-                gap: 0.625rem;
-            }
-            .sponsor-title-card {
-                max-width: 290px;
-                height: 75px;
-            }
-            .sponsor-title-card img {
-                max-width: 230px;
-                max-height: 55px;
-            }
-            .sponsor-item {
-                width: 140px;
-                height: 70px;
-            }
-            .sponsor-item img {
-                max-width: 105px !important;
-                max-height: 48px !important;
-            }
-            .sponsor-item.key-sponsor {
-                width: 140px;
-                height: 70px;
-            }
-            .sponsor-item.key-sponsor img {
-                max-width: 105px;
-                max-height: 48px;
-            }
-            footer {
-                padding: 2rem 5%;
-            }
-        }
-
-    </style>
-    <link rel="stylesheet" href="assets/home.css?v=20260923d">
+    <link rel="stylesheet" href="assets/wute.css?v=20260923e">
+    <link rel="stylesheet" href="assets/home.css?v=20260923e">
 </head>
 <body class="home-page">
 <a class="skip-link" href="#main-content">跳到正文</a>
     <!-- 导航栏（全站统一组件，见 assets/wute.css） -->
-    <nav class="site-nav">
-        <a href="#home" class="nav-brand" aria-label="WUTE 首页">
-            <img width="647" height="142" src="picture/WUTE_logo_white.png" alt="WUTE">
-        </a>
-        <ul class="nav-links">
-            <li><a href="#home">首页</a></li>
-            <li><a href="about.html">车队历史</a></li>
-            <li><a href="gallery.html">队员风采</a></li>
-            <li class="nav-drop">
-                <a href="index.html#teams" class="nav-drop-toggle">技术组别</a>
-                <div class="drop-menu">
+    <nav class="site-nav" aria-label="主导航">
+    <a href="index.html" class="nav-brand" aria-label="WUTE 首页" aria-current="page"><img width="647" height="142" src="picture/WUTE_logo_white.png" alt="WUTE"></a>
+    <ul class="nav-links" id="primary-navigation">
+        <li><a href="car.html">赛车</a></li>
+        <li class="nav-drop">
+            <a href="about.html" class="nav-drop-toggle">车队</a>
+            <div class="drop-menu">
+                <a href="about.html">车队历史</a>
+                <a href="honors.html">荣誉奖项</a>
                     <a href="groups/电气组.html">电气组</a>
                     <a href="groups/单体壳组.html">单体壳组</a>
                     <a href="groups/空套组.html">空套组</a>
                     <a href="groups/悬架组.html">悬架组</a>
                     <a href="groups/轮边组.html">轮边组</a>
                     <a href="groups/运营组.html">运营组</a>
-                </div>
-            </li>
-            <li><a href="honors.html">荣誉奖项</a></li>
-            <li class="nav-drop">
-                <a href="car.html" class="nav-drop-toggle">历年赛车</a>
-                <div class="drop-menu">
-                    <a href="car.html">E03 赛车</a>
-                </div>
-            </li>
-            <li><a href="join.html">加入我们</a></li>
-            <li><a href="sponsors.html">赞助商合作</a></li>
-        </ul>
-        <div class="nav-right">
-            <a href="#structure" class="btn btn-ghost nav-cta">联系我们</a>
-            <button class="hamburger" id="hamburger" aria-label="菜单" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+            </div>
+        </li>
+        <li><a href="gallery.html">影像</a></li>
+        <li><a href="sponsors.html">合作伙伴</a></li>
+        <li class="nav-mobile-join"><a href="join.html">加入 WUTE</a></li>
+    </ul>
+    <div class="nav-right">
+        <a href="join.html" class="btn btn-primary nav-cta">加入 WUTE</a>
+        <button class="hamburger" id="hamburger" type="button" aria-label="打开菜单" aria-controls="primary-navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+</nav>
 
     <main id="main-content">
     <h1 class="sr-only">武汉理工大学 WUTE 电动方程式赛车队</h1>
@@ -624,8 +81,8 @@
             <picture><source srcset="picture/动火区夕阳-hd.webp" type="image/webp"><img width="2200" height="1467" src="picture/动火区夕阳-hd.jpg" alt="夕阳下停在赛场维修区的 WUTE E03 赛车，尾翼上写着 MAXIMUM PUSH" fetchpriority="high"></picture>
             <div class="slide-text">
                 <p class="hero-eyebrow">学生设计 · 自主制造 · 赛道验证</p>
-                <h2 class="hero-title">WUTE<br><span>RACING.</span></h2>
-                <p class="hero-description">全速推进。从图纸，到赛道。</p>
+                <h2 class="hero-title">WUTE RACING</h2>
+                <p class="hero-description">从图纸，到赛道。</p>
                 <div class="hero-cta-group"><a href="#intro-e03" class="cta-primary">探索 E03 赛车 <span aria-hidden="true">↗</span></a></div>
             </div>
             <p class="hero-caption">E03 · ÈVE <span>2025 赛季 / 赛场纪实</span></p>
@@ -694,62 +151,31 @@
         </div>
     </section>
 
-    <!-- 特色板块 -->
-    <section class="features" id="teams">
-        <span class="section-label">Technical Groups</span>
-        <h2 class="section-title">核心技术组别</h2>
-        <p class="section-subtitle">六大组别协同研发，打造高性能电动方程式赛车</p>
-        <div class="feature-grid">
-            <a href="groups/电气组.html" class="feature-card">
-                <picture><source srcset="picture/车检贴纸.webp" type="image/webp"><img width="1920" height="1280" src="picture/车检贴纸.jpg" alt="电气组" loading="lazy"></picture>
-                <h3>电气组</h3>
-                <p>
-                    负责整车高压电气系统、电池管理系统（BMS）、电机控制器及线束设计，确保赛车动力输出的安全与高效。
-                </p>
-            </a>
-            <a href="groups/单体壳组.html" class="feature-card">
-                <picture><source srcset="picture/淋雨测试.webp" type="image/webp"><img width="1920" height="1280" src="picture/淋雨测试.jpg" alt="单体壳组" loading="lazy"></picture>
-                <h3>单体壳组</h3>
-                <p>主导碳纤维单体壳车身的设计、仿真与制造，在保证车手安全的前提下追求极致轻量化和结构刚性。</p>
-            </a>
-            <a href="groups/空套组.html" class="feature-card">
-                <picture><source srcset="picture/透明赛车.webp" type="image/webp"><img width="1920" height="1280" src="picture/透明赛车.jpg" alt="空套组" loading="lazy"></picture>
-                <h3>空套组</h3>
-                <p>专注于空气动力学套件的 CFD 仿真与制造，通过前翼、尾翼及扩散器设计提升赛车的下压力与操控稳定性。</p>
-            </a>
-            <a href="groups/悬架组.html" class="feature-card">
-                <picture><source srcset="picture/返回p房.webp" type="image/webp"><img width="1920" height="1280" src="picture/返回p房.jpg" alt="悬架组" loading="lazy"></picture>
-                <h3>悬架组</h3>
-                <p>负责悬架系统、转向系统及轮边总成的设计与调校，确保赛车在极限工况下拥有精准的操控反馈与抓地力。</p>
-            </a>
-            <a href="groups/轮边组.html" class="feature-card">
-                <picture><source srcset="picture/车检贴纸.webp" type="image/webp"><img width="1920" height="1280" src="picture/车检贴纸.jpg" alt="轮边组" loading="lazy"></picture>
-                <h3>轮边组</h3>
-                <p>主导轮边减速器、轮毂及制动系统的设计与集成，兼顾传动效率与轻量化目标，为赛车提供高效可靠的驱动与制动性能。</p>
-            </a>
-            <a href="groups/运营组.html" class="feature-card">
-                <picture><source srcset="picture/25大合影.webp" type="image/webp"><img width="1920" height="1280" src="picture/25大合影.jpg" alt="运营组" loading="lazy"></picture>
-                <h3>运营组</h3>
-                <p>负责车队品牌运营、商业营销、媒体宣传及赛事后勤保障，搭建车队与社会各界的沟通桥梁，推动车队文化的传播与发展。</p>
-            </a>
+    <section class="features" id="teams" aria-labelledby="groups-heading">
+        <div class="home-container">
+            <p class="section-label">六个组别 · 同一辆赛车</p>
+            <h2 class="section-title" id="groups-heading">从设计，到交付。</h2>
+            <div class="feature-grid">
+            <a href="groups/电气组.html" class="feature-card"><h3>电气组</h3><p>高压电气、电池管理与整车控制</p><span aria-hidden="true">↗</span></a>
+            <a href="groups/单体壳组.html" class="feature-card"><h3>单体壳组</h3><p>碳纤维车身设计、仿真与制造</p><span aria-hidden="true">↗</span></a>
+            <a href="groups/空套组.html" class="feature-card"><h3>空套组</h3><p>空气动力学套件设计与制造</p><span aria-hidden="true">↗</span></a>
+            <a href="groups/悬架组.html" class="feature-card"><h3>悬架组</h3><p>悬架与转向系统设计和调校</p><span aria-hidden="true">↗</span></a>
+            <a href="groups/轮边组.html" class="feature-card"><h3>轮边组</h3><p>轮边传动与制动系统集成</p><span aria-hidden="true">↗</span></a>
+            <a href="groups/运营组.html" class="feature-card"><h3>运营组</h3><p>品牌运营、商业合作与赛事后勤</p><span aria-hidden="true">↗</span></a>
+            </div>
         </div>
     </section>
     <section id="intro-fsc" class="home-fsc" aria-labelledby="fsc-heading"><div class="home-container"><div><p class="home-eyebrow">FORMULA STUDENT</p><h2 id="fsc-heading">我们的试验场。</h2></div><p>在大学生方程式赛事中，学生团队自主设计和制造赛车。从设计、成本与商业答辩，到加速、操控与耐久测试，每一项都检验着整车与团队。</p><a href="http://www.formulastudent.com.cn/" target="_blank" rel="noopener" class="home-text-link">了解赛事 ↗</a></div></section>
 
-<!-- 队员风采板块 -->
-    <section class="grad-section" id="gallery">
-        <div class="container mx-auto px-6">
-            <span class="section-label">Gallery</span>
-            <h2 class="section-title">队员风采</h2>
-            <a href="gallery.html" class="grad-cover-link">
-                <div class="grad-cover-card">
-                    <picture><source srcset="picture/grad-cover.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/grad-cover.jpg" alt="WUTE毕业生合影"></picture>
-                </div>
-                <p style="text-align:center; margin-top:1rem; color:var(--text-primary); font-size:0.9rem; letter-spacing:0.06em;">查看完整相册 →</p>
-            </a>
+<section class="grad-section" id="gallery" aria-labelledby="gallery-heading">
+        <div class="home-container">
+            <div class="home-section-heading"><div><p class="section-label">影像记录</p><h2 class="section-title" id="gallery-heading">留在赛道上的瞬间。</h2></div><a href="gallery.html" class="home-text-link">全部影像 ↗</a></div>
+            <div class="home-albums">
+                <a href="album-2025-赛场.html" class="home-album"><img width="1920" height="1280" loading="lazy" src="picture/gallery/2025-race/ABC_3502-opq4142956917.webp" alt="E03 在 2025 赛场上的照片"><span><strong>2025 赛场</strong><small>73 张照片 ↗</small></span></a>
+                <a href="album-2026-毕业季.html" class="home-album"><img width="1920" height="1280" loading="lazy" src="picture/gallery/2026-graduation/DSC09530.webp" alt="WUTE 队员的 2026 毕业季合照"><span><strong>2026 毕业季</strong><small>55 张照片 ↗</small></span></a>
+            </div>
         </div>
     </section>
-
     <!-- 赞助商板块（Logo 网格 + 文字跑马灯） -->
     <section class="sponsors" id="sponsors">
         <span class="section-label">Partners</span>
@@ -762,7 +188,7 @@
              案例图片建议放 赞助商/ 目录，用 赞助商-XXX.png 命名。 -->
         <div class="case-section">
             <h3 class="case-title">合作案例</h3>
-            <p class="case-sub">从冠名到共建，每一段合作都写在赛道上</p>
+            <p class="case-sub">与合作伙伴共同完成赛车研发、制造与参赛。</p>
             <div class="case-grid">
                 <a href="sponsors/case-lantu.html" class="case-card case-card--featured">
                     <div class="case-logo">
@@ -790,7 +216,7 @@
                     </div>
                     <div class="case-body">
                         <h3>合源锂创 · 战略合作</h3>
-                        <p>新能源锂电领域新锐企业与 WUTE 携手，为四电机架构的 E03 提供能量与安全的技术底座。</p>
+                        <p>新能源锂电领域新锐企业与 WUTE 携手，为赛车研发提供能量与安全方面的技术支持。</p>
                         <span class="case-more">了解合作详情 →</span>
                     </div>
                 </a>
@@ -941,47 +367,14 @@
         </div>
     </section>
 
-    <!-- 联系我们 / 队员架构板块 -->
-    <section id="structure" class="structure-section">
-        <div class="container mx-auto px-6">
-            <span class="section-label">Contact</span>
-            <h2 class="section-title">联系我们</h2>
-            <div class="max-w-3xl mx-auto">
-                <div class="structure-leader">车队总负责人</div>
-                <div class="structure-cards">
-                    <div class="structure-card"><h4>队长：卫君翰</h4><p>TEL：13797779699</p></div>
-                    <div class="structure-card"><h4>车队邮箱</h4><p>wuteteam@126.com</p></div>
-                </div>
-                <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem 3rem;margin-top:2.5rem;padding:1.5rem 0;border-top:1px solid var(--border-subtle)">
-                    <a href="https://mp.weixin.qq.com/s/l-wVbdXZl6kDwawCfwXjYA" target="_blank" rel="noopener" style="text-align:center;text-decoration:none"><div style="color:var(--text-muted);font-size:0.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem">微信公众号</div><div style="color:var(--text-primary);font-size:0.95rem">WUTE电车队</div></a>
-                    <a href="https://b23.tv/hBzQazA" target="_blank" rel="noopener" style="text-align:center;text-decoration:none"><div style="color:var(--text-muted);font-size:0.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem">Bilibili</div><div style="color:var(--text-primary);font-size:0.95rem">武汉理工WUTE电车队</div></a>
-                    <a href="https://www.douyin.com/user/MS4wLjABAAAAJRc0nkTfASsGep9BQqw0h47E4478GGN4zltLH2-5d6s" target="_blank" rel="noopener" style="text-align:center;text-decoration:none"><div style="color:var(--text-muted);font-size:0.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem">抖音</div><div style="color:var(--text-primary);font-size:0.95rem">岚图-武汉理工大学WUTE电车队</div></a>
-                    <a href="https://www.xiaohongshu.com/user/profile/26548826682" target="_blank" rel="noopener" style="text-align:center;text-decoration:none"><div style="color:var(--text-muted);font-size:0.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem">小红书</div><div style="color:var(--text-primary);font-size:0.95rem">武汉理工WUTE电车队</div></a>
-                    <a href="https://www.zhihu.com/people/--94-68-2-90" target="_blank" rel="noopener" style="text-align:center;text-decoration:none"><div style="color:var(--text-muted);font-size:0.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem">知乎</div><div style="color:var(--text-primary);font-size:0.95rem">岚图-武理电车队</div></a>
-                    <a href="https://weibo.com/u/5494169022" target="_blank" rel="noopener" style="text-align:center;text-decoration:none"><div style="color:var(--text-muted);font-size:0.85rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.25rem">微博</div><div style="color:var(--text-primary);font-size:0.95rem">武汉理工大学WUTE车队</div></a>
-                </div>
-            </div>
-        </div>
+    <section id="structure" class="home-join" aria-labelledby="join-heading">
+        <div class="home-container home-join-grid"><div><p class="section-label">加入 WUTE</p><h2 id="join-heading">下一辆赛车，等你一起造。</h2></div><a class="btn btn-primary" href="join.html">了解加入方式 ↗</a></div>
     </section>
 
-    <!-- 赞助商跑马灯 -->
-    <section class="sponsors-strip" id="sponsors-marquee">
-        <div class="marquee-inner" id="marqueeInner">
-            <div class="marquee-set" id="marqueeSet">
-                <a href="https://www.voyah.com.cn/" target="_blank" rel="noopener" class="sponsor-logo-item">岚图汽车</a>
-                <a href="https://www.hylicreate.com/" target="_blank" rel="noopener" class="sponsor-logo-item">合源锂创</a>
-                <a href="https://www.zfsycf.com.cn/" target="_blank" rel="noopener" class="sponsor-logo-item">中复神鹰</a>
-                <a href="https://www.whut.edu.cn/" target="_blank" rel="noopener" class="sponsor-logo-item">武汉理工大学</a>
-                <a href="https://www.sae-china.org/" target="_blank" rel="noopener" class="sponsor-logo-item">中国汽车工程学会</a>
-                <a href="http://www.formulastudent.com.cn/" target="_blank" rel="noopener" class="sponsor-logo-item">中国大学生方程式</a>
-                <a href="https://www.wute.club/" target="_blank" rel="noopener" class="sponsor-logo-item">WUTE Racing</a>
-            </div>
-        </div>
-    </section>
     </main>
 
     <!-- 页脚（全站统一组件） -->
-    <footer class="site-footer">
+    <footer class="site-footer" id="contact">
         <div class="footer-grid">
             <div class="footer-brand">
                 <img width="647" height="142" src="picture/WUTE_logo_white.png" alt="WUTE">
@@ -1027,281 +420,7 @@
             <p>公安部联网备案号：鄂公网安备42011102006006号</p>
         </div>
     </footer>
-
-    <!-- 全局交互逻辑 -->
-    <script>
-        // ===== 回到顶部按钮（与共享 wute.js 逻辑一致） =====
-        (function () {
-            var toTopBtn = document.createElement('button');
-            toTopBtn.className = 'to-top';
-            toTopBtn.setAttribute('aria-label', '回到顶部');
-            toTopBtn.innerHTML = '&uarr;';
-            toTopBtn.addEventListener('click', function () {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-            document.body.appendChild(toTopBtn);
-            function toggleToTop() {
-                toTopBtn.classList.toggle('show', window.scrollY > 600);
-            }
-            toggleToTop();
-            window.addEventListener('scroll', toggleToTop, { passive: true });
-        })();
-
-        // ===== 下拉菜单：链接负责导航，独立按钮负责展开 =====
-        document.querySelectorAll('.nav-drop > .nav-drop-toggle').forEach(function (link, index) {
-            var button = document.createElement('button');
-            var menu = link.parentElement.querySelector('.drop-menu');
-            menu.id = menu.id || 'nav-drop-menu-' + index;
-            button.type = 'button';
-            button.className = 'nav-drop-button';
-            button.dataset.menuName = link.textContent.trim();
-            button.setAttribute('aria-label', '展开' + button.dataset.menuName + '菜单');
-            button.setAttribute('aria-expanded', 'false');
-            button.setAttribute('aria-controls', menu.id);
-            button.textContent = '▾';
-            link.insertAdjacentElement('afterend', button);
-        });
-        function closeDropdowns() {
-            document.querySelectorAll('.nav-drop.open').forEach(function (item) {
-                item.classList.remove('open');
-                var button = item.querySelector('.nav-drop-button');
-                button.setAttribute('aria-expanded', 'false');
-                button.setAttribute('aria-label', '展开' + button.dataset.menuName + '菜单');
-            });
-        }
-        document.addEventListener('click', function (e) {
-            var toggle = e.target.closest ? e.target.closest('.nav-drop-button') : null;
-            if (toggle) {
-                var li = toggle.parentElement;
-                var wasOpen = li.classList.contains('open');
-                closeDropdowns();
-                if (!wasOpen) {
-                    li.classList.add('open');
-                    toggle.setAttribute('aria-expanded', 'true');
-                    toggle.setAttribute('aria-label', '收起' + toggle.dataset.menuName + '菜单');
-                }
-                return;
-            }
-            if (!e.target.closest || !e.target.closest('.nav-drop')) closeDropdowns();
-        });
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeDropdowns();
-        });
-
-        // ===== 彩蛋触发：Konami 秘技 / 连按 W / 页脚 logo 连点（与共享 wute.js 逻辑一致） =====
-        (function () {
-            var konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
-            var konamiIdx = 0;
-            var wPresses = [], logoClicks = [], opening = false;
-            function openGame() {
-                if (opening) return;
-                opening = true;
-                if (window.WUTEGame) { WUTEGame.open(); opening = false; return; }
-                var s = document.createElement('script');
-                s.src = 'assets/wute-game.js';
-                s.onload = function () { if (window.WUTEGame) WUTEGame.open(); opening = false; };
-                s.onerror = function () { opening = false; };
-                document.head.appendChild(s);
-            }
-            document.addEventListener('keydown', function (e) {
-                if (e.repeat) return;
-                var tag = e.target && e.target.tagName;
-                if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') { konamiIdx = 0; return; }
-                var code = e.code;
-                var key = (e.key || '').toLowerCase();
-                if (e.ctrlKey || e.metaKey || e.altKey) return;
-                if (code === 'KeyW') {
-                    wPresses.push(Date.now());
-                    wPresses = wPresses.filter(function (t) { return Date.now() - t <= 2000; });
-                    if (wPresses.length >= 5) { wPresses = []; openGame(); return; }
-                }
-                var expect = konami[konamiIdx];
-                var hit;
-                if (expect === 'KeyB' || expect === 'KeyA') {
-                    hit = code === expect || key === expect.toLowerCase().replace('key', '');
-                } else {
-                    hit = code === expect || key === expect.toLowerCase();
-                }
-                if (hit) {
-                    konamiIdx++;
-                    if (konamiIdx === konami.length) { konamiIdx = 0; openGame(); }
-                } else {
-                    konamiIdx = (code === konami[0]) ? 1 : 0;
-                }
-            });
-            document.addEventListener('click', function (e) {
-                var t = e.target;
-                if (t && t.tagName === 'IMG' && t.closest('.footer-brand')) {
-                    logoClicks.push(Date.now());
-                    logoClicks = logoClicks.filter(function (x) { return Date.now() - x <= 2000; });
-                    if (logoClicks.length >= 5) { logoClicks = []; openGame(); }
-                }
-            });
-        })();
-
-        // ===== 轮播图 =====
-        const slides = document.querySelectorAll('.slide');
-        const prevBtn = document.querySelector('.slider-prev');
-        const nextBtn = document.querySelector('.slider-next');
-        const slider = document.querySelector('.hero-slider');
-        let currentSlide = 0;
-        let autoPlayTimer = null;
-        let pointerInside = false;
-        let focusInside = false;
-        let touching = false;
-        const AUTO_DELAY = 6500;
-        const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-        function goToSlide(index) {
-            slides[currentSlide].classList.remove('active');
-            slides[currentSlide].setAttribute('inert', '');
-            slides[currentSlide].setAttribute('aria-hidden', 'true');
-            currentSlide = ((index % slides.length) + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
-            slides[currentSlide].removeAttribute('inert');
-            slides[currentSlide].removeAttribute('aria-hidden');
-            document.getElementById('slide-current').textContent = String(currentSlide + 1).padStart(2, '0');
-        }
-
-        function nextSlide() { goToSlide(currentSlide + 1); }
-        function prevSlide() { goToSlide(currentSlide - 1); }
-
-        function startAutoPlay() {
-            stopAutoPlay();
-            if (document.hidden || pointerInside || focusInside || touching || motionPreference.matches) return;
-            autoPlayTimer = setInterval(nextSlide, AUTO_DELAY);
-        }
-        function stopAutoPlay() {
-            if (autoPlayTimer) { clearInterval(autoPlayTimer); autoPlayTimer = null; }
-        }
-
-        // 箭头按钮
-        prevBtn.addEventListener('click', function() { prevSlide(); startAutoPlay(); });
-        nextBtn.addEventListener('click', function() { nextSlide(); startAutoPlay(); });
-
-        // 悬停暂停
-        slider.addEventListener('mouseenter', function() { pointerInside = true; stopAutoPlay(); });
-        slider.addEventListener('mouseleave', function() { pointerInside = false; startAutoPlay(); });
-        slider.addEventListener('focusin', function() { focusInside = true; stopAutoPlay(); });
-        slider.addEventListener('focusout', function(e) {
-            if (!slider.contains(e.relatedTarget)) { focusInside = false; startAutoPlay(); }
-        });
-
-        // 触摸暂停
-        slider.addEventListener('touchstart', function() { touching = true; stopAutoPlay(); }, { passive: true });
-        slider.addEventListener('touchend', function() { touching = false; startAutoPlay(); }, { passive: true });
-
-        slider.addEventListener('touchcancel', function() { touching = false; startAutoPlay(); }, { passive: true });
-        document.addEventListener('visibilitychange', startAutoPlay);
-        motionPreference.addEventListener('change', startAutoPlay);
-
-        // 方向键仅在轮播获得焦点时切换。
-        slider.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowLeft')  { e.preventDefault(); prevSlide(); startAutoPlay(); }
-            if (e.key === 'ArrowRight') { e.preventDefault(); nextSlide(); startAutoPlay(); }
-        });
-
-        // 启动自动播放
-        startAutoPlay();
-
-        // ===== 导航栏滚动效果 =====
-        var nav = document.querySelector('nav');
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > window.innerHeight * 0.3) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        }, { passive: true });
-
-        // ===== 汉堡菜单 =====
-        var hamburger = document.getElementById('hamburger');
-        var navLinksContainer = document.querySelector('.nav-links');
-        function setMenuOpen(isOpen, returnFocus) {
-            navLinksContainer.classList.toggle('open', isOpen);
-            hamburger.classList.toggle('open', isOpen);
-            hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-            document.body.style.overflow = isOpen ? 'hidden' : '';
-            if (isOpen) navLinksContainer.querySelector('a').focus();
-            if (!isOpen && returnFocus) hamburger.focus();
-        }
-        hamburger.addEventListener('click', function() {
-            setMenuOpen(!navLinksContainer.classList.contains('open'), false);
-        });
-        // 点击链接后关闭菜单
-        navLinksContainer.querySelectorAll('a').forEach(function(link) {
-            link.addEventListener('click', function() {
-                if (navLinksContainer.classList.contains('open')) setMenuOpen(false, false);
-            });
-        });
-        document.addEventListener('keydown', function(e) {
-            if (!navLinksContainer.classList.contains('open')) return;
-            if (e.key === 'Escape') { setMenuOpen(false, true); return; }
-            if (e.key !== 'Tab') return;
-            var items = Array.prototype.slice.call(navLinksContainer.querySelectorAll('a, button')).filter(function(item) { return item.getClientRects().length > 0; }).concat(hamburger);
-            var first = items[0], last = items[items.length - 1];
-            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-            if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-        });
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768 && navLinksContainer.classList.contains('open')) setMenuOpen(false, false);
-        });
-
-            (function initMarquee() {
-                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-                var inner = document.getElementById('marqueeInner');
-                var set  = document.getElementById('marqueeSet');
-                if (!inner || !set) return;
-
-                // 克隆直到总宽度 ≥ 视口宽度 × 2
-                while (inner.scrollWidth < window.innerWidth * 2) {
-                    var clone = set.cloneNode(true);
-                    clone.setAttribute('aria-hidden', 'true');
-                    inner.appendChild(clone);
-                }
-
-                var speed = 0.6;     // 像素/帧（60fps ≈ 36px/s）
-                var pos = 0;
-                var setWidth = set.offsetWidth;
-                var paused = false;
-
-                function tick() {
-                    if (!paused) {
-                        pos -= speed;
-                        // 滚完一组就复位（视觉无缝因为克隆内容完全一样）
-                        if (Math.abs(pos) >= setWidth) {
-                            pos += setWidth;
-                        }
-                        inner.style.transform = 'translateX(' + pos + 'px)';
-                    }
-                    requestAnimationFrame(tick);
-                }
-
-                inner.parentElement.addEventListener('mouseenter', function() { paused = true; });
-                inner.parentElement.addEventListener('mouseleave', function() { paused = false; });
-
-                // 窗口大小变化时重新克隆
-                var resizeTimer;
-                window.addEventListener('resize', function() {
-                    clearTimeout(resizeTimer);
-                    resizeTimer = setTimeout(function() {
-                        // 清除克隆
-                        var clones = inner.querySelectorAll('.marquee-set[aria-hidden]');
-                        clones.forEach(function(c) { c.remove(); });
-                        // 重新克隆
-                        while (inner.scrollWidth < window.innerWidth * 2) {
-                            var c = set.cloneNode(true);
-                            c.setAttribute('aria-hidden', 'true');
-                            inner.appendChild(c);
-                        }
-                        setWidth = set.offsetWidth;
-                        pos = 0;
-                        inner.style.transform = 'translateX(0)';
-                    }, 250);
-                });
-
-                requestAnimationFrame(tick);
-            })();
-    </script>
+    <script src="assets/wute.js?v=20260923e"></script>
+    <script src="assets/home.js?v=20260923e"></script>
 </body>
 </html>

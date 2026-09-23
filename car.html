@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E03 赛车 — WUTE 电车队</title>
-    <meta name="description" content="WUTE 第十三代赛车 E03 ÈVE：四电机架构、自主封装电驱、自研 BMS、1.5 级行星齿轮轮边减速器，整车质量 183kg。">
-    <meta name="theme-color" content="#000000">
+    <meta name="description" content="WUTE 第十三代赛车 E03 ÈVE：自主封装电驱、自研 BMS、1.5 级行星齿轮轮边减速器，整车质量 183kg。">
+    <meta name="theme-color" content="#0b0d10">
     <link rel="canonical" href="https://www.wute.club/car.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="WUTE 电动方程式赛车队">
@@ -14,32 +14,31 @@
     <meta property="og:image" content="https://www.wute.club/picture/og/og-car.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="E03 赛车 — WUTE 电车队">
-    <meta name="twitter:description" content="WUTE 第十三代赛车 E03 ÈVE：四电机架构、自主封装电驱、自研 BMS、1.5 级行星齿轮轮边减速器，整车质量 183kg。">
+    <meta name="twitter:description" content="WUTE 第十三代赛车 E03 ÈVE：自主封装电驱、自研 BMS、1.5 级行星齿轮轮边减速器，整车质量 183kg。">
     <meta name="twitter:image" content="https://www.wute.club/picture/og/og-car.jpg">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%2300489b'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='16' font-weight='bold' font-family='Arial'>W</text></svg>">
     <link rel="icon" type="image/png" sizes="32x32" href="picture/favicon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="picture/apple-touch-icon.png">
-    <link rel="stylesheet" href="assets/wute.css?v=20260923b">
+    <link rel="stylesheet" href="assets/wute.css?v=20260923e">
     <style>
         /* E03 展示图 */
         .car-showcase {
-            max-width: 1100px;
+            width: min(calc(100% - var(--gutter) * 2), var(--maxw));
+            max-width: var(--maxw);
             margin: 0 auto;
-            padding: 4rem 5% 0;
+            padding: 48px 0 0;
         }
         .car-showcase img {
             width: 100%;
-            border-radius: var(--radius-lg);
+            border-radius: 4px;
             border: 1px solid var(--border-default);
-            box-shadow: var(--shadow-lg);
         }
         /* 规格表分组标题 */
         .spec-group {
-            margin-top: 2.5rem;
-            font-size: 0.85rem;
-            color: var(--brand-blue-text);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
+            max-width: 900px;
+            margin-top: 48px;
+            font-size: 1.25rem;
+            color: var(--text-primary);
             border-bottom: 1px solid var(--border-default);
             padding-bottom: 0.5rem;
         }
@@ -58,48 +57,37 @@
 </head>
 <body>
 <a class="skip-link" href="#main-content">跳到正文</a>
-<nav class="site-nav">
-    <a href="index.html" class="nav-brand" aria-label="WUTE 首页">
-        <img width="647" height="142" src="picture/WUTE_logo_white.png" alt="WUTE">
-    </a>
-    <ul class="nav-links">
-        <li><a href="index.html">首页</a></li>
-        <li><a href="about.html">车队历史</a></li>
-        <li><a href="gallery.html">队员风采</a></li>
+<nav class="site-nav" aria-label="主导航">
+    <a href="index.html" class="nav-brand" aria-label="WUTE 首页"><img width="647" height="142" src="picture/WUTE_logo_white.png" alt="WUTE"></a>
+    <ul class="nav-links" id="primary-navigation">
+        <li><a href="car.html" class="active" aria-current="page">赛车</a></li>
         <li class="nav-drop">
-                <a href="index.html#teams" class="nav-drop-toggle">技术组别</a>
-                <div class="drop-menu">
+            <a href="about.html" class="nav-drop-toggle">车队</a>
+            <div class="drop-menu">
+                <a href="about.html">车队历史</a>
+                <a href="honors.html">荣誉奖项</a>
                     <a href="groups/电气组.html">电气组</a>
                     <a href="groups/单体壳组.html">单体壳组</a>
                     <a href="groups/空套组.html">空套组</a>
                     <a href="groups/悬架组.html">悬架组</a>
                     <a href="groups/轮边组.html">轮边组</a>
                     <a href="groups/运营组.html">运营组</a>
-                </div>
-            </li>
-        <li><a href="honors.html">荣誉奖项</a></li>
-        <li class="nav-drop">
-                <a href="car.html" class="nav-drop-toggle active">历年赛车</a>
-                <div class="drop-menu">
-                    <a href="car.html">E03 赛车</a>
-                </div>
-            </li>
-        <li><a href="join.html">加入我们</a></li>
-            <li><a href="sponsors.html">赞助商合作</a></li>
+            </div>
+        </li>
+        <li><a href="gallery.html">影像</a></li>
+        <li><a href="sponsors.html">合作伙伴</a></li>
+        <li class="nav-mobile-join"><a href="join.html">加入 WUTE</a></li>
     </ul>
     <div class="nav-right">
-        <a href="index.html#structure" class="btn btn-ghost nav-cta">联系我们</a>
-        <button class="hamburger" id="hamburger" aria-label="菜单" aria-expanded="false">
-            <span></span><span></span><span></span>
-        </button>
+        <a href="join.html" class="btn btn-primary nav-cta">加入 WUTE</a>
+        <button class="hamburger" id="hamburger" type="button" aria-label="打开菜单" aria-controls="primary-navigation" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
 </nav>
 
-<header class="page-hero" data-mark="E03">
+<header class="page-hero">
     <span class="kicker">E03 · ÈVE · 第十三代赛车</span>
     <h1>WUTE E03</h1>
-    <p class="sub">四电机架构 · 自主封装电驱 · 自研 BMS。以轻量化与集成化为目标，探索电动方程式赛车的极限。</p>
-    <div class="hero-line"></div>
+    <p class="sub">自主封装电驱 · 自研 BMS。以轻量化与系统集成为目标，将设计带上赛道。</p>
 </header>
 
 <div class="car-showcase reveal">
@@ -109,8 +97,6 @@
 <!-- 数据条 -->
 <div class="stat-strip reveal">
     <div class="stat-item"><span class="stat-value">183</span><span class="stat-unit">整车质量 kg</span></div>
-    <div class="stat-item"><span class="stat-value">6.48</span><span class="stat-unit">气动 Cl·A</span></div>
-    <div class="stat-item"><span class="stat-value">4</span><span class="stat-unit">电机架构</span></div>
     <div class="stat-item"><span class="stat-value">1.5</span><span class="stat-unit">级行星齿轮减速器</span></div>
 </div>
 
@@ -119,7 +105,6 @@
     <!-- TODO: 补充电机功率/电池容量/轴距等具体参数 -->
     <div class="spec-group reveal">动力系统</div>
     <table class="spec-table reveal">
-        <tr><td>动力架构</td><td>四电机架构，双电机后驱平台</td></tr>
         <tr><td>电驱系统</td><td>自主重新封装电驱系统（E03 首次应用）</td></tr>
         <tr><td>轮边传动</td><td>自研 <span class="mono">1.5 级</span>行星齿轮轮边减速器（E03 首次应用）</td></tr>
         <tr><td>电池管理</td><td>自研 BMS 电池管理系统（E03 首次应用）</td></tr>
@@ -127,7 +112,6 @@
     <div class="spec-group reveal">整车参数</div>
     <table class="spec-table reveal">
         <tr><td>整车质量</td><td><span class="mono">183</span> kg</td></tr>
-        <tr><td>空气动力学</td><td>Cl·A <span class="mono">6.48</span>（全碳纤维气动套件）</td></tr>
         <tr><td>车身结构</td><td>碳纤维单体壳平台</td></tr>
     </table>
     <div class="spec-group reveal">电控与数据</div>
@@ -139,11 +123,8 @@
     <p class="spec-note reveal">更多详细参数（电机功率、电池容量、加速性能等）持续更新中</p>
 
     <h2 class="reveal">设计理念</h2>
-    <p class="reveal">2025 赛季，为了平衡成本控制与技术创新，WUTE 选择了四电机架构与双电机后驱的平台，以轻量化、集成化为目标探索赛车的极限。整车布局上，E03 首次应用自主重新封装的电驱系统，结合自研 1.5 级行星齿轮轮边减速器驱动赛车；首次应用自研 BMS 系统，为整车性能保驾护航。</p>
+    <p class="reveal">2025 赛季，WUTE 以轻量化与系统集成为目标完成 E03 的设计与制造。E03 应用自主重新封装的电驱系统、自研 1.5 级行星齿轮轮边减速器和自研 BMS，相关设计在赛道上接受验证。</p>
     <p class="reveal">在电控层面，E03 采用自制仪表与车身后域控制器以协助整车控制器，搭载了完整的传感器数据采集系统，并开发无线数传实现数据实时监控——让每一次赛道反馈都成为下一轮迭代的依据。</p>
-
-    <h2 class="reveal">2026 赛季展望</h2>
-    <p class="reveal">展望 2026 赛季，E03 将在现有技术平台上持续迭代优化，重点推进整车轻量化与电驱系统效率提升，目标在高速避障与耐久赛环节实现成绩突破。同时，全新一代四电机分布式驱动赛车正在紧锣密鼓地设计中——WUTE 将以更坚定的步伐，探索赛车技术的无限可能。</p>
 
     <div class="btn-row reveal">
         <a href="join.html" class="btn btn-primary">加入我们，一起造车</a>
@@ -198,6 +179,6 @@
     </div>
 </footer>
 
-<script src="assets/wute.js?v=20260923b"></script>
+<script src="assets/wute.js?v=20260923e"></script>
 </body>
 </html>

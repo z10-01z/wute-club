@@ -1,7 +1,6 @@
 /* ==========================================================================
    WUTE 官网 — 共享交互 wute.js
-   依赖：GSAP + ScrollTrigger（页面需先加载 CDN 脚本）
-   职责：导航滚动态 / 汉堡菜单 / 白底区导航反色 / 回到顶部按钮 / 通用滚动显现动画
+   职责：导航、菜单、回到顶部、图片灯箱和彩蛋
    ========================================================================== */
 (function () {
     'use strict';
@@ -13,7 +12,8 @@
         btn.setAttribute('aria-label', '回到顶部');
         btn.innerHTML = '&uarr;';
         btn.addEventListener('click', function () {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
         });
         document.body.appendChild(btn);
         var onScroll = function () {
@@ -41,6 +41,7 @@
             links.classList.toggle('open', open);
             burger.classList.toggle('open', open);
             burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+            burger.setAttribute('aria-label', open ? '关闭菜单' : '打开菜单');
             document.body.style.overflow = open ? 'hidden' : '';
             if (open) links.querySelector('a').focus();
             if (!open && returnFocus) burger.focus();
@@ -63,7 +64,7 @@
             if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
         });
         window.addEventListener('resize', function () {
-            if (window.innerWidth > 768 && links.classList.contains('open')) setMenuOpen(false, false);
+            if (window.innerWidth > 1024 && links.classList.contains('open')) setMenuOpen(false, false);
         });
     }
 
@@ -105,72 +106,61 @@
         if (!e.target.closest || !e.target.closest('.nav-drop')) closeDropdowns();
     });
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeDropdowns();
+        if (e.key === 'Escape') {
+            var openToggle = document.querySelector('.nav-drop.open .nav-drop-button');
+            closeDropdowns();
+            if (openToggle) openToggle.focus();
+        }
     });
 
     /* ---- 卡片图片点击放大（灯箱，动态创建，全站生效） ---- */
     (function initLightbox() {
         var lb = null;
+        var returnFocus = null;
+        document.querySelectorAll('.card-img-top').forEach(function (img) {
+            img.tabIndex = 0;
+            img.setAttribute('role', 'button');
+            img.setAttribute('aria-label', '放大图片：' + (img.alt || '图片'));
+        });
+        function closeLb() {
+            if (!lb) return;
+            lb.classList.remove('on');
+            if (returnFocus) returnFocus.focus();
+        }
         function getLb() {
             if (lb) return lb;
             lb = document.createElement('div');
             lb.className = 'lightbox';
             lb.innerHTML = '<button class="x" aria-label="关闭">&times;</button><img alt="" src="">';
             lb.addEventListener('click', function (e) {
-                if (e.target !== lb.querySelector('img')) lb.classList.remove('on');
+                if (e.target === lb) closeLb();
             });
-            lb.querySelector('.x').addEventListener('click', function () { lb.classList.remove('on'); });
+            lb.querySelector('.x').addEventListener('click', closeLb);
             document.body.appendChild(lb);
             return lb;
         }
         document.addEventListener('click', function (e) {
             var t = e.target;
             if (t && t.classList && t.classList.contains('card-img-top')) {
+                returnFocus = t;
                 var box = getLb();
                 box.querySelector('img').src = t.src;
                 box.classList.add('on');
+                box.querySelector('.x').focus();
             }
         });
         document.addEventListener('keydown', function (e) {
-            if (e.code === 'Escape' && lb && lb.classList.contains('on')) lb.classList.remove('on');
+            if (e.code === 'Escape' && lb && lb.classList.contains('on')) closeLb();
+            if ((e.key === 'Enter' || e.key === ' ') && e.target.classList && e.target.classList.contains('card-img-top')) {
+                e.preventDefault();
+                e.target.click();
+            }
+            if (e.key === 'Tab' && lb && lb.classList.contains('on')) {
+                e.preventDefault();
+                lb.querySelector('.x').focus();
+            }
         });
     })();
-
-    /* ---- 白底赞助商区：导航切换深色（赞助商页等） ---- */
-    var sponsors = document.getElementById('sponsors');
-    if (sponsors && nav && 'IntersectionObserver' in window) {
-        new IntersectionObserver(function (entries) {
-            nav.classList.toggle('light-mode', entries[0].isIntersecting);
-        }, { rootMargin: '-72px 0px -50% 0px' }).observe(sponsors);
-    }
-
-    /* ---- 通用滚动显现动画（.reveal）：IntersectionObserver + CSS，无第三方依赖 ---- */
-    function initReveal() {
-        var items = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
-        if (!items.length) return;
-        if (!('IntersectionObserver' in window)) return;                       // 老浏览器：直接显示
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // 尊重系统"减少动态效果"
-
-        items.forEach(function (el) { el.classList.add('reveal-init'); });
-
-        var io = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (!entry.isIntersecting) return;
-                var el = entry.target;
-                io.unobserve(el);
-                setTimeout(function () { el.classList.add('reveal-in'); },
-                    (items.indexOf(el) % 8) * 60);
-            });
-        }, { rootMargin: '0px 0px -12% 0px' });
-
-        items.forEach(function (el) { io.observe(el); });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initReveal);
-    } else {
-        initReveal();
-    }
 
     /* ---- 彩蛋触发：Konami 秘技 / 连按 W / 页脚 logo 连点 ---- */
     (function initEasterEgg() {

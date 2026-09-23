@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>车队历史 — WUTE</title>
     <meta name="description" content="WUTE 电动方程式赛车队 — 车队历史。十四代赛车迭代，十四年赛场征程。">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#0b0d10">
     <link rel="canonical" href="https://www.wute.club/about.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="WUTE 电动方程式赛车队">
@@ -19,28 +19,28 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%2300489b'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='16' font-weight='bold' font-family='Arial'>W</text></svg>">
     <link rel="icon" type="image/png" sizes="32x32" href="picture/favicon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="picture/apple-touch-icon.png">
-    <link rel="stylesheet" href="assets/wute.css?v=20260923b">
+    <link rel="stylesheet" href="assets/wute.css?v=20260923e">
     <style>
         /* 车队历史：年份卡片墙 */
         .grid {
-            max-width: 1200px;
+            width: min(calc(100% - var(--gutter) * 2), var(--maxw));
+            max-width: var(--maxw);
             margin: 0 auto;
-            padding: 0 5% 6rem;
+            padding: 0 0 112px;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 4px;
+            gap: 24px;
         }
         .card {
             position: relative;
             overflow: hidden;
             background: var(--bg-surface);
             border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            transition: border-color 0.4s ease, transform 0.4s ease;
+            border-radius: 4px;
+            transition: border-color 0.2s ease;
         }
         .card:hover {
-            border-color: rgba(0, 72, 155, 0.55);
-            transform: translateY(-2px);
+            border-color: var(--border-strong);
         }
         .card-img {
             position: relative;
@@ -52,32 +52,31 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.65;
-            transition: transform 0.8s ease, opacity 0.6s;
+            opacity: 1;
+            transition: transform 0.4s ease;
         }
         .card:hover .card-img img {
-            transform: scale(1.04);
-            opacity: 0.85;
+            transform: scale(1.02);
         }
         .card-body { padding: 2rem 1.75rem 2.5rem; }
         .card-body .yr {
-            font-family: 'JetBrains Mono', 'Consolas', monospace;
+            font-family: var(--font-mono);
             font-size: 2.2rem;
             font-weight: 200;
-            color: rgba(255, 255, 255, 0.5);
+            color: var(--text-secondary);
             line-height: 1;
             margin-bottom: 0.25rem;
         }
         .card-body h2 { font-size: 1.15rem; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 0.5rem; color: #fff; }
-        .card-body p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.7; }
+        .card-body p { font-size: 1rem; color: var(--text-secondary); line-height: 1.75; }
         .card-body .thumbs { display: flex; gap: 0.4rem; margin-top: 1rem; flex-wrap: wrap; }
         .card-body .thumbs img {
             width: 65px; height: 45px;
             object-fit: cover;
             cursor: pointer;
-            opacity: 0.35;
+            opacity: 1;
             transition: opacity 0.3s, border-color 0.3s;
-            filter: grayscale(30%);
+            filter: none;
             border: 1px solid transparent;
         }
         .card-body .thumbs img:hover { opacity: 1; filter: grayscale(0); border-color: var(--brand-blue); }
@@ -85,19 +84,19 @@
         .hero-card { grid-column: 1/-1; }
         .hero-card .card-img { aspect-ratio: 21/9; }
         .hero-card .card-body { display: flex; align-items: center; gap: 3rem; padding: 2.5rem 2rem; }
-        .hero-card .card-body .yr { font-size: 3rem; flex-shrink: 0; color: rgba(255, 255, 255, 0.5); }
+        .hero-card .card-body .yr { font-size: 3rem; flex-shrink: 0; color: var(--text-secondary); }
         .hero-card .card-body h2 { font-size: 1.5rem; }
 
         /* 无图年份占位 */
         .card-placeholder {
-            background: linear-gradient(135deg, rgba(0, 72, 155, 0.08), #0a0a10);
+            background: var(--bg-surface);
             display: flex;
             align-items: center;
             justify-content: center;
             aspect-ratio: 16/10;
         }
         .card-placeholder span {
-            font-family: 'JetBrains Mono', 'Consolas', monospace;
+            font-family: var(--font-mono);
             font-size: 5rem;
             font-weight: 200;
             color: rgba(255, 255, 255, 0.42);
@@ -125,7 +124,7 @@
         }
 
         @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; padding: 0 3% 4rem; }
+            .grid { grid-template-columns: 1fr; padding: 0 0 64px; }
             .hero-card .card-body { flex-direction: column; gap: 1rem; padding: 2rem 1.5rem; text-align: center; }
             .hero-card .card-img { aspect-ratio: 16/9; }
         }
@@ -143,48 +142,37 @@
 </head>
 <body>
 <a class="skip-link" href="#main-content">跳到正文</a>
-<nav class="site-nav">
-    <a href="index.html" class="nav-brand" aria-label="WUTE 首页">
-        <img width="647" height="142" src="picture/WUTE_logo_white.png" alt="WUTE">
-    </a>
-    <ul class="nav-links">
-        <li><a href="index.html">首页</a></li>
-        <li><a href="about.html" class="active">车队历史</a></li>
-        <li><a href="gallery.html">队员风采</a></li>
+<nav class="site-nav" aria-label="主导航">
+    <a href="index.html" class="nav-brand" aria-label="WUTE 首页"><img width="647" height="142" src="picture/WUTE_logo_white.png" alt="WUTE"></a>
+    <ul class="nav-links" id="primary-navigation">
+        <li><a href="car.html">赛车</a></li>
         <li class="nav-drop">
-                <a href="index.html#teams" class="nav-drop-toggle">技术组别</a>
-                <div class="drop-menu">
+            <a href="about.html" class="nav-drop-toggle active" aria-current="page">车队</a>
+            <div class="drop-menu">
+                <a href="about.html">车队历史</a>
+                <a href="honors.html">荣誉奖项</a>
                     <a href="groups/电气组.html">电气组</a>
                     <a href="groups/单体壳组.html">单体壳组</a>
                     <a href="groups/空套组.html">空套组</a>
                     <a href="groups/悬架组.html">悬架组</a>
                     <a href="groups/轮边组.html">轮边组</a>
                     <a href="groups/运营组.html">运营组</a>
-                </div>
-            </li>
-        <li><a href="honors.html">荣誉奖项</a></li>
-        <li class="nav-drop">
-                <a href="car.html" class="nav-drop-toggle">历年赛车</a>
-                <div class="drop-menu">
-                    <a href="car.html">E03 赛车</a>
-                </div>
-            </li>
-        <li><a href="join.html">加入我们</a></li>
-            <li><a href="sponsors.html">赞助商合作</a></li>
+            </div>
+        </li>
+        <li><a href="gallery.html">影像</a></li>
+        <li><a href="sponsors.html">合作伙伴</a></li>
+        <li class="nav-mobile-join"><a href="join.html">加入 WUTE</a></li>
     </ul>
     <div class="nav-right">
-        <a href="index.html#structure" class="btn btn-ghost nav-cta">联系我们</a>
-        <button class="hamburger" id="hamburger" aria-label="菜单" aria-expanded="false">
-            <span></span><span></span><span></span>
-        </button>
+        <a href="join.html" class="btn btn-primary nav-cta">加入 WUTE</a>
+        <button class="hamburger" id="hamburger" type="button" aria-label="打开菜单" aria-controls="primary-navigation" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
 </nav>
 
-<header class="page-hero" data-mark="HISTORY">
+<header class="page-hero">
     <span class="kicker">Since 2013</span>
     <h1>车队历史</h1>
     <p class="sub">十四代赛车迭代，十四年赛场征程。每一辆车都是一届队员青春与智慧的结晶。</p>
-    <div class="hero-line"></div>
 </header>
 
 <main id="main-content">
@@ -202,7 +190,7 @@
             <div>
                 <h2>E07 · 刀锋1</h2>
                 <p>WUTE 正式成立，与 FSEC 赛事同年诞生。首代赛车继承原 WUT 车队代号系统。</p>
-                <div class="thumbs"><picture><source srcset="picture/history/PA192295.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/history/PA192295.JPG" onclick="lb(this.src)" alt="WUTE 2013 赛季 E07 · 刀锋1 照片"></picture><picture><source srcset="picture/history/PA192251.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/history/PA192251.JPG" onclick="lb(this.src)" alt="WUTE 2013 赛季 E07 · 刀锋1 照片（2）"></picture></div>
+                <div class="thumbs"><picture><source srcset="picture/history/PA192295.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/history/PA192295.JPG" onclick="lb(this.src, this)" alt="WUTE 2013 赛季 E07 · 刀锋1 照片"></picture><picture><source srcset="picture/history/PA192251.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/history/PA192251.JPG" onclick="lb(this.src, this)" alt="WUTE 2013 赛季 E07 · 刀锋1 照片（2）"></picture></div>
             </div>
         </div>
     </div>
@@ -214,7 +202,7 @@
             <div class="yr">2014</div>
             <h2>E19 · 刀锋2</h2>
             <p>继承 WUT 末代油车代号，整车布局与电驱系统实现重要迭代。</p>
-            <div class="thumbs"><picture><source srcset="picture/history/image.webp" type="image/webp"><img width="388" height="274" loading="lazy" src="picture/history/image.png" onclick="lb(this.src)" alt="WUTE 2014 赛季 E19 · 刀锋2 照片"></picture><picture><source srcset="picture/history/Untitled.webp" type="image/webp"><img width="4032" height="3024" loading="lazy" src="picture/history/Untitled.jpg" onclick="lb(this.src)" alt="WUTE 2014 赛季 E19 · 刀锋2 照片（2）"></picture></div>
+            <div class="thumbs"><picture><source srcset="picture/history/image.webp" type="image/webp"><img width="388" height="274" loading="lazy" src="picture/history/image.png" onclick="lb(this.src, this)" alt="WUTE 2014 赛季 E19 · 刀锋2 照片"></picture><picture><source srcset="picture/history/Untitled.webp" type="image/webp"><img width="4032" height="3024" loading="lazy" src="picture/history/Untitled.jpg" onclick="lb(this.src, this)" alt="WUTE 2014 赛季 E19 · 刀锋2 照片（2）"></picture></div>
         </div>
     </div>
 
@@ -225,7 +213,7 @@
             <div class="yr">2015</div>
             <h2>E14 · 刀锋3</h2>
             <p>代号系统独立重置，以"刀锋3"为新起点，底盘调校与操控性能持续精进。</p>
-            <div class="thumbs"><picture><source srcset="picture/history/修-6972.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/修-6972.jpg" onclick="lb(this.src)" alt="WUTE 2015 赛季 E14 · 刀锋3 照片"></picture><picture><source srcset="picture/history/修-0194.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/修-0194.jpg" onclick="lb(this.src)" alt="WUTE 2015 赛季 E14 · 刀锋3 照片（2）"></picture><picture><source srcset="picture/history/修-0151.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/修-0151.jpg" onclick="lb(this.src)" alt="WUTE 2015 赛季 E14 · 刀锋3 照片（3）"></picture><picture><source srcset="picture/history/2015合照.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/2015合照.jpg" onclick="lb(this.src)" alt="WUTE 2015 赛季 E14 · 刀锋3 照片（4）"></picture></div>
+            <div class="thumbs"><picture><source srcset="picture/history/修-6972.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/修-6972.jpg" onclick="lb(this.src, this)" alt="WUTE 2015 赛季 E14 · 刀锋3 照片"></picture><picture><source srcset="picture/history/修-0194.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/修-0194.jpg" onclick="lb(this.src, this)" alt="WUTE 2015 赛季 E14 · 刀锋3 照片（2）"></picture><picture><source srcset="picture/history/修-0151.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/修-0151.jpg" onclick="lb(this.src, this)" alt="WUTE 2015 赛季 E14 · 刀锋3 照片（3）"></picture><picture><source srcset="picture/history/2015合照.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/2015合照.jpg" onclick="lb(this.src, this)" alt="WUTE 2015 赛季 E14 · 刀锋3 照片（4）"></picture></div>
         </div>
     </div>
 
@@ -236,7 +224,7 @@
             <div class="yr">2016</div>
             <h2>E15 · 刀锋4</h2>
             <p>最后一辆钢管车架赛车，首次搭载空气动力学套件，正式进入空套时代。</p>
-            <div class="thumbs"><picture><source srcset="picture/history/vbox4075_IMG_4525_100205.webp" type="image/webp"><img width="1920" height="1281" loading="lazy" src="picture/history/vbox4075_IMG_4525_100205.jpg" onclick="lb(this.src)" alt="WUTE 2016 赛季 E15 · 刀锋4 照片"></picture><picture><source srcset="picture/history/vbox4075__DL_0704_162830.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/vbox4075__DL_0704_162830.jpg" onclick="lb(this.src)" alt="WUTE 2016 赛季 E15 · 刀锋4 照片（2）"></picture><picture><source srcset="picture/history/2016合照.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/2016合照.jpg" onclick="lb(this.src)" alt="WUTE 2016 赛季 E15 · 刀锋4 照片（3）"></picture><picture><source srcset="picture/history/IMG_4799.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/history/IMG_4799.JPEG" onclick="lb(this.src)" alt="WUTE 2016 赛季 E15 · 刀锋4 照片（4）"></picture></div>
+            <div class="thumbs"><picture><source srcset="picture/history/vbox4075_IMG_4525_100205.webp" type="image/webp"><img width="1920" height="1281" loading="lazy" src="picture/history/vbox4075_IMG_4525_100205.jpg" onclick="lb(this.src, this)" alt="WUTE 2016 赛季 E15 · 刀锋4 照片"></picture><picture><source srcset="picture/history/vbox4075__DL_0704_162830.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/vbox4075__DL_0704_162830.jpg" onclick="lb(this.src, this)" alt="WUTE 2016 赛季 E15 · 刀锋4 照片（2）"></picture><picture><source srcset="picture/history/2016合照.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/2016合照.jpg" onclick="lb(this.src, this)" alt="WUTE 2016 赛季 E15 · 刀锋4 照片（3）"></picture><picture><source srcset="picture/history/IMG_4799.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/history/IMG_4799.JPEG" onclick="lb(this.src, this)" alt="WUTE 2016 赛季 E15 · 刀锋4 照片（4）"></picture></div>
         </div>
     </div>
 
@@ -247,7 +235,7 @@
             <div class="yr">2017</div>
             <h2>E11 · 刀锋5</h2>
             <p>首次采用碳纤维单体壳，轻量化水平大幅提升，开启复合材料车身时代。</p>
-            <div class="thumbs"><picture><source srcset="picture/history/QQ图片20180404224126.webp" type="image/webp"><img width="720" height="405" loading="lazy" src="picture/history/QQ图片20180404224126.jpg" onclick="lb(this.src)" alt="WUTE 2017 赛季 E11 · 刀锋5 照片"></picture><picture><source srcset="picture/history/vbox6099_0W9A9615_102829_small_v3.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/vbox6099_0W9A9615_102829_small_v3.jpg" onclick="lb(this.src)" alt="WUTE 2017 赛季 E11 · 刀锋5 照片（2）"></picture><picture><source srcset="picture/history/2017合照.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/2017合照.jpg" onclick="lb(this.src)" alt="WUTE 2017 赛季 E11 · 刀锋5 照片（3）"></picture></div>
+            <div class="thumbs"><picture><source srcset="picture/history/QQ图片20180404224126.webp" type="image/webp"><img width="720" height="405" loading="lazy" src="picture/history/QQ图片20180404224126.jpg" onclick="lb(this.src, this)" alt="WUTE 2017 赛季 E11 · 刀锋5 照片"></picture><picture><source srcset="picture/history/vbox6099_0W9A9615_102829_small_v3.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/vbox6099_0W9A9615_102829_small_v3.jpg" onclick="lb(this.src, this)" alt="WUTE 2017 赛季 E11 · 刀锋5 照片（2）"></picture><picture><source srcset="picture/history/2017合照.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/2017合照.jpg" onclick="lb(this.src, this)" alt="WUTE 2017 赛季 E11 · 刀锋5 照片（3）"></picture></div>
         </div>
     </div>
 
@@ -258,7 +246,7 @@
             <div class="yr">2018</div>
             <h2>E34 · Emily</h2>
             <p>首辆拥有英文名的赛车，电气与机械系统深度整合，集成度迈上新台阶。</p>
-            <div class="thumbs"><picture><source srcset="picture/history/24038735.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/24038735.jpg" onclick="lb(this.src)" alt="WUTE 2018 赛季 E34 · Emily 照片"></picture><picture><source srcset="picture/history/E34.49.webp" type="image/webp"><img width="1920" height="1080" loading="lazy" src="picture/history/E34.49.png" onclick="lb(this.src)" alt="WUTE 2018 赛季 E34 · Emily 照片（2）"></picture><picture><source srcset="picture/history/TIM图片20181007164558.webp" type="image/webp"><img width="780" height="1103" loading="lazy" src="picture/history/TIM图片20181007164558.jpg" onclick="lb(this.src)" alt="WUTE 2018 赛季 E34 · Emily 照片（3）"></picture><picture><source srcset="picture/history/13366628.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/13366628.jpg" onclick="lb(this.src)" alt="WUTE 2018 赛季 E34 · Emily 照片（4）"></picture><picture><source srcset="picture/history/2018合照.webp" type="image/webp"><img width="1920" height="1281" loading="lazy" src="picture/history/2018合照.jpg" onclick="lb(this.src)" alt="WUTE 2018 赛季 E34 · Emily 照片（5）"></picture></div>
+            <div class="thumbs"><picture><source srcset="picture/history/24038735.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/24038735.jpg" onclick="lb(this.src, this)" alt="WUTE 2018 赛季 E34 · Emily 照片"></picture><picture><source srcset="picture/history/E34.49.webp" type="image/webp"><img width="1920" height="1080" loading="lazy" src="picture/history/E34.49.png" onclick="lb(this.src, this)" alt="WUTE 2018 赛季 E34 · Emily 照片（2）"></picture><picture><source srcset="picture/history/TIM图片20181007164558.webp" type="image/webp"><img width="780" height="1103" loading="lazy" src="picture/history/TIM图片20181007164558.jpg" onclick="lb(this.src, this)" alt="WUTE 2018 赛季 E34 · Emily 照片（3）"></picture><picture><source srcset="picture/history/13366628.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/13366628.jpg" onclick="lb(this.src, this)" alt="WUTE 2018 赛季 E34 · Emily 照片（4）"></picture><picture><source srcset="picture/history/2018合照.webp" type="image/webp"><img width="1920" height="1281" loading="lazy" src="picture/history/2018合照.jpg" onclick="lb(this.src, this)" alt="WUTE 2018 赛季 E34 · Emily 照片（5）"></picture></div>
         </div>
     </div>
 
@@ -269,7 +257,7 @@
             <div class="yr">2019</div>
             <h2>E11 · 刀锋7</h2>
             <p>涂装设计语言焕新，空气动力学与悬架系统进一步优化。</p>
-            <div class="thumbs"><picture><source srcset="picture/history/赛场照片1.webp" type="image/webp"><img width="1800" height="1200" loading="lazy" src="picture/history/赛场照片1.jpeg" onclick="lb(this.src)" alt="WUTE 2019 赛季 E11 · 刀锋7 照片"></picture><picture><source srcset="picture/history/DSC08249.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/DSC08249.JPG" onclick="lb(this.src)" alt="WUTE 2019 赛季 E11 · 刀锋7 照片（2）"></picture><picture><source srcset="picture/history/E11涂装（1）.81.webp" type="image/webp"><img width="1920" height="1379" loading="lazy" src="picture/history/E11涂装（1）.81.png" onclick="lb(this.src)" alt="WUTE 2019 赛季 E11 · 刀锋7 照片（3）"></picture><picture><source srcset="picture/history/2019赛季合影.webp" type="image/webp"><img width="1268" height="847" loading="lazy" src="picture/history/2019赛季合影.png" onclick="lb(this.src)" alt="WUTE 2019 赛季 E11 · 刀锋7 照片（4）"></picture></div>
+            <div class="thumbs"><picture><source srcset="picture/history/赛场照片1.webp" type="image/webp"><img width="1800" height="1200" loading="lazy" src="picture/history/赛场照片1.jpeg" onclick="lb(this.src, this)" alt="WUTE 2019 赛季 E11 · 刀锋7 照片"></picture><picture><source srcset="picture/history/DSC08249.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/DSC08249.JPG" onclick="lb(this.src, this)" alt="WUTE 2019 赛季 E11 · 刀锋7 照片（2）"></picture><picture><source srcset="picture/history/E11涂装（1）.81.webp" type="image/webp"><img width="1920" height="1379" loading="lazy" src="picture/history/E11涂装（1）.81.png" onclick="lb(this.src, this)" alt="WUTE 2019 赛季 E11 · 刀锋7 照片（3）"></picture><picture><source srcset="picture/history/2019赛季合影.webp" type="image/webp"><img width="1268" height="847" loading="lazy" src="picture/history/2019赛季合影.png" onclick="lb(this.src, this)" alt="WUTE 2019 赛季 E11 · 刀锋7 照片（4）"></picture></div>
         </div>
     </div>
 
@@ -280,7 +268,7 @@
             <div class="yr">2020</div>
             <h2>E22 · Erika</h2>
             <p>疫情期间完成设计制造，虚拟评审中展现扎实的工程能力。</p>
-            <div class="thumbs"><picture><source srcset="picture/history/tuzhaungxuanran2020-02.122.webp" type="image/webp"><img width="1920" height="1296" loading="lazy" src="picture/history/tuzhaungxuanran2020-02.122.jpg" onclick="lb(this.src)" alt="WUTE 2020 赛季 E22 · Erika 照片"></picture><picture><source srcset="picture/history/tuzhaungxuanran2020.132.webp" type="image/webp"><img width="1920" height="1296" loading="lazy" src="picture/history/tuzhaungxuanran2020.132.jpg" onclick="lb(this.src)" alt="WUTE 2020 赛季 E22 · Erika 照片（2）"></picture></div>
+            <div class="thumbs"><picture><source srcset="picture/history/tuzhaungxuanran2020-02.122.webp" type="image/webp"><img width="1920" height="1296" loading="lazy" src="picture/history/tuzhaungxuanran2020-02.122.jpg" onclick="lb(this.src, this)" alt="WUTE 2020 赛季 E22 · Erika 照片"></picture><picture><source srcset="picture/history/tuzhaungxuanran2020.132.webp" type="image/webp"><img width="1920" height="1296" loading="lazy" src="picture/history/tuzhaungxuanran2020.132.jpg" onclick="lb(this.src, this)" alt="WUTE 2020 赛季 E22 · Erika 照片（2）"></picture></div>
         </div>
     </div>
 
@@ -303,7 +291,7 @@
             <div class="yr">2022</div>
             <h2>E36 · 刀锋10</h2>
             <p>连续三代单体壳收官之作，赛后车身收入校内展柜永久陈列。</p>
-            <div class="thumbs"><picture><source srcset="picture/history/IMG_1605.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/history/IMG_1605.JPEG" onclick="lb(this.src)" alt="WUTE 2022 赛季 E36 · 刀锋10 照片"></picture><img width="480" height="360" loading="lazy" src="picture/history/IMG_1608.JPEG" onclick="lb(this.src)" alt="WUTE 2022 赛季 E36 · 刀锋10 照片（2）"></div>
+            <div class="thumbs"><picture><source srcset="picture/history/IMG_1605.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/history/IMG_1605.JPEG" onclick="lb(this.src, this)" alt="WUTE 2022 赛季 E36 · 刀锋10 照片"></picture><img width="480" height="360" loading="lazy" src="picture/history/IMG_1608.JPEG" onclick="lb(this.src, this)" alt="WUTE 2022 赛季 E36 · 刀锋10 照片（2）"></div>
         </div>
     </div>
 
@@ -314,7 +302,7 @@
             <div class="yr">2023</div>
             <h2>E33 · Elita</h2>
             <p>全新单体壳设计，整车架构全面革新，展现新一代赛车技术水准。</p>
-            <div class="thumbs"><picture><source srcset="picture/history/IMG_2580.webp" type="image/webp"><img width="1920" height="1200" loading="lazy" src="picture/history/IMG_2580.jpg" onclick="lb(this.src)" alt="WUTE 2023 赛季 E33 · Elita 照片"></picture><picture><source srcset="picture/history/IMG_4971.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/IMG_4971.JPEG" onclick="lb(this.src)" alt="WUTE 2023 赛季 E33 · Elita 照片（2）"></picture><picture><source srcset="picture/history/P1088866.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/history/P1088866.jpg" onclick="lb(this.src)" alt="WUTE 2023 赛季 E33 · Elita 照片（3）"></picture><picture><source srcset="picture/history/P1066704.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/history/P1066704.jpg" onclick="lb(this.src)" alt="WUTE 2023 赛季 E33 · Elita 照片（4）"></picture></div>
+            <div class="thumbs"><picture><source srcset="picture/history/IMG_2580.webp" type="image/webp"><img width="1920" height="1200" loading="lazy" src="picture/history/IMG_2580.jpg" onclick="lb(this.src, this)" alt="WUTE 2023 赛季 E33 · Elita 照片"></picture><picture><source srcset="picture/history/IMG_4971.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/IMG_4971.JPEG" onclick="lb(this.src, this)" alt="WUTE 2023 赛季 E33 · Elita 照片（2）"></picture><picture><source srcset="picture/history/P1088866.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/history/P1088866.jpg" onclick="lb(this.src, this)" alt="WUTE 2023 赛季 E33 · Elita 照片（3）"></picture><picture><source srcset="picture/history/P1066704.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/history/P1066704.jpg" onclick="lb(this.src, this)" alt="WUTE 2023 赛季 E33 · Elita 照片（4）"></picture></div>
         </div>
     </div>
 
@@ -325,20 +313,20 @@
             <div class="yr">2024</div>
             <h2>E10 · Era</h2>
             <p>电控与数据采集持续突破，为 E03 的技术跨越奠定基础。</p>
-            <div class="thumbs"><picture><source srcset="picture/history/IMG_0647.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/IMG_0647.JPEG" onclick="lb(this.src)" alt="WUTE 2024 赛季 E10 · Era 照片"></picture><picture><source srcset="picture/history/20241023-DSC_4028.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/20241023-DSC_4028.JPEG" onclick="lb(this.src)" alt="WUTE 2024 赛季 E10 · Era 照片（2）"></picture><picture><source srcset="picture/history/IMG_0121.webp" type="image/webp"><img width="1920" height="1080" loading="lazy" src="picture/history/IMG_0121.JPEG" onclick="lb(this.src)" alt="WUTE 2024 赛季 E10 · Era 照片（3）"></picture></div>
+            <div class="thumbs"><picture><source srcset="picture/history/IMG_0647.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/IMG_0647.JPEG" onclick="lb(this.src, this)" alt="WUTE 2024 赛季 E10 · Era 照片"></picture><picture><source srcset="picture/history/20241023-DSC_4028.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/history/20241023-DSC_4028.JPEG" onclick="lb(this.src, this)" alt="WUTE 2024 赛季 E10 · Era 照片（2）"></picture><picture><source srcset="picture/history/IMG_0121.webp" type="image/webp"><img width="1920" height="1080" loading="lazy" src="picture/history/IMG_0121.JPEG" onclick="lb(this.src, this)" alt="WUTE 2024 赛季 E10 · Era 照片（3）"></picture></div>
         </div>
     </div>
 
     <!-- 2025 - Hero card -->
-    <div class="card hero-card reveal" style="background:linear-gradient(135deg,rgba(0,72,155,.08),transparent 70%)">
+    <div class="card hero-card reveal">
         <div class="card-img"><picture><source srcset="picture/透明赛车.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/透明赛车.jpg" alt="E03"></picture></div>
         <div class="card-body">
             <div class="yr">2025</div>
             <div>
                 <h2>E03 · ÈVE</h2>
-                <p>自研 BMS + 自主封装电驱 + 四电机架构，整车技术栈全面自主化。</p>
+                <p>自研 BMS、自主封装电驱与整车系统集成，构成 E03 的工程实践。</p>
                 <p style="color:var(--brand-blue-text);font-weight:700;font-size:.85rem;margin-top:.5rem;letter-spacing:.08em;">MAXIMUM PUSH!</p>
-                <div class="thumbs"><picture><source srcset="picture/透明赛车.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/透明赛车.jpg" onclick="lb(this.src)" alt="WUTE 2024 赛季 E10 · Era 照片（4）"></picture><picture><source srcset="picture/gallery/2025-race/ABC_3502-opq4142956917.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/gallery/2025-race/ABC_3502-opq4142956917.jpg" onclick="lb(this.src)" alt="WUTE 2024 赛季 E10 · Era 照片（5）"></picture><picture><source srcset="picture/gallery/2025-race/mmexport643a71e94f9857ee98f8bf477cbb77c8_1763643.webp" type="image/webp"><img width="1920" height="1279" loading="lazy" src="picture/gallery/2025-race/mmexport643a71e94f9857ee98f8bf477cbb77c8_1763643.jpg" onclick="lb(this.src)" alt="WUTE 2024 赛季 E10 · Era 照片（6）"></picture><picture><source srcset="picture/gallery/2025-race/微信图片_20251123234805_751_188.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/gallery/2025-race/微信图片_20251123234805_751_188.jpg" onclick="lb(this.src)" alt="WUTE 2024 赛季 E10 · Era 照片（7）"></picture></div>
+                <div class="thumbs"><picture><source srcset="picture/透明赛车.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/透明赛车.jpg" onclick="lb(this.src, this)" alt="WUTE E03 赛车结构渲染图"></picture><picture><source srcset="picture/gallery/2025-race/ABC_3502-opq4142956917.webp" type="image/webp"><img width="1920" height="1280" loading="lazy" src="picture/gallery/2025-race/ABC_3502-opq4142956917.jpg" onclick="lb(this.src, this)" alt="WUTE 2025 赛季赛场照片（1）"></picture><picture><source srcset="picture/gallery/2025-race/mmexport643a71e94f9857ee98f8bf477cbb77c8_1763643.webp" type="image/webp"><img width="1920" height="1279" loading="lazy" src="picture/gallery/2025-race/mmexport643a71e94f9857ee98f8bf477cbb77c8_1763643.jpg" onclick="lb(this.src, this)" alt="WUTE 2025 赛季赛场照片（2）"></picture><picture><source srcset="picture/gallery/2025-race/微信图片_20251123234805_751_188.webp" type="image/webp"><img width="1920" height="1440" loading="lazy" src="picture/gallery/2025-race/微信图片_20251123234805_751_188.jpg" onclick="lb(this.src, this)" alt="WUTE 2025 赛季赛场照片（3）"></picture></div>
             </div>
         </div>
     </div>
@@ -359,7 +347,7 @@
 
 </main>
 
-<div class="lightbox" id="lb" onclick="this.classList.remove('on')"><button class="x">&times;</button><img loading="lazy" alt="" id="lbi"></div>
+<div class="lightbox" id="lb" role="dialog" aria-modal="true" aria-label="车队历史照片预览" onclick="if(event.target===this) closeHistoryLightbox()"><button class="x" type="button" aria-label="关闭照片预览" onclick="closeHistoryLightbox()">&times;</button><img loading="lazy" alt="" id="lbi"></div>
 
 <footer class="site-footer">
     <div class="footer-grid">
@@ -408,12 +396,18 @@
     </div>
 </footer>
 
-<script src="assets/wute.js?v=20260923b"></script>
+<script src="assets/wute.js?v=20260923e"></script>
 <script>
 // 灯箱：点击缩略图放大
-function lb(s) { document.getElementById('lbi').src = s; document.getElementById('lb').classList.add('on'); }
+var historyReturnFocus = null;
+function lb(s, source) { historyReturnFocus = source; document.getElementById('lbi').src = s; document.getElementById('lb').classList.add('on'); document.querySelector('#lb .x').focus(); }
+function closeHistoryLightbox() { document.getElementById('lb').classList.remove('on'); if (historyReturnFocus) historyReturnFocus.focus(); }
 // 缩略图悬停切换主图
 document.querySelectorAll('.thumbs img').forEach(function (t) {
+    t.tabIndex = 0;
+    t.setAttribute('role', 'button');
+    t.setAttribute('aria-label', '查看历史照片：' + (t.alt || '照片'));
+    t.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); lb(t.src, t); } });
     var card = t.closest('.card');
     var main = card.querySelector('.card-img img');
     if (!main) return;
@@ -423,7 +417,8 @@ document.querySelectorAll('.thumbs img').forEach(function (t) {
 });
 // Esc 关闭灯箱
 document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') document.getElementById('lb').classList.remove('on');
+    if (e.key === 'Escape' && document.getElementById('lb').classList.contains('on')) closeHistoryLightbox();
+    if (e.key === 'Tab' && document.getElementById('lb').classList.contains('on')) { e.preventDefault(); document.querySelector('#lb .x').focus(); }
 });
 </script>
 </body>
