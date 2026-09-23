@@ -10,7 +10,6 @@
   <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white&style=flat-square" alt="HTML5">
   <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white&style=flat-square" alt="CSS3">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black&style=flat-square" alt="JavaScript">
-  <img src="https://img.shields.io/badge/GSAP-88CE02?logo=greensock&logoColor=white&style=flat-square" alt="GSAP">
   <img src="https://img.shields.io/badge/WebP-4285F4?logo=webp&logoColor=white&style=flat-square" alt="WebP">
   <img src="https://img.shields.io/badge/a11y-WCAG_AA-2ea44f?style=flat-square" alt="Accessibility">
 </p>
@@ -28,9 +27,9 @@
 ## ✨ 功能特性
 
 - **20 个页面**：首页、车队历史、荣誉奖项、E03 赛车规格、队员风采、六大技术组别、赞助商合作、合作案例详情、相册、设计作品集等
-- **全站统一设计系统**：`assets/wute.css` 提供设计令牌（AMG 纯黑 + 品牌蓝 `#00489b` + 品牌红 `#d0121b`）、导航、页脚、Hero、卡片、按钮等组件——改品牌色只改一个文件
-- **GSAP 滚动动画**（仅首页加载）：视差、计数器、赞助商跑马灯、全屏轮播（Ken Burns 效果）；其余 19 页的滚动显现动画改用 IntersectionObserver + CSS，**全站零第三方请求**
-- **交互细节**：悬浮目录、灯箱（Esc 关闭 + ← → 切换）、移动端全屏菜单、图片懒加载、卡片图点击放大
+- **设计系统**：`assets/wute.css` 提供共享导航、页脚与组件；首页的 `assets/home.css` 使用碳黑、浅灰和赛车蓝白红配色，包含首屏、E03 技术展示与团队介绍
+- **原生交互**：首页使用 CSS 淡入轮播与原生 JavaScript，已移除 GSAP、持续缩放和滚动视差；内页使用 IntersectionObserver + CSS 滚动显现
+- **交互细节**：轮播箭头与页码、灯箱（Esc 关闭 + ← → 切换）、移动端全屏菜单、图片懒加载、卡片图点击放大
 - **无障碍**：全站文字对比度实测满足 WCAG AA、相册照片键盘可达、图片 alt 全覆盖、:focus-visible 焦点环、prefers-reduced-motion 支持
 - **性能优化**：字体子集化（42.8MB → 50KB）、图片压缩（406MB → 72MB）、**全站 WebP 化 + 按显示尺寸生成变体**（相册页 27.5MB → 6.0MB）、CLS 修复、SEO / 分享 meta（og:image 等）
 
@@ -39,7 +38,7 @@
 | 技术 | 说明 |
 |---|---|
 | 原生 HTML + CSS + JavaScript | 无框架、无构建流程、无后端 |
-| [GSAP](https://gsap.com/) + ScrollTrigger | CDN 引入，**仅首页**（轮播 / 计数 / 跑马灯）；其余页面无第三方 JS |
+| `assets/home.css` | 第一轮首页视觉样式；在共享样式及旧板块样式之后加载，仅作用于首页 |
 | `assets/wute.css` | 共享设计系统（设计令牌 / 导航 / 页脚 / hero / 通用组件 / 工具类） |
 | `assets/wute.js` | 共享交互（导航滚动 / 汉堡菜单 / 滚动显现 / 灯箱 / 彩蛋），零依赖 |
 | GitHub Actions | push 即自动部署到服务器 |
@@ -48,7 +47,7 @@
 
 | 页面 | 说明 |
 |---|---|
-| `index.html` | 首页（轮播 / 赛事简介 / 车队简介 / 技术组别 / E03 赛车 / 赞助商墙 / 联系我们） |
+| `index.html` | 首页（轮播 / E03 技术展示 / 车队 / 技术组别 / 赛事简述 / 相册 / 赞助商 / 联系） |
 | `about.html` | 车队历史（2013–2026 十四代赛车时间轴） |
 | `honors.html` | 荣誉奖项（赛季成绩 + 技术里程碑） |
 | `car.html` | E03 赛车技术规格 |
@@ -63,15 +62,15 @@
 
 ## 🎨 设计系统
 
-全站以 `assets/wute.css` 的 `:root` 为唯一事实来源：
+共享设计令牌位于 `assets/wute.css` 的 `:root`。首页通过 `assets/home.css` 的 `.home-page` 覆盖背景与标题字体，内页沿用共享设计：
 
 | 变量 | 值 | 用途 |
 |---|---|---|
-| `--bg-deep` | `#000000` | 页面主背景 |
+| `--bg-deep` | `#05070c`（首页 `#101216`） | 页面主背景 |
 | `--brand-blue` | `#00489b` | 品牌蓝（按钮底色 / 边框 / 白底区文字） |
 | `--brand-blue-text` | `#4a90e2` | **深色底上当文字用的蓝**（#00489b 在黑底上只有 2.4:1，不达标） |
 | `--brand-red` | `#d0121b` | 品牌红 |
-| `--text-primary` | `#f0f0f2` | 主文字 |
+| `--text-primary` | `#eef1f6` | 主文字 |
 
 统一组件：`.site-nav`（导航）、`.page-hero`（二级页 Hero，含描边水印字）、`.site-footer`（页脚）、`.card` / `.btn` / `.timeline` / `.spec-table` 等。
 
@@ -82,6 +81,7 @@ www.wute.club/
 ├── index.html / about.html / honors.html / car.html ...   # 20 个页面
 ├── assets/
 │   ├── wute.css          # 共享设计系统（改品牌色只改这里）
+│   ├── home.css          # 首页视觉与响应式布局
 │   └── wute.js           # 共享交互
 ├── groups/               # 六大技术组别页
 ├── sponsors/             # 赞助商页（RSC + 3 个合作案例）
