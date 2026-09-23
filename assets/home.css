@@ -1,5 +1,4 @@
 /* Homepage compositions. Shared colours, controls and navigation live in wute.css. */
-@font-face { font-family: '造字工房力黑'; src: url('../fonts/ZaoZiLiHei.woff2') format('woff2'); font-style: normal; font-weight: 400; font-display: swap; }
 @font-face { font-family: '狂派手书'; src: url('../fonts/AaKuangPai.woff2') format('woff2'); font-style: normal; font-weight: 400; font-display: swap; }
 .home-container { width: min(calc(100% - var(--gutter) * 2), var(--maxw)); margin-inline: auto; }
 .home-eyebrow { display: flex; align-items: center; color: var(--text-secondary); font-size: .875rem; font-weight: 600; margin-bottom: 16px; }
@@ -18,8 +17,8 @@
 .hero-identity { position: absolute; z-index: 4; top: calc(var(--nav-height) + 32px); left: max(var(--gutter), calc((100vw - var(--maxw)) / 2)); color: var(--text-primary); font-size: .875rem; font-weight: 600; }
 .home-page .slide-text { position: absolute; z-index: 3; left: max(var(--gutter), calc((100vw - var(--maxw)) / 2)); bottom: 24%; width: min(760px, 57vw); }
 .home-page .hero-eyebrow { color: var(--text-primary); font-size: .94rem; font-weight: 600; margin-bottom: 20px; }
-.home-page .hero-title { color: #fff; font-family: '造字工房力黑', 'Arial Black', var(--font-display); font-size: clamp(64px, 5.6vw, 88px); font-weight: 400; font-synthesis: none; line-height: 1.08; letter-spacing: .01em; margin-bottom: 24px; }
-.home-page .hero-title-cn { font-family: '狂派手书', '造字工房力黑', var(--font-display); font-size: clamp(48px, 4.4vw, 64px); line-height: 1.2; letter-spacing: .06em; }
+.home-page .hero-title { color: #fff; font-family: '狂派手书', var(--font-display); font-size: clamp(64px, 5.6vw, 88px); font-weight: 400; font-synthesis: none; line-height: 1.08; letter-spacing: .01em; margin-bottom: 24px; }
+.home-page .hero-title-cn { font-size: clamp(48px, 4.4vw, 64px); line-height: 1.2; letter-spacing: .06em; }
 .home-page .hero-description { color: #fff; font-size: 1.125rem; line-height: 1.6; }
 .home-page .hero-cta-group { margin-top: 32px; }
 .home-page .cta-primary { display: inline-flex; align-items: center; justify-content: space-between; gap: 48px; min-height: 48px; padding: 12px 24px; color: var(--bg-deep); background: var(--text-primary); border: 1px solid var(--text-primary); border-radius: 2px; text-decoration: none; font-size: .94rem; font-weight: 700; transition: background .2s ease; }
