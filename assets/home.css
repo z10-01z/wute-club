@@ -19,7 +19,7 @@
 .home-text-link:hover { color: var(--brand-blue-text); }
 
 /* Photography keeps its natural colour; the left gradient supports the type. */
-.home-page .hero-slider { position: relative; height: min(900px, 100svh); min-height: 680px; overflow: hidden; background: var(--bg-deep); }
+.home-page .hero-slider { position: relative; height: 100vh; height: 100svh; min-height: 680px; overflow: hidden; background: var(--bg-deep); }
 .home-page .slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .7s ease, visibility 0s linear .7s; }
 .home-page .slide.active { opacity: 1; visibility: visible; z-index: 1; transition: opacity .7s ease; }
 .home-page .slide picture { display: block; width: 100%; height: 100%; }
