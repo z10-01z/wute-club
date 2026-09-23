@@ -990,3 +990,124 @@ h1, h2, h3, h4, h5, h6 {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* ===== 16. 赛场影像视觉层：从最初版本恢复影像与交互的节奏 ===== */
+:root {
+    --brand-action: #0754a8;
+    --brand-action-hover: #176ac4;
+    --motion-ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+/* 有真实影像的页面在页眉展现影像；文字所在一侧保持足够对比度。 */
+.page-photo-hero .page-hero {
+    min-height: clamp(370px, 38vw, 510px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    isolation: isolate;
+    border-bottom: 0;
+    background: #10141a;
+}
+.page-photo-hero .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-image: var(--page-hero-image);
+    background-size: cover;
+    background-position: var(--page-hero-position, center);
+    transform: scale(1.025);
+}
+.page-photo-hero .page-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, rgba(7,10,15,.9) 0%, rgba(7,10,15,.68) 43%, rgba(7,10,15,.08) 100%),
+                linear-gradient(0deg, rgba(7,10,15,.66), transparent 44%);
+}
+.page-photo-hero .page-hero .kicker { color: #d7e2f0; }
+.page-photo-hero .page-hero h1 { font-size: clamp(3rem, 5vw, 5.5rem); max-width: 900px; color: #fff; }
+.page-photo-hero .page-hero .sub { color: #e1e6ec; text-wrap: pretty; }
+body.page-car { --page-hero-image: url('../picture/ABC_3469-opq4142934343-hd.webp'); --page-hero-position: center 57%; }
+body.page-about { --page-hero-image: url('../picture/history/赛场照片1.webp'); --page-hero-position: center 47%; }
+body.page-gallery { --page-hero-image: url('../picture/gallery/2025-race/ABC_3502-opq4142956917.webp'); --page-hero-position: center 55%; }
+body.page-honors { --page-hero-image: url('../picture/返回p房.webp'); --page-hero-position: center 55%; }
+body.page-join { --page-hero-image: url('../picture/25大合影.webp'); --page-hero-position: center 45%; }
+body.page-sponsors { --page-hero-image: url('../picture/淋雨测试.webp'); --page-hero-position: center 52%; }
+body.page-album-race { --page-hero-image: url('../picture/gallery/2025-race/ABC_3502-opq4142956917.webp'); }
+body.page-album-graduation { --page-hero-image: url('../picture/gallery/2026-graduation/DSC09530.webp'); }
+
+/* 图像较少的内页保留深色页眉，靠排版和一道 WUTE 蓝线建立同一识别系统。 */
+body:not(.page-photo-hero) .page-hero { min-height: 340px; }
+.page-hero .kicker { text-transform: uppercase; letter-spacing: .12em; }
+.page-hero .kicker::before,
+.section-label::before,
+.home-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 2px;
+    margin-right: 12px;
+    background: var(--brand-blue-text);
+    vertical-align: .3em;
+}
+.page-hero h1 { letter-spacing: -.035em; }
+
+/* 可操作的 WUTE 蓝只用于行动按钮；照片、内容与 Logo 仍承担主视觉。 */
+.btn-primary, .home-page .cta-primary, .car-detail-link {
+    background: var(--brand-action);
+    border-color: var(--brand-action);
+    color: #fff;
+    transition: background .25s ease, border-color .25s ease, transform .35s var(--motion-ease);
+}
+.btn-primary:hover, .home-page .cta-primary:hover, .car-detail-link:hover {
+    background: var(--brand-action-hover);
+    border-color: var(--brand-action-hover);
+    color: #fff;
+    transform: translateY(-2px);
+}
+.nav-cta { white-space: nowrap; }
+.nav-links a::after { background: var(--brand-blue-text); height: 2px; }
+.home-text-link, .case-link { text-decoration-color: var(--brand-blue-text); }
+
+/* 使长篇技术内页有清楚的阅读分节。 */
+.content > h2 {
+    position: relative;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-default);
+    letter-spacing: -.015em;
+}
+.content > h2:first-child { padding-top: 0; border-top: 0; }
+.content > h2::after { content: ''; display: block; width: 38px; height: 2px; margin-top: 16px; background: var(--brand-blue-text); }
+.content > h2:first-child::after { margin-top: 14px; }
+.content > p, .content > ul, .content > ol { max-width: 780px; }
+.content .spec-table { background: rgba(255,255,255,.018); }
+.spec-table tr:hover { background: rgba(125,180,255,.055); }
+
+/* 克制的抬升和裁切，替代所有卡片看起来完全静止的状态。 */
+.card, .glass-card, .step, .case-card, .feature-card {
+    transition: transform .4s var(--motion-ease), border-color .3s ease, background .3s ease;
+}
+.card:hover, .glass-card:hover, .step:hover, .case-card:hover { transform: translateY(-4px); border-color: rgba(125,180,255,.55); }
+.feature-card:hover { transform: translateY(-3px); background: #202a37; }
+.feature-card:hover span, .case-card:hover .case-more { color: #fff; }
+.sponsor-item, .sponsor-title-card { transition: transform .35s var(--motion-ease), border-color .25s ease; }
+.sponsor-item:not(.no-link):hover, .sponsor-title-card:hover { transform: translateY(-3px); }
+.footer-motto { color: var(--brand-blue-text); }
+
+@media (max-width: 767px) {
+    .page-photo-hero .page-hero { min-height: 410px; padding-bottom: 52px; }
+    .page-photo-hero .page-hero::after {
+        background: linear-gradient(0deg, rgba(7,10,15,.93) 0%, rgba(7,10,15,.6) 49%, rgba(7,10,15,.22) 100%);
+    }
+    .page-photo-hero .page-hero h1 { font-size: clamp(2.5rem, 11vw, 3.6rem); }
+    body:not(.page-photo-hero) .page-hero { min-height: 290px; }
+    .content > h2 { margin-top: 52px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .page-photo-hero .page-hero::before { transform: none; }
+    .card:hover, .glass-card:hover, .step:hover, .case-card:hover,
+    .feature-card:hover, .sponsor-item:hover, .sponsor-title-card:hover,
+    .btn-primary:hover, .home-page .cta-primary:hover, .car-detail-link:hover { transform: none; }
+}

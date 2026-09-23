@@ -63,5 +63,18 @@
         if (event.key === 'ArrowLeft') { event.preventDefault(); manual(-1); }
         if (event.key === 'ArrowRight') { event.preventDefault(); manual(1); }
     });
+
+    /* 原版 Hero 视差的轻量版本：仅首屏可见且允许动态效果时更新图片。 */
+    if (!reducedMotion.matches) {
+        var frame = 0;
+        function updateHeroDrift() {
+            frame = 0;
+            slider.style.setProperty('--hero-drift', Math.round(Math.min(window.scrollY, slider.offsetHeight) * -0.03) + 'px');
+        }
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > slider.offsetHeight || frame) return;
+            frame = window.requestAnimationFrame(updateHeroDrift);
+        }, { passive: true });
+    }
     start();
 })();

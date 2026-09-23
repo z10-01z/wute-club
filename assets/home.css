@@ -152,3 +152,76 @@
 @media (prefers-reduced-motion: reduce) {
     .home-page .slide { transition: none; }
 }
+
+/* 原版首屏的文字入场和轻微视差，以合成属性实现。 */
+.home-page .cta-primary, .car-detail-link { background: var(--brand-action); border-color: var(--brand-action); color: #fff; }
+.home-page .cta-primary:hover, .car-detail-link:hover { background: var(--brand-action-hover); border-color: var(--brand-action-hover); color: #fff; transform: translateY(-2px); }
+.home-page .slide img { transform: translate3d(0, var(--hero-drift, 0px), 0) scale(1.08); transition: transform .15s linear; }
+.home-page .slide.active .hero-eyebrow { animation: hero-rise .75s .08s both var(--motion-ease); }
+.home-page .slide.active .hero-title { animation: hero-rise .9s .18s both var(--motion-ease); }
+.home-page .slide.active .hero-description { animation: hero-rise .8s .32s both var(--motion-ease); }
+.home-page .slide.active .hero-cta-group { animation: hero-rise .8s .43s both var(--motion-ease); }
+@keyframes hero-rise {
+    from { opacity: 0; transform: translateY(26px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 让影像成为每个章节的节奏点，文字和照片仍共用左边线。 */
+.car-stage { border-top: 1px solid rgba(255,255,255,.08); }
+.car-heading-row h2 span { color: #8ca9ce; }
+.car-stage-grid .car-render { transition: border-color .3s ease; border: 1px solid rgba(255,255,255,.12); }
+.car-stage-grid .car-render:hover { border-color: rgba(125,180,255,.55); }
+.home-team figure, .home-album { overflow: hidden; }
+.home-team figure img, .home-album img { transition: transform .65s var(--motion-ease), filter .5s ease; }
+.home-team figure:hover img, .home-album:hover img { transform: scale(1.035); filter: saturate(1.08); }
+.home-fsc { border-top: 1px solid var(--border-default); }
+.home-fsc h2 { max-width: 220px; }
+.home-join {
+    position: relative;
+    isolation: isolate;
+    min-height: 390px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-top: 0;
+}
+.home-join::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: url('../picture/ABC_3469-opq4142934343-hd.webp') center 54% / cover no-repeat;
+}
+.home-join::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, rgba(6,10,15,.88), rgba(6,10,15,.42) 60%, rgba(6,10,15,.22));
+}
+.home-join h2 {
+    font-family: '造字工房力黑', var(--font-display);
+    font-weight: 400;
+    font-synthesis: none;
+    font-size: clamp(3rem, 5.2vw, 5.5rem);
+    line-height: 1.05;
+    white-space: nowrap;
+    letter-spacing: -.02em;
+}
+.home-join p:not(.section-label) { max-width: 570px; margin-top: 18px; color: #e1e6ec; font-size: 1.05rem; }
+.home-join .section-label { color: #d7e2f0; }
+@media (max-width: 767px) {
+    .home-page .slide img { transform: none; }
+    .home-join { min-height: 360px; }
+    .home-join::after { background: linear-gradient(0deg, rgba(6,10,15,.95), rgba(6,10,15,.36)); }
+    .home-join h2 { font-size: clamp(1.75rem, 7.7vw, 2.9rem); }
+    .home-join p:not(.section-label) { font-size: 1rem; }
+    .hero-caption span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .home-page .slide img, .home-team figure img, .home-album img { transform: none; }
+    .home-page .slide.active .hero-eyebrow,
+    .home-page .slide.active .hero-title,
+    .home-page .slide.active .hero-description,
+    .home-page .slide.active .hero-cta-group { animation: none; }
+}

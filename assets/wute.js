@@ -33,6 +33,33 @@
         window.addEventListener('scroll', onScroll, { passive: true });
     }
 
+    /* ---- 原版滚动入场：内容默认可见，进入视口才播放一次 ---- */
+    (function initScrollReveals() {
+        if (!('IntersectionObserver' in window) || !Element.prototype.animate ||
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var selector = '.reveal, .car-heading-row, .car-stage-grid, .team-heading-row, .home-team-grid, .feature-card, .home-section-heading, .home-album, .case-card';
+        var targets = document.querySelectorAll(selector);
+        if (!targets.length) return;
+        var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                observer.unobserve(entry.target);
+                var delay = 0;
+                if (entry.target.matches('.feature-card, .home-album, .case-card')) {
+                    var siblings = Array.prototype.filter.call(entry.target.parentElement.children, function (el) {
+                        return el.matches('.feature-card, .home-album, .case-card');
+                    });
+                    delay = Math.min(siblings.indexOf(entry.target), 3) * 75;
+                }
+                entry.target.animate([
+                    { opacity: .65, transform: 'translateY(22px)' },
+                    { opacity: 1, transform: 'translateY(0)' }
+                ], { duration: 650, delay: delay, easing: 'cubic-bezier(.22, 1, .36, 1)' });
+            });
+        }, { threshold: .08, rootMargin: '0px 0px -24px 0px' });
+        targets.forEach(function (target) { observer.observe(target); });
+    })();
+
     /* ---- 汉堡菜单（移动端全屏菜单） ---- */
     var burger = document.getElementById('hamburger');
     var links = document.querySelector('.nav-links');
