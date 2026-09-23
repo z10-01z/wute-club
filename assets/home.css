@@ -1,4 +1,6 @@
-/* Homepage compositions. Shared type, colours, controls and navigation live in wute.css. */
+/* Homepage compositions. Shared colours, controls and navigation live in wute.css. */
+@font-face { font-family: '造字工房力黑'; src: url('../fonts/ZaoZiLiHei.woff2') format('woff2'); font-style: normal; font-weight: 400; font-display: swap; }
+@font-face { font-family: '狂派手书'; src: url('../fonts/AaKuangPai.woff2') format('woff2'); font-style: normal; font-weight: 400; font-display: swap; }
 .home-container { width: min(calc(100% - var(--gutter) * 2), var(--maxw)); margin-inline: auto; }
 .home-eyebrow { display: flex; align-items: center; color: var(--text-secondary); font-size: .875rem; font-weight: 600; margin-bottom: 16px; }
 .home-text-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--text-primary); font-size: 1rem; font-weight: 600; text-decoration: underline; text-underline-offset: 6px; }
@@ -14,12 +16,10 @@
 .home-page .slide-track img { object-position: 58% 60%; }
 .home-page .slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11,13,16,.78) 0%, rgba(11,13,16,.38) 32%, transparent 68%), linear-gradient(0deg, rgba(11,13,16,.76), transparent 24%); pointer-events: none; }
 .hero-identity { position: absolute; z-index: 4; top: calc(var(--nav-height) + 32px); left: max(var(--gutter), calc((100vw - var(--maxw)) / 2)); color: var(--text-primary); font-size: .875rem; font-weight: 600; }
-.hero-identity::before { display: none; }
-.hero-identity::after { content: ''; display: inline-block; width: 32px; height: 4px; margin-left: 12px; vertical-align: middle; background: linear-gradient(110deg, var(--brand-blue) 0 42%, #fff 42% 66%, var(--brand-red) 66%); }
 .home-page .slide-text { position: absolute; z-index: 3; left: max(var(--gutter), calc((100vw - var(--maxw)) / 2)); bottom: 24%; width: min(760px, 57vw); }
 .home-page .hero-eyebrow { color: var(--text-primary); font-size: .94rem; font-weight: 600; margin-bottom: 20px; }
-.home-page .hero-title { color: #fff; font: 700 clamp(64px, 5.6vw, 88px)/1.02 var(--font-display); letter-spacing: -.025em; margin-bottom: 24px; }
-.home-page .hero-title-cn { font-size: clamp(48px, 4.4vw, 64px); line-height: 1.15; letter-spacing: 0; }
+.home-page .hero-title { color: #fff; font-family: '造字工房力黑', 'Arial Black', var(--font-display); font-size: clamp(64px, 5.6vw, 88px); font-weight: 400; font-synthesis: none; line-height: 1.08; letter-spacing: .01em; margin-bottom: 24px; }
+.home-page .hero-title-cn { font-family: '狂派手书', '造字工房力黑', var(--font-display); font-size: clamp(48px, 4.4vw, 64px); line-height: 1.2; letter-spacing: .06em; }
 .home-page .hero-description { color: #fff; font-size: 1.125rem; line-height: 1.6; }
 .home-page .hero-cta-group { margin-top: 32px; }
 .home-page .cta-primary { display: inline-flex; align-items: center; justify-content: space-between; gap: 48px; min-height: 48px; padding: 12px 24px; color: var(--bg-deep); background: var(--text-primary); border: 1px solid var(--text-primary); border-radius: 2px; text-decoration: none; font-size: .94rem; font-weight: 700; transition: background .2s ease; }
@@ -76,7 +76,6 @@
 .home-fsc { padding: 40px 0; border-top: 1px solid var(--border-default); background: var(--bg-surface); }
 .home-fsc .home-container { display: grid; grid-template-columns: 1fr 2fr auto; align-items: center; gap: 32px; }
 .home-fsc .home-eyebrow { margin-bottom: 8px; }
-.home-fsc .home-eyebrow::before { display: none; }
 .home-fsc h2 { font-size: 1.5rem; }
 .home-fsc p:not(.home-eyebrow) { max-width: 680px; color: var(--text-secondary); font-size: 1rem; line-height: 1.75; }
 

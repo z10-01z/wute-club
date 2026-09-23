@@ -1,6 +1,6 @@
 /* ==========================================================================
    WUTE 官网 — 共享设计系统 wute.css
-   WUTE · 赛场影像：真实摄影、连续石墨背景、蓝白红涂装标识
+   WUTE · 赛场影像：真实摄影、连续石墨背景、原色蓝色队标
    全站统一：设计令牌 / 导航 / 页面 Hero / 内容排版 / 卡片 / 页脚 / 工具类
    维护：改品牌色只需改本文件 :root
    ========================================================================== */
@@ -92,9 +92,9 @@ h1, h2, h3, h4, h5, h6 {
     top: 0; left: 0;
     width: 100%;
     height: var(--nav-height);
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
-    justify-content: space-between;
     padding: 0 max(var(--gutter), calc((100vw - var(--maxw)) / 2));
     z-index: 1000;
     background: rgba(11, 13, 16, 0.88);
@@ -105,29 +105,34 @@ h1, h2, h3, h4, h5, h6 {
     background: rgba(11, 13, 16, 0.96);
     box-shadow: 0 1px 0 var(--border-subtle);
 }
-.nav-brand { display: flex; align-items: center; text-decoration: none; }
+.nav-brand { display: flex; align-items: center; justify-self: start; text-decoration: none; }
 .nav-brand img {
     height: 36px;
     width: auto;
-    filter: brightness(0) invert(1);
     transition: opacity 0.3s ease;
 }
 .nav-brand:hover img { opacity: 0.8; }
 
 .nav-links {
     display: flex;
+    align-items: center;
+    justify-self: center;
     gap: clamp(1rem, 2vw, 2rem);
     list-style: none;
     margin: 0;
 }
+.nav-links > li { display: flex; align-items: center; min-height: 44px; }
 .nav-mobile-join { display: none; }
 .nav-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     color: var(--text-primary);
     text-decoration: none;
     font-size: 0.94rem;
     font-weight: 600;
     letter-spacing: 0;
-    padding: 0.35rem 0;
+    padding: 0;
     position: relative;
     transition: color 0.35s ease;
     white-space: nowrap;
@@ -217,7 +222,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .drop-menu a::after { display: none; }
 
-.nav-right { display: flex; align-items: center; gap: 1rem; }
+.nav-right { display: flex; align-items: center; justify-self: end; gap: 1rem; }
 
 .nav-cta {
     padding: 0.5rem 1.5rem;
@@ -266,17 +271,6 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-secondary);
     letter-spacing: 0;
     margin-bottom: 24px;
-}
-.page-hero .kicker::before,
-.home-eyebrow::before,
-.hero-identity::before {
-    content: '';
-    display: inline-block;
-    width: 32px;
-    height: 4px;
-    margin-right: 12px;
-    vertical-align: middle;
-    background: linear-gradient(110deg, var(--brand-blue) 0 42%, #fff 42% 66%, var(--brand-red) 66%);
 }
 .page-hero h1 {
     font-size: clamp(3rem, 4.5vw, 4rem);
@@ -632,8 +626,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ===== 11. 合作伙伴：深色章节，原色 Logo 各自置于白色面板 ===== */
 .sponsors { padding: var(--section-pad) var(--gutter); background: var(--bg-surface); }
-.sponsors > .section-label, .sponsors > h2 { width: min(100%, var(--maxw)); margin-inline: auto; }
-.sponsors h2 { color: var(--text-primary); text-align: left; font-size: clamp(2.25rem, 3vw, 2.75rem); font-weight: 700; margin-bottom: 48px; }
+.sponsors > .section-label, .sponsors > h2 { width: min(100%, var(--maxw)); margin-inline: auto; text-align: center; }
+.sponsors h2 { color: var(--text-primary); font-size: clamp(2.25rem, 3vw, 2.75rem); font-weight: 700; margin-bottom: 48px; }
 .case-section { max-width: var(--maxw); margin: 0 auto 64px; }
 .case-title { color: var(--text-primary); font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
 .case-sub { color: var(--text-secondary); font-size: 1rem; margin-bottom: 24px; }
@@ -677,7 +671,7 @@ h1, h2, h3, h4, h5, h6 {
     gap: 48px;
     padding-bottom: 64px;
 }
-.footer-brand img { height: 36px; width: auto; margin-bottom: 1.1rem; filter: brightness(0) invert(1); }
+.footer-brand img { height: 36px; width: auto; margin-bottom: 1.1rem; }
 .footer-brand p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.9; max-width: 300px; }
 .footer-motto {
     margin-top: 1.2rem;
@@ -808,7 +802,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (max-width: 1024px) {
     :root { --nav-height: 64px; }
-    .site-nav { height: 64px; }
+    .site-nav { display: flex; height: 64px; }
     .nav-brand img { height: 30px; }
     .hamburger { display: flex; }
     .nav-links {
