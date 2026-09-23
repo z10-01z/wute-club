@@ -1,5 +1,5 @@
 /* Homepage compositions. Shared colours, controls and navigation live in wute.css. */
-@font-face { font-family: '狂派手书'; src: url('../fonts/AaKuangPai.woff2') format('woff2'); font-style: normal; font-weight: 400; font-display: swap; }
+@font-face { font-family: '狂派手书'; src: url('../fonts/AaKuangPai.woff2?v=20260924c') format('woff2'); font-style: normal; font-weight: 400; font-display: swap; }
 .home-container { width: min(calc(100% - var(--gutter) * 2), var(--maxw)); margin-inline: auto; }
 .home-eyebrow { display: flex; align-items: center; color: var(--text-secondary); font-size: .875rem; font-weight: 600; margin-bottom: 16px; }
 .home-text-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--text-primary); font-size: 1rem; font-weight: 600; text-decoration: underline; text-underline-offset: 6px; }
