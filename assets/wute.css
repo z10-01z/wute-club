@@ -844,6 +844,10 @@ h1, h2, h3, h4, h5, h6 {
     .nav-drop > .nav-drop-toggle::before { display: none; }
     .nav-drop > .drop-menu {
         position: static;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0 8px;
+        width: 100%;
         transform: none;
         opacity: 1;
         visibility: visible;
@@ -854,6 +858,8 @@ h1, h2, h3, h4, h5, h6 {
         min-width: 0;
     }
     .nav-drop > .drop-menu a {
+        display: flex;
+        white-space: normal;
         font-size: .94rem !important;
         color: var(--text-muted) !important;
         padding: 6px 0;

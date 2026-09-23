@@ -102,8 +102,8 @@
 }
 @media (max-width: 767px) {
     .home-page .hero-slider { height: 100svh; min-height: 640px; }
-    .hero-identity { top: calc(var(--nav-height) + 16px); left: var(--gutter); right: var(--gutter); font-size: .875rem; }
-    .home-page .slide picture { position: absolute; top: var(--nav-height); height: 43%; }
+    .hero-identity { top: calc(var(--nav-height) + 16px); left: var(--gutter); right: auto; max-width: calc(100% - var(--gutter) * 2); padding: 8px 10px; background: rgba(11,13,16,.78); border-radius: 2px; font-size: .875rem; }
+    .home-page .slide picture { position: absolute; top: var(--nav-height); height: 55%; }
     .home-page .slide img { object-position: 70% 60%; }
     .home-page .slide-testing img { object-position: 55% 50%; }
     .home-page .slide-track img { object-position: 55% 60%; }
