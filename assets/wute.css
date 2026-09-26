@@ -54,7 +54,9 @@ picture { display: contents; }
 /* 图片基础规则（替代原 Tailwind preflight）：防止 height 属性锁定导致图片竖向裁切 */
 img { max-width: 100%; height: auto; }
 html { scroll-behavior: smooth; overflow-x: hidden; color-scheme: dark; }
-section[id], main[id], footer[id] { scroll-margin-top: var(--nav-height); }
+section[id], main[id], footer[id], h1[id], h2[id], h3[id], h4[id] {
+    scroll-margin-top: calc(var(--nav-height) + 1rem);
+}
 body {
     font-family: var(--font-body);
     background-color: var(--bg-deep);
@@ -213,7 +215,7 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 0;
     text-transform: none !important;
     border-radius: 2px;
-    transition: all 0.25s ease;
+    transition: color 0.25s ease, background-color 0.25s ease;
     white-space: nowrap;
 }
 .drop-menu a:hover {
@@ -717,7 +719,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.35rem 0.95rem;
     border-radius: 2px;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
 }
 .social-chip:hover { color: #fff; border-color: var(--border-strong); background: var(--bg-surface); }
 .footer-bottom {
@@ -778,7 +780,7 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
-    transition: all 0.35s ease;
+    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0s linear 0.35s;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -788,6 +790,7 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0s;
 }
 .to-top:hover {
     border-color: var(--border-strong);

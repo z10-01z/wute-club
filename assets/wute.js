@@ -37,13 +37,18 @@
     (function initScrollReveals() {
         if (!('IntersectionObserver' in window) || !Element.prototype.animate ||
             window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        var selector = '.reveal, .car-heading-row, .car-stage-grid, .team-heading-row, .home-team-grid, .feature-card, .home-section-heading, .home-album, .case-card';
+        var selector = '.reveal, .car-stage-grid, .home-team-grid, .feature-card, .home-album, .case-card';
         var targets = document.querySelectorAll(selector);
         if (!targets.length) return;
+        var siteNav = document.querySelector('.site-nav');
         var observer = new IntersectionObserver(function (entries) {
+            var navBottom = siteNav ? siteNav.getBoundingClientRect().bottom : 0;
             entries.forEach(function (entry) {
                 if (!entry.isIntersecting) return;
                 observer.unobserve(entry.target);
+                var targetTop = entry.target.getBoundingClientRect().top;
+                if (entry.target.matches('h1, h2, h3, h4, .team-heading-row, .car-heading-row, .home-section-heading') ||
+                    targetTop < navBottom + 12) return;
                 var delay = 0;
                 if (entry.target.matches('.feature-card, .home-album, .case-card')) {
                     var siblings = Array.prototype.filter.call(entry.target.parentElement.children, function (el) {
@@ -52,9 +57,9 @@
                     delay = Math.min(siblings.indexOf(entry.target), 3) * 75;
                 }
                 entry.target.animate([
-                    { opacity: .65, transform: 'translateY(22px)' },
-                    { opacity: 1, transform: 'translateY(0)' }
-                ], { duration: 650, delay: delay, easing: 'cubic-bezier(.22, 1, .36, 1)' });
+                    { transform: 'translateY(14px)' },
+                    { transform: 'translateY(0)' }
+                ], { duration: 420, delay: Math.min(delay, 150), easing: 'cubic-bezier(.22, 1, .36, 1)' });
             });
         }, { threshold: .08, rootMargin: '0px 0px -24px 0px' });
         targets.forEach(function (target) { observer.observe(target); });
@@ -201,7 +206,7 @@
             opening = true;
             if (window.WUTEGame) { WUTEGame.open(); opening = false; return; }
             var s = document.createElement('script');
-            s.src = 'assets/wute-game.js';
+            s.src = 'assets/wute-game.js?v=20260926a';
             if (location.pathname.indexOf('/groups/') >= 0 || location.pathname.indexOf('/sponsors/') >= 0) {
                 s.src = '../' + s.src;
             }
