@@ -19,7 +19,7 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%2300489b'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='16' font-weight='bold' font-family='Arial'>W</text></svg>">
     <link rel="icon" type="image/png" sizes="32x32" href="picture/favicon-32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="picture/apple-touch-icon.png">
-    <link rel="stylesheet" href="assets/wute.css?v=20260926a">
+    <link rel="stylesheet" href="assets/wute.css?v=20260929a">
     <style>        /* 相册网格 */
         .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr)); gap: 16px; width: min(calc(100% - var(--gutter) * 2), var(--maxw)); max-width: var(--maxw); margin: 0 auto; padding: 0 0 112px; }
         .photo { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; background: #0a0a0a; border: 1px solid var(--border-subtle); }
@@ -48,7 +48,7 @@
         .photo:hover::before { opacity: 1; }
         .lightbox { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,.97); align-items: center; justify-content: center; }
         .lightbox.active { display: flex; }
-        .lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; }
+        .lightbox img { max-width: calc(100vw - 48px); max-height: calc(100vh - 48px); object-fit: contain; }
         .lightbox .close { position: absolute; top: 2rem; right: 2rem; color: #fff; font-size: 2rem; cursor: pointer; background: none; border: none; transition: opacity .3s; }
         .lightbox .close:hover { opacity: .6; }
 
@@ -196,7 +196,7 @@
     <button type="button" class="photo" onclick="openLightbox('picture/gallery/2025-race/mmexporte738c577bbb96a93c3a70eb795aba57d_1763643.jpg')" aria-label="查看2025 赛季赛场相册第 72 张"><picture><source srcset="picture/gallery/2025-race/mmexporte738c577bbb96a93c3a70eb795aba57d_1763643.webp" type="image/webp"><img width="1920" height="1280" src="picture/gallery/2025-race/mmexporte738c577bbb96a93c3a70eb795aba57d_1763643.jpg" alt="2025 赛季赛场相册 第 72 张" loading="lazy"></picture></button>
     <button type="button" class="photo" onclick="openLightbox('picture/gallery/2025-race/微信图片_20251123234805_751_188.jpg')" aria-label="查看2025 赛季赛场相册第 73 张"><picture><source srcset="picture/gallery/2025-race/微信图片_20251123234805_751_188.webp" type="image/webp"><img width="1920" height="1440" src="picture/gallery/2025-race/微信图片_20251123234805_751_188.jpg" alt="2025 赛季赛场相册 第 73 张" loading="lazy"></picture></button>
 </div>
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="相册照片预览"><button class="close" aria-label="关闭">&times;</button><button class="lb-nav lb-prev" aria-label="上一张">&#10094;</button><img id="lightboxImg" alt=""><button class="lb-nav lb-next" aria-label="下一张">&#10095;</button></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="相册照片预览" aria-hidden="true" tabindex="-1"><button class="close" type="button" aria-label="关闭">&times;</button><button class="lb-nav lb-prev" type="button" aria-label="上一张">&#10094;</button><img id="lightboxImg" alt=""><button class="lb-nav lb-next" type="button" aria-label="下一张">&#10095;</button></div>
 </main>
 <footer class="site-footer">
     <div class="footer-grid">
@@ -256,7 +256,7 @@
     var img = document.getElementById('lightboxImg');
     var idx = -1;
     var returnFocus = null;
-    function close() { box.classList.remove('active'); if (returnFocus) returnFocus.focus(); }
+    function close() { box.classList.remove('active'); box.setAttribute('aria-hidden', 'true'); if (returnFocus) returnFocus.focus(); }
     function show(i) {
         idx = (i + srcs.length) % srcs.length;
         img.src = srcs[idx];
@@ -269,6 +269,7 @@
         returnFocus = photos[i];
         show(i);
         box.classList.add('active');
+        box.setAttribute('aria-hidden', 'false');
         box.querySelector('.close').focus();
     };
     box.querySelector('.lb-prev').onclick = function (e) { e.stopPropagation(); show(idx - 1); };
@@ -289,6 +290,6 @@
     });
 })();
 </script>
-<script src="assets/wute.js?v=20260926a"></script>
+<script src="assets/wute.js?v=20260929a"></script>
 </body>
 </html>

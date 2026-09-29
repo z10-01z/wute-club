@@ -34,7 +34,7 @@
 
     /* 字体 */
     --font-display: Arial, Helvetica, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-    --font-body:    'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+    --font-body:    'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
     --font-mono:    Consolas, 'SFMono-Regular', monospace;
 
     /* 布局 */
@@ -45,6 +45,14 @@
 
     --radius-sm:   3px;
     --radius-md:   6px;
+}
+
+@font-face {
+    font-family: 'Noto Sans SC';
+    src: url('../fonts/NotoSansSC-Display.woff2?v=20260929a') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
 }
 
 /* ===== 2. 全局重置 ===== */
@@ -202,6 +210,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 1200;
 }
 .nav-drop:hover > .drop-menu,
+.nav-drop:focus-within > .drop-menu,
 .nav-drop.open > .drop-menu {
     opacity: 1;
     visibility: visible;
@@ -411,9 +420,11 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: center;
     cursor: zoom-out;
+    padding: 24px;
+    touch-action: none;
 }
 .lightbox.on { display: flex; }
-.lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; }
+.lightbox img { max-width: calc(100vw - 48px); max-height: calc(100vh - 48px); object-fit: contain; }
 .lightbox .x {
     position: absolute;
     top: 1.5rem;
@@ -445,6 +456,7 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
     border: none;
     cursor: pointer;
+    touch-action: manipulation;
     overflow: hidden;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
@@ -785,6 +797,7 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: center;
     padding: 0;
+    touch-action: manipulation;
 }
 .to-top.show {
     opacity: 1;
@@ -833,7 +846,7 @@ h1, h2, h3, h4, h5, h6 {
         visibility: visible;
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .nav-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 1.125rem; letter-spacing: 0; }
+    .nav-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 1.125rem; letter-spacing: 0; touch-action: manipulation; }
     .nav-links > .nav-mobile-join { display: flex; border-top: 1px solid var(--border-default); margin-top: 16px; padding-top: 16px; }
     /* 移动端：下拉菜单静态展开（全屏菜单内直接列出子项） */
     .nav-drop { width: 100%; text-align: left; flex-direction: column; align-items: start; }

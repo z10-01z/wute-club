@@ -29,7 +29,7 @@
 .hero-caption { position: absolute; z-index: 3; bottom: 32px; left: max(var(--gutter), calc((100vw - var(--maxw)) / 2)); color: #fff; font-size: .875rem; }
 .hero-caption span { margin-left: 16px; color: #d4d8de; }
 .hero-controls { position: absolute; z-index: 4; right: max(var(--gutter), calc((100vw - var(--maxw)) / 2)); bottom: 24px; display: flex; align-items: center; gap: 12px; }
-.home-page .slider-arrow { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: #fff; background: transparent; border: 1px solid rgba(255,255,255,.65); border-radius: 50%; font: 1.2rem var(--font-body); cursor: pointer; transition: background .2s ease, color .2s ease; }
+.home-page .slider-arrow { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: #fff; background: transparent; border: 1px solid rgba(255,255,255,.65); border-radius: 50%; font: 1.2rem var(--font-body); cursor: pointer; touch-action: manipulation; transition: background .2s ease, color .2s ease; }
 .home-page .slider-arrow:hover { color: var(--bg-deep); background: #fff; }
 .slide-count { color: #fff; font: .875rem var(--font-mono); }
 .hero-explore { position: absolute; z-index: 3; bottom: 36px; left: 62%; color: #fff; font-size: .875rem; text-decoration: none; }
